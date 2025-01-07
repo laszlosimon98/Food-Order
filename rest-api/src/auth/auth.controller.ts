@@ -16,6 +16,8 @@ import { ApiBearerAuth } from '@nestjs/swagger';
 import { JwtRefreshAuthGuard } from 'src/guards/auth/jwt-refresh.guard';
 import { Response } from 'express';
 import { JwtLogoutGuard } from 'src/guards/auth/jwt-logout.guard';
+import { Roles } from 'src/decorators/roles/roles.decorator';
+import { Role } from 'src/enums/roles';
 
 @Controller('auth')
 export class AuthController {
