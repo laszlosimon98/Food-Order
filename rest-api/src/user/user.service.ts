@@ -120,6 +120,10 @@ export class UserService {
       where: {
         userId: id,
       },
+      omit: {
+        password: true,
+        refreshToken: true,
+      },
     });
   }
 }
