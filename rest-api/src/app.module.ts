@@ -8,6 +8,9 @@ import { ConfigModule } from '@nestjs/config';
 import { APP_GUARD } from '@nestjs/core';
 import { JwtAuthGuard } from './guards/auth/jwt.guard';
 import { RolesGuard } from './guards/roles/roles.guard';
+import { CategoryModule } from './category/category.module';
+import { FoodModule } from './food/food.module';
+import { PromotionModule } from './promotion/promotion.module';
 
 @Module({
   imports: [
@@ -15,6 +18,9 @@ import { RolesGuard } from './guards/roles/roles.guard';
     UserModule,
     AuthModule,
     ConfigModule.forRoot({ isGlobal: true }),
+    CategoryModule,
+    FoodModule,
+    PromotionModule,
   ],
   controllers: [AppController],
   providers: [

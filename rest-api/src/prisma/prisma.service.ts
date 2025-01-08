@@ -10,6 +10,14 @@ export class PrismaService extends PrismaClient implements OnModuleInit {
           createdAt: true,
           updatedAt: true,
         },
+        categories: {
+          createdAt: true,
+          updatedAt: true,
+        },
+        foods: {
+          createdAt: true,
+          updatedAt: true,
+        },
       },
     });
   }
