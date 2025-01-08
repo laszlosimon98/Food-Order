@@ -1,0 +1,13 @@
+model Reviews {
+    reviewId   Int      @id @default(autoincrement())
+    rating     Int
+    reviewText String?
+    reviewDate DateTime
+    createdAt  DateTime @default(now())
+    updatedAt  DateTime @updatedAt
+
+    users       Users? @relation(fields: [usersUserId], references: [userId])
+    usersUserId Int?
+    foods       Foods? @relation(fields: [foodId], references: [foodId])
+    foodId      Int?
+}

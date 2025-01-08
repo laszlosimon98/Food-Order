@@ -1,0 +1,19 @@
+model Foods {
+    foodId       Int      @id @default(autoincrement())
+    name         String   @unique
+    description  String
+    price        Int
+    imageUrl     String?
+    isSpice      Boolean  @default(false)
+    isVegetarian Boolean  @default(false)
+    createdAt    DateTime @default(now())
+    updatedAt    DateTime @updatedAt
+
+    reviews               Reviews[]
+    OrderItems            OrderItems?         @relation(fields: [orderItemsOrderItemId], references: [orderItemId])
+    orderItemsOrderItemId Int?
+    Categories            Categories          @relation(fields: [categoriesCategoryId], references: [categoryId])
+    categoriesCategoryId  Int
+    promotions            Promotions[]
+    users                 UserFavoriteFoods[]
+}

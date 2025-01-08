@@ -1,0 +1,8 @@
+model Categories {
+    categoryId   Int      @id @default(autoincrement())
+    categoryName String   @unique
+    createdAt    DateTime @default(now())
+    updatedAt    DateTime @updatedAt
+
+    foods Foods[]
+}

@@ -6,7 +6,7 @@ export class PrismaService extends PrismaClient implements OnModuleInit {
   constructor() {
     super({
       omit: {
-        user: {
+        users: {
           createdAt: true,
           updatedAt: true,
         },

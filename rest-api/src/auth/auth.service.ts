@@ -80,7 +80,7 @@ export class AuthService {
   }
 
   async logout(user: any) {
-    await this.userService.updateRefreshToken(user.username, '');
+    await this.userService.updateRefreshToken(user.username, null);
     return true;
   }
 

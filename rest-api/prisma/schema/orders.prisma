@@ -1,0 +1,13 @@
+model Orders {
+    orderId    Int      @id @default(autoincrement())
+    totalPrice Int
+    orderDate  DateTime
+    createdAt  DateTime @default(now())
+    updatedAt  DateTime @updatedAt
+
+    Users                  Users?         @relation(fields: [usersUserId], references: [userId])
+    usersUserId            Int?
+    DeliveryStatus         DeliveryStatus @relation(fields: [deliveryStatusStatusId], references: [statusId])
+    deliveryStatusStatusId Int
+    orderItems             OrderItems[]
+}

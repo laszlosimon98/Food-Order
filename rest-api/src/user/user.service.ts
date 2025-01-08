@@ -29,7 +29,7 @@ export class UserService {
       throw new ConflictException('User already registered');
     }
 
-    await this.prismaService.user.create({
+    await this.prismaService.users.create({
       data: {
         ...registerDto,
         password: hashedPassword,
@@ -40,7 +40,7 @@ export class UserService {
   }
 
   async getAllUsers() {
-    return await this.prismaService.user.findMany({
+    return await this.prismaService.users.findMany({
       omit: {
         password: true,
         refreshToken: true,
@@ -50,7 +50,7 @@ export class UserService {
   }
 
   async findUser(username: string) {
-    const user = await this.prismaService.user.findUnique({
+    const user = await this.prismaService.users.findUnique({
       where: {
         username,
       },
@@ -59,23 +59,27 @@ export class UserService {
     return user;
   }
 
-  async updateRefreshToken(username: string, token: string) {
+  async updateRefreshToken(username: string, token: string | null) {
     const user = await this.findUser(username);
-    const hashedToken = await bcrypt.hash(
-      token,
-      parseInt(this.configService.getOrThrow('HASHROUND')),
-    );
+    let hashedToken: string | null = null;
+
+    if (token) {
+      hashedToken = await bcrypt.hash(
+        token,
+        parseInt(this.configService.getOrThrow('HASHROUND')),
+      );
+    }
 
     if (!user) {
       throw new UnauthorizedException();
     }
 
-    await this.prismaService.user.update({
+    await this.prismaService.users.update({
       where: {
         username,
       },
       data: {
-        refreshToken: token ? hashedToken : '',
+        refreshToken: hashedToken,
       },
     });
 
@@ -87,9 +91,9 @@ export class UserService {
       throw new ConflictException();
     }
 
-    return await this.prismaService.user.update({
+    return await this.prismaService.users.update({
       where: {
-        user_id: id,
+        userId: id,
       },
       data: {
         role,
@@ -102,9 +106,9 @@ export class UserService {
   }
 
   async deleteUser(id: number, user: any) {
-    const userToDelete = await this.prismaService.user.findUnique({
+    const userToDelete = await this.prismaService.users.findUnique({
       where: {
-        user_id: id,
+        userId: id,
       },
     });
 
@@ -112,9 +116,9 @@ export class UserService {
       throw new ConflictException();
     }
 
-    return await this.prismaService.user.delete({
+    return await this.prismaService.users.delete({
       where: {
-        user_id: id,
+        userId: id,
       },
     });
   }

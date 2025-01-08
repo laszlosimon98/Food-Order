@@ -4,38 +4,38 @@ import * as bcrypt from 'bcrypt';
 const prisma = new PrismaClient();
 
 const main = async () => {
-  await prisma.user.upsert({
-    where: { user_id: 1 },
+  await prisma.users.upsert({
+    where: { userId: 1 },
     update: {},
     create: {
       username: 'admin',
       fullname: 'admin',
       password: await bcrypt.hash('admin', parseInt(process.env.HASHROUND)),
-      refreshToken: '',
+      refreshToken: null,
       role: 'admin',
     },
   });
 
-  await prisma.user.upsert({
-    where: { user_id: 2 },
+  await prisma.users.upsert({
+    where: { userId: 2 },
     update: {},
     create: {
       username: 'employee',
       fullname: 'employee',
       password: await bcrypt.hash('employee', parseInt(process.env.HASHROUND)),
-      refreshToken: '',
+      refreshToken: null,
       role: 'employee',
     },
   });
 
-  await prisma.user.upsert({
-    where: { user_id: 3 },
+  await prisma.users.upsert({
+    where: { userId: 3 },
     update: {},
     create: {
       username: 'user',
       fullname: 'user',
       password: await bcrypt.hash('user', parseInt(process.env.HASHROUND)),
-      refreshToken: '',
+      refreshToken: null,
       role: 'user',
     },
   });

@@ -1,0 +1,9 @@
+model UserFavoriteFoods {
+    user    Users    @relation(fields: [userId], references: [userId])
+    userId  Int
+    food    Foods    @relation(fields: [foodId], references: [foodId])
+    foodId  Int
+    addedAt DateTime
+
+    @@id([userId, foodId])
+}

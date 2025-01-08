@@ -1,0 +1,8 @@
+model DeliveryStatus {
+    statusId   Int      @id @default(autoincrement())
+    statusName String
+    createdAt  DateTime @default(now())
+    updatedAt  DateTime @updatedAt
+
+    orders Orders[]
+}
