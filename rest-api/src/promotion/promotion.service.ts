@@ -1,26 +1,54 @@
 import { Injectable } from '@nestjs/common';
 import { CreatePromotionDto } from './dto/create-promotion.dto';
 import { UpdatePromotionDto } from './dto/update-promotion.dto';
+import { PrismaService } from 'src/prisma/prisma.service';
+import { FoodService } from 'src/food/food.service';
 
 @Injectable()
 export class PromotionService {
-  create(createPromotionDto: CreatePromotionDto) {
-    return 'This action adds a new promotion';
+  constructor(private readonly prismaService: PrismaService) {}
+
+  async create(createPromotionDto: CreatePromotionDto) {
+    const { foodIds, ...rest } = createPromotionDto;
+
+    const promotion = await this.prismaService.promotions.create({
+      data: rest,
+    });
+
+    await this.update(promotion.promotionId, createPromotionDto);
+    return promotion;
   }
 
-  findAll() {
-    return `This action returns all promotion`;
-  }
+  async update(id: number, updatePromotionDto: UpdatePromotionDto) {
+    const { foodIds, ...rest } = updatePromotionDto;
 
-  findOne(id: number) {
-    return `This action returns a #${id} promotion`;
-  }
+    if (foodIds) {
+      return await this.prismaService.promotions.update({
+        where: {
+          promotionId: id,
+        },
+        data: {
+          ...rest,
+          foods: {
+            connect: [
+              ...foodIds.map((foodId) => {
+                return {
+                  foodId,
+                };
+              }),
+            ],
+          },
+        },
+      });
+    }
 
-  update(id: number, updatePromotionDto: UpdatePromotionDto) {
-    return `This action updates a #${id} promotion`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} promotion`;
+    return await this.prismaService.promotions.update({
+      where: {
+        promotionId: id,
+      },
+      data: {
+        ...rest,
+      },
+    });
   }
 }

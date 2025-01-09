@@ -30,6 +30,11 @@ export class CreatePromotionDto {
   endDate: Date;
 
   @IsBoolean()
-  @ApiProperty()
+  @ApiProperty({ default: true })
   isActive: boolean;
+
+  @IsNumber({}, { each: true })
+  @IsOptional()
+  @ApiProperty({ isArray: true, default: [], required: false })
+  foodIds?: number[];
 }

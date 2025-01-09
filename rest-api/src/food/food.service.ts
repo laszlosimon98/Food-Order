@@ -19,6 +19,7 @@ export class FoodService {
         categories: true,
         reviews: true,
         users: true,
+        promotions: true,
       },
       omit: {
         categoryId: true,

@@ -13,6 +13,8 @@ import { FoodModule } from './food/food.module';
 import { PromotionModule } from './promotion/promotion.module';
 import { ReviewModule } from './review/review.module';
 import { FavoriteFoodModule } from './favorite-food/favorite-food.module';
+import { EventModule } from './event/event.module';
+import { ScheduleModule } from '@nestjs/schedule';
 
 @Module({
   imports: [
@@ -20,11 +22,13 @@ import { FavoriteFoodModule } from './favorite-food/favorite-food.module';
     UserModule,
     AuthModule,
     ConfigModule.forRoot({ isGlobal: true }),
+    ScheduleModule.forRoot(),
     CategoryModule,
     FoodModule,
     PromotionModule,
     ReviewModule,
     FavoriteFoodModule,
+    EventModule,
   ],
   controllers: [AppController],
   providers: [
