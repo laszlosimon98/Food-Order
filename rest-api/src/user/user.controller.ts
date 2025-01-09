@@ -12,6 +12,7 @@ import { UserService } from './user.service';
 import { ApiBearerAuth, ApiQuery } from '@nestjs/swagger';
 import { Role, UserRoles } from 'src/enums/roles';
 import { Roles } from 'src/decorators/roles/roles.decorator';
+import { Request } from 'express';
 
 @Controller('user')
 export class UserController {
@@ -22,6 +23,13 @@ export class UserController {
   @Get()
   async getUsers() {
     return await this.userService.getAllUsers();
+  }
+
+  @ApiBearerAuth()
+  @Roles(Role.User)
+  @Get('favoriteFood')
+  async getFavoriteFoods(@Req() req: Request) {
+    return await this.userService.getFavoriteFoods(req.user);
   }
 
   @ApiBearerAuth()
@@ -36,7 +44,7 @@ export class UserController {
   async updateUserRole(
     @Param('id', ParseIntPipe) id: number,
     @Query('role') role: UserRoles,
-    @Req() req,
+    @Req() req: Request,
   ) {
     return await this.userService.updateUserRole(id, role, req.user);
   }
@@ -44,7 +52,7 @@ export class UserController {
   @ApiBearerAuth()
   @Roles(Role.Admin)
   @Delete(':id')
-  async deleteUser(@Param('id', ParseIntPipe) id: number, @Req() req) {
+  async deleteUser(@Param('id', ParseIntPipe) id: number, @Req() req: Request) {
     return await this.userService.deleteUser(id, req.user);
   }
 }

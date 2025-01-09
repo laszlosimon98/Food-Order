@@ -11,6 +11,8 @@ import { RolesGuard } from './guards/roles/roles.guard';
 import { CategoryModule } from './category/category.module';
 import { FoodModule } from './food/food.module';
 import { PromotionModule } from './promotion/promotion.module';
+import { ReviewModule } from './review/review.module';
+import { FavoriteFoodModule } from './favorite-food/favorite-food.module';
 
 @Module({
   imports: [
@@ -21,6 +23,8 @@ import { PromotionModule } from './promotion/promotion.module';
     CategoryModule,
     FoodModule,
     PromotionModule,
+    ReviewModule,
+    FavoriteFoodModule,
   ],
   controllers: [AppController],
   providers: [

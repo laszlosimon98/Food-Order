@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import {
   IsBoolean,
-  IsDate,
+  IsDateString,
   IsNumber,
   IsOptional,
   IsString,
@@ -21,11 +21,11 @@ export class CreatePromotionDto {
   @ApiProperty()
   discountValue: number;
 
-  @IsDate()
+  @IsDateString()
   @ApiProperty()
   startDate: Date;
 
-  @IsDate()
+  @IsDateString()
   @ApiProperty()
   endDate: Date;
 

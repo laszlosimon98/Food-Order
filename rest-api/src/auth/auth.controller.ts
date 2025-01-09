@@ -14,9 +14,7 @@ import { LocalAuthGuard } from 'src/guards/auth/local.guard';
 import { Public } from 'src/decorators/public/public.decorator';
 import { ApiBearerAuth } from '@nestjs/swagger';
 import { JwtRefreshAuthGuard } from 'src/guards/auth/jwt-refresh.guard';
-import { Response } from 'express';
-import { Roles } from 'src/decorators/roles/roles.decorator';
-import { Role } from 'src/enums/roles';
+import { Request, Response } from 'express';
 
 @Controller('auth')
 export class AuthController {
@@ -33,7 +31,7 @@ export class AuthController {
   @Post('login')
   async login(
     @Body() _loginDto: LoginDto,
-    @Req() req,
+    @Req() req: Request,
     @Res({ passthrough: true }) response: Response,
   ) {
     return await this.authService.login(req.user, response);
@@ -42,19 +40,19 @@ export class AuthController {
   @Public()
   @Post('refresh')
   @UseGuards(JwtRefreshAuthGuard)
-  async refresh(@Req() req) {
+  async refresh(@Req() req: Request) {
     return await this.authService.refresh(req.user);
   }
 
   @ApiBearerAuth()
   @Post('logout')
-  async logout(@Req() req) {
+  async logout(@Req() req: Request) {
     return await this.authService.logout(req.user);
   }
 
   @ApiBearerAuth()
   @Get('currentUser')
-  getCurrentUser(@Req() req) {
+  getCurrentUser(@Req() req: Request) {
     return req.user;
   }
 }

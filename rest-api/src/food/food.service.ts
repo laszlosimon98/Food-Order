@@ -17,6 +17,8 @@ export class FoodService {
     return await this.prismaService.foods.findMany({
       include: {
         categories: true,
+        reviews: true,
+        users: true,
       },
       omit: {
         categoryId: true,
@@ -29,6 +31,9 @@ export class FoodService {
       where: {
         categoryId,
       },
+      include: {
+        reviews: true,
+      },
     });
   }
 
@@ -39,6 +44,7 @@ export class FoodService {
       },
       include: {
         categories: true,
+        reviews: true,
       },
       omit: {
         categoryId: true,

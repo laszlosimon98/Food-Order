@@ -59,6 +59,23 @@ export class UserService {
     return user;
   }
 
+  async getFavoriteFoods(user: any) {
+    return await this.prismaService.users.findMany({
+      where: {
+        userId: user.userId,
+      },
+      include: {
+        foods: {
+          include: { food: true },
+        },
+      },
+      omit: {
+        password: true,
+        refreshToken: true,
+      },
+    });
+  }
+
   async updateRefreshToken(username: string, token: string | null) {
     const user = await this.findUser(username);
     let hashedToken: string | null = null;
