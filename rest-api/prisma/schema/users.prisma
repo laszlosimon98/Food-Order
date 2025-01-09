@@ -12,5 +12,5 @@ model Users {
 
     orders  Orders[]
     reviews Reviews[]
-    foods   UserFavoriteFoods[]
+    foods   FavoritesOnFoods[]
 }

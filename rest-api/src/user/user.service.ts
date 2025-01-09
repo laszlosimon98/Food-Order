@@ -8,6 +8,9 @@ import * as bcrypt from 'bcrypt';
 import { RegisterDto } from 'src/auth/dto/register.dto';
 import { ConfigService } from '@nestjs/config';
 import { UserRoles } from 'src/enums/roles';
+import { UpdateUserDetailsDto } from './dto/update-user-details.dto';
+import { NewPasswordDto } from 'src/auth/dto/newPassword.dto';
+import { config } from 'process';
 
 @Injectable()
 export class UserService {
@@ -120,6 +123,52 @@ export class UserService {
         refreshToken: true,
       },
     });
+  }
+
+  async updateUserDetails(
+    updateUserDetailsDto: UpdateUserDetailsDto,
+    user: any,
+  ) {
+    return await this.prismaService.users.update({
+      where: {
+        userId: user.userId,
+      },
+      data: updateUserDetailsDto,
+      omit: {
+        password: true,
+        refreshToken: true,
+      },
+    });
+  }
+
+  async changePassword(newPasswordDto: NewPasswordDto, user: any) {
+    const { oldPassword, newPassword } = newPasswordDto;
+    const currentUser = await this.findUser(user.username);
+
+    const isOldPasswordValid = await bcrypt.compare(
+      oldPassword,
+      currentUser.password,
+    );
+
+    if (!isOldPasswordValid) {
+      throw new UnauthorizedException();
+    }
+
+    await this.prismaService.users.update({
+      where: {
+        userId: user.userId,
+      },
+      data: {
+        password: await bcrypt.hash(
+          newPassword,
+          parseInt(this.configService.getOrThrow('HASHROUND')),
+        ),
+      },
+    });
+
+    return {
+      success: true,
+    };
   }
 
   async deleteUser(id: number, user: any) {

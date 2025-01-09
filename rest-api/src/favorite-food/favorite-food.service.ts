@@ -27,7 +27,7 @@ export class FavoriteFoodService {
     //   },
     // });
 
-    return await this.prismaService.userFavoriteFoods.create({
+    return await this.prismaService.favoritesOnFoods.create({
       data: {
         addedAt: new Date(),
         userId: user.userId,
@@ -37,7 +37,7 @@ export class FavoriteFoodService {
   }
 
   async remove(id: number, user: any) {
-    return await this.prismaService.userFavoriteFoods.delete({
+    return await this.prismaService.favoritesOnFoods.delete({
       where: {
         userId_foodId: {
           userId: user.userId,

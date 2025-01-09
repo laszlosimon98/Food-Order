@@ -1,4 +1,4 @@
-model UserFavoriteFoods {
+model FavoritesOnFoods {
     user    Users    @relation(fields: [userId], references: [userId])
     userId  Int
     food    Foods    @relation(fields: [foodId], references: [foodId])

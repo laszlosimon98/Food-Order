@@ -10,10 +10,10 @@ model Foods {
     updatedAt    DateTime @updatedAt
 
     reviews     Reviews[]
-    orderItems  OrderItems?         @relation(fields: [orderItemId], references: [orderItemId])
+    orderItems  OrderItems?        @relation(fields: [orderItemId], references: [orderItemId])
     orderItemId Int?
-    categories  Categories          @relation(fields: [categoryId], references: [categoryId])
+    categories  Categories         @relation(fields: [categoryId], references: [categoryId])
     categoryId  Int
     promotions  Promotions[]
-    users       UserFavoriteFoods[]
+    users       FavoritesOnFoods[]
 }
