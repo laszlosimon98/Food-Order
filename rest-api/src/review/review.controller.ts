@@ -17,7 +17,7 @@ import {
   ApiCreatedResponse,
   ApiOkResponse,
 } from '@nestjs/swagger';
-import { Role } from 'src/enums/roles';
+import { RoleEnum } from 'src/enums/roles';
 import { Roles } from 'src/decorators/roles/roles.decorator';
 import { Public } from 'src/decorators/public/public.decorator';
 import { ReviewEntity } from './entities/review.entity';
@@ -29,7 +29,7 @@ export class ReviewController {
 
   @ApiBearerAuth()
   @ApiCreatedResponse({ type: ReviewEntity })
-  @Roles(Role.User)
+  @Roles(RoleEnum.User)
   @Post()
   create(@Body() createReviewDto: CreateReviewDto, @Req() req: Request) {
     return this.reviewService.create(createReviewDto, req.user);
@@ -51,7 +51,7 @@ export class ReviewController {
 
   @ApiBearerAuth()
   @ApiOkResponse({ type: ReviewEntity })
-  @Roles(Role.User)
+  @Roles(RoleEnum.User)
   @Patch(':id')
   update(
     @Param('id', ParseIntPipe) id: number,
@@ -63,7 +63,7 @@ export class ReviewController {
 
   @ApiBearerAuth()
   @ApiOkResponse({ type: ReviewEntity })
-  @Roles(Role.Employee)
+  @Roles(RoleEnum.Employee)
   @Delete('comment/:id')
   removeUnAppropriateComment(@Param('id', ParseIntPipe) id: number) {
     return this.reviewService.removeUnAppropriateComment(id);
@@ -71,7 +71,7 @@ export class ReviewController {
 
   @ApiBearerAuth()
   @ApiOkResponse({ type: ReviewEntity })
-  @Roles(Role.User)
+  @Roles(RoleEnum.User)
   @Delete(':id')
   remove(@Param('id', ParseIntPipe) id: number, @Req() req: Request) {
     return this.reviewService.remove(id, req.user);

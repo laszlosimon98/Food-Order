@@ -11,7 +11,7 @@ import {
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { ApiBearerAuth, ApiQuery } from '@nestjs/swagger';
-import { Role, UserRoles } from 'src/enums/roles';
+import { RoleEnum, UserRolesEnum } from 'src/enums/roles';
 import { Roles } from 'src/decorators/roles/roles.decorator';
 import { Request } from 'express';
 import { UpdateUserDetailsDto } from './dto/update-user-details.dto';
@@ -22,21 +22,21 @@ export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @ApiBearerAuth()
-  @Roles(Role.Admin)
+  @Roles(RoleEnum.Admin)
   @Get()
   async getUsers() {
     return await this.userService.getAllUsers();
   }
 
   @ApiBearerAuth()
-  @Roles(Role.User)
+  @Roles(RoleEnum.User)
   @Get('favoriteFood')
   async getFavoriteFoods(@Req() req: Request) {
     return await this.userService.getFavoriteFoods(req.user);
   }
 
   @ApiBearerAuth()
-  @Roles(Role.User)
+  @Roles(RoleEnum.User)
   @Patch('userDetails')
   async updateUserDetails(
     @Body() updateUserDetailsDto: UpdateUserDetailsDto,
@@ -49,7 +49,7 @@ export class UserController {
   }
 
   @ApiBearerAuth()
-  @Roles(Role.User)
+  @Roles(RoleEnum.User)
   @Patch('changePassword')
   async changePassword(
     @Body() newPasswordDto: NewPasswordDto,
@@ -62,21 +62,21 @@ export class UserController {
   @ApiQuery({
     name: 'role',
     description: 'User role',
-    enum: UserRoles,
+    enum: UserRolesEnum,
     enumName: 'Role',
   })
-  @Roles(Role.Admin)
+  @Roles(RoleEnum.Admin)
   @Patch(':id')
   async updateUserRole(
     @Param('id', ParseIntPipe) id: number,
-    @Query('role') role: UserRoles,
+    @Query('role') role: UserRolesEnum,
     @Req() req: Request,
   ) {
     return await this.userService.updateUserRole(id, role, req.user);
   }
 
   @ApiBearerAuth()
-  @Roles(Role.Admin)
+  @Roles(RoleEnum.Admin)
   @Delete(':id')
   async deleteUser(@Param('id', ParseIntPipe) id: number, @Req() req: Request) {
     return await this.userService.deleteUser(id, req.user);

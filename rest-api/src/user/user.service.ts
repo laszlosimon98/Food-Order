@@ -7,7 +7,7 @@ import { PrismaService } from 'src/prisma/prisma.service';
 import * as bcrypt from 'bcrypt';
 import { RegisterDto } from 'src/auth/dto/register.dto';
 import { ConfigService } from '@nestjs/config';
-import { UserRoles } from 'src/enums/roles';
+import { UserRolesEnum } from 'src/enums/roles';
 import { UpdateUserDetailsDto } from './dto/update-user-details.dto';
 import { NewPasswordDto } from 'src/auth/dto/newPassword.dto';
 import { config } from 'process';
@@ -106,7 +106,7 @@ export class UserService {
     return true;
   }
 
-  async updateUserRole(id: number, role: UserRoles, user: any) {
+  async updateUserRole(id: number, role: UserRolesEnum, user: any) {
     if (id === user.user_id) {
       throw new ConflictException();
     }

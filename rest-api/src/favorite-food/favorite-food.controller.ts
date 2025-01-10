@@ -10,7 +10,7 @@ import {
 import { FavoriteFoodService } from './favorite-food.service';
 import { CreateFavoriteFoodDto } from './dto/create-favorite-food.dto';
 import { ApiBearerAuth } from '@nestjs/swagger';
-import { Role } from 'src/enums/roles';
+import { RoleEnum } from 'src/enums/roles';
 import { Roles } from 'src/decorators/roles/roles.decorator';
 import { Request } from 'express';
 
@@ -19,7 +19,7 @@ export class FavoriteFoodController {
   constructor(private readonly favoriteFoodService: FavoriteFoodService) {}
 
   @ApiBearerAuth()
-  @Roles(Role.User)
+  @Roles(RoleEnum.User)
   @Post()
   add(
     @Body() createFavoriteFoodDto: CreateFavoriteFoodDto,
@@ -29,7 +29,7 @@ export class FavoriteFoodController {
   }
 
   @ApiBearerAuth()
-  @Roles(Role.User)
+  @Roles(RoleEnum.User)
   @Delete(':id')
   remove(@Param('id', ParseIntPipe) id: number, @Req() req: Request) {
     return this.favoriteFoodService.remove(id, req.user);

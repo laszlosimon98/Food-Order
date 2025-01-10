@@ -17,16 +17,15 @@ import {
   ApiOkResponse,
 } from '@nestjs/swagger';
 import { PromotionEntity } from './entities/promotion.entity';
-import { Public } from 'src/decorators/public/public.decorator';
 import { Roles } from 'src/decorators/roles/roles.decorator';
-import { Role } from 'src/enums/roles';
+import { RoleEnum } from 'src/enums/roles';
 
 @Controller('promotion')
 export class PromotionController {
   constructor(private readonly promotionService: PromotionService) {}
 
   @ApiBearerAuth()
-  @Roles(Role.Admin)
+  @Roles(RoleEnum.Admin)
   @ApiCreatedResponse({ type: PromotionEntity })
   @Post()
   async create(@Body() createPromotionDto: CreatePromotionDto) {
@@ -34,7 +33,7 @@ export class PromotionController {
   }
 
   @ApiBearerAuth()
-  @Roles(Role.Admin)
+  @Roles(RoleEnum.Admin)
   @ApiOkResponse({ type: PromotionEntity })
   @Patch(':id')
   update(

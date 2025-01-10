@@ -19,7 +19,7 @@ import {
 } from '@nestjs/swagger';
 import { FoodEntity } from './entities/food.entity';
 import { Roles } from 'src/decorators/roles/roles.decorator';
-import { Role } from 'src/enums/roles';
+import { RoleEnum } from 'src/enums/roles';
 import { Public } from 'src/decorators/public/public.decorator';
 
 @Controller('food')
@@ -28,7 +28,7 @@ export class FoodController {
 
   @ApiBearerAuth()
   @ApiCreatedResponse({ type: FoodEntity })
-  @Roles(Role.Admin)
+  @Roles(RoleEnum.Admin)
   @Post()
   create(@Body() createFoodDto: CreateFoodDto) {
     return this.foodService.create(createFoodDto);
@@ -57,7 +57,7 @@ export class FoodController {
 
   @ApiBearerAuth()
   @ApiOkResponse({ type: FoodEntity })
-  @Roles(Role.Admin)
+  @Roles(RoleEnum.Admin)
   @Patch(':id')
   update(
     @Param('id', ParseIntPipe) id: number,
@@ -68,7 +68,7 @@ export class FoodController {
 
   @ApiBearerAuth()
   @ApiOkResponse({ type: FoodEntity })
-  @Roles(Role.Admin)
+  @Roles(RoleEnum.Admin)
   @Delete(':id')
   remove(@Param('id', ParseIntPipe) id: number) {
     return this.foodService.remove(id);

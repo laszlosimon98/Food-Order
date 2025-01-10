@@ -15,6 +15,8 @@ import { ReviewModule } from './review/review.module';
 import { FavoriteFoodModule } from './favorite-food/favorite-food.module';
 import { EventModule } from './event/event.module';
 import { ScheduleModule } from '@nestjs/schedule';
+import { OrderModule } from './order/order.module';
+import { OrderItemModule } from './order-item/order-item.module';
 
 @Module({
   imports: [
@@ -29,6 +31,8 @@ import { ScheduleModule } from '@nestjs/schedule';
     ReviewModule,
     FavoriteFoodModule,
     EventModule,
+    OrderModule,
+    OrderItemModule,
   ],
   controllers: [AppController],
   providers: [

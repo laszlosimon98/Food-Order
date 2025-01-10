@@ -9,11 +9,11 @@ model Foods {
     createdAt    DateTime @default(now())
     updatedAt    DateTime @updatedAt
 
-    reviews     Reviews[]
-    orderItems  OrderItems?        @relation(fields: [orderItemId], references: [orderItemId])
-    orderItemId Int?
-    categories  Categories         @relation(fields: [categoryId], references: [categoryId])
-    categoryId  Int
-    promotions  Promotions[]
-    users       FavoritesOnFoods[]
+    reviews    Reviews[]
+    orderItems OrderItems[]
+
+    categories Categories         @relation(fields: [categoryId], references: [categoryId])
+    categoryId Int
+    promotions Promotions[]
+    users      FavoritesOnFoods[]
 }

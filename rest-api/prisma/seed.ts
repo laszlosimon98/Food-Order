@@ -31,6 +31,23 @@ const createCategories = async () => {
   }
 };
 
+const createDeliveryStatus = async () => {
+  const deliveryStatus = [
+    'Rendelés leadva',
+    'Feldolgozás alatt',
+    'Szállítás alatt',
+    'Teljesítve',
+  ];
+
+  for (const status of deliveryStatus) {
+    await prisma.deliveryStatus.create({
+      data: {
+        statusName: status,
+      },
+    });
+  }
+};
+
 const createFoods = async () => {
   const foods = {
     1: [
@@ -67,6 +84,7 @@ const main = async () => {
   await createUsers();
   await createCategories();
   await createFoods();
+  await createDeliveryStatus();
 };
 
 main()

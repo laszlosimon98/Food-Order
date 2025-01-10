@@ -5,8 +5,8 @@ model Orders {
     createdAt  DateTime @default(now())
     updatedAt  DateTime @updatedAt
 
-    user             Users?         @relation(fields: [userId], references: [userId])
-    userId           Int?
+    user             Users          @relation(fields: [userId], references: [userId])
+    userId           Int
     deliveryStatus   DeliveryStatus @relation(fields: [deliveryStatusId], references: [statusId])
     deliveryStatusId Int
     orderItems       OrderItems[]

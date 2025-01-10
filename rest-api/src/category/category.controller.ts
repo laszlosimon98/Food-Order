@@ -18,7 +18,7 @@ import {
   ApiOkResponse,
 } from '@nestjs/swagger';
 import { Roles } from 'src/decorators/roles/roles.decorator';
-import { Role } from 'src/enums/roles';
+import { RoleEnum } from 'src/enums/roles';
 import { CategoryEntity } from './entities/category.entity';
 
 @Controller('category')
@@ -27,7 +27,7 @@ export class CategoryController {
 
   @ApiBearerAuth()
   @ApiCreatedResponse({ type: CategoryEntity })
-  @Roles(Role.Admin)
+  @Roles(RoleEnum.Admin)
   @Post()
   create(@Body() createCategoryDto: CreateCategoryDto) {
     return this.categoryService.create(createCategoryDto);
@@ -49,7 +49,7 @@ export class CategoryController {
 
   @ApiBearerAuth()
   @ApiOkResponse({ type: CategoryEntity })
-  @Roles(Role.Admin)
+  @Roles(RoleEnum.Admin)
   @Patch(':id')
   update(
     @Param('id', ParseIntPipe) id: number,
@@ -60,7 +60,7 @@ export class CategoryController {
 
   @ApiBearerAuth()
   @ApiOkResponse({ type: CategoryEntity })
-  @Roles(Role.Admin)
+  @Roles(RoleEnum.Admin)
   @Delete(':id')
   remove(@Param('id', ParseIntPipe) id: number) {
     return this.categoryService.remove(id);
