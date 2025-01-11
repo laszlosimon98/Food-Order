@@ -53,6 +53,107 @@ export class FoodService {
     });
   }
 
+  async getTopTenOrder() {
+    const topTenFoods = await this.prismaService.foods.findMany({
+      where: {
+        orderItems: {
+          some: {},
+        },
+      },
+      include: {
+        _count: {
+          select: {
+            orderItems: true,
+          },
+        },
+      },
+      orderBy: {
+        orderItems: {
+          _count: 'desc',
+        },
+      },
+      take: 10,
+    });
+
+    return topTenFoods.map((food) => {
+      const { _count, ...rest } = food;
+      return rest;
+    });
+  }
+
+  async getPromotions(
+    isOnPromotion?: boolean,
+    minValue?: number,
+    maxValue?: number,
+    isSpice?: boolean,
+    isVegetarian?: boolean,
+  ) {
+    return await this.prismaService.foods.findMany({
+      where: {
+        promotions: isOnPromotion
+          ? {
+              some: {
+                isActive: isOnPromotion,
+              },
+            }
+          : undefined,
+        price: {
+          gte: minValue ? minValue : undefined,
+          lte: maxValue ? maxValue : undefined,
+        },
+        isSpice,
+        isVegetarian,
+      },
+      include: {
+        promotions: true,
+      },
+    });
+  }
+
+  async getTopThreeReviewsFoods() {
+    const result = [];
+
+    const topThree = await this.prismaService.foods.findMany({
+      where: {
+        reviews: {
+          some: {},
+        },
+      },
+      include: {
+        reviews: true,
+      },
+      take: 3,
+    });
+
+    const raitings = await this.prismaService.reviews.groupBy({
+      by: ['foodId'],
+      _avg: {
+        rating: true,
+      },
+      orderBy: {
+        _avg: {
+          rating: 'desc',
+        },
+      },
+      take: 3,
+    });
+
+    for (const food of topThree) {
+      for (const raiting of raitings) {
+        if (food.foodId === raiting.foodId) {
+          const item = {
+            ...food,
+            ...raiting,
+          };
+
+          result.push(item);
+        }
+      }
+    }
+
+    return result;
+  }
+
   async update(id: number, updateFoodDto: UpdateFoodDto) {
     return await this.prismaService.foods.update({
       where: {

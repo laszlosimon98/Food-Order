@@ -17,6 +17,9 @@ import { EventModule } from './event/event.module';
 import { ScheduleModule } from '@nestjs/schedule';
 import { OrderModule } from './order/order.module';
 import { OrderItemModule } from './order-item/order-item.module';
+import { FileUploadModule } from './file-upload/file-upload.module';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
 
 @Module({
   imports: [
@@ -33,6 +36,11 @@ import { OrderItemModule } from './order-item/order-item.module';
     EventModule,
     OrderModule,
     OrderItemModule,
+    FileUploadModule,
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', '..', 'uploads'),
+      serveRoot: '/uploads',
+    }),
   ],
   controllers: [AppController],
   providers: [

@@ -1,0 +1,32 @@
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { existsSync, unlinkSync } from 'fs';
+import { join } from 'path';
+import { FoodService } from 'src/food/food.service';
+import { PrismaService } from 'src/prisma/prisma.service';
+
+@Injectable()
+export class FileUploadService {
+  constructor(
+    private readonly prismaService: PrismaService,
+    private readonly foodService: FoodService,
+  ) {}
+
+  async uploadImage(foodId: number, filename: string) {
+    const food = await this.foodService.findOne(foodId);
+
+    if (!food) {
+      throw new NotFoundException();
+    }
+
+    await this.deleteImage(food.imageUrl);
+    return await this.foodService.update(foodId, { imageUrl: filename });
+  }
+
+  async deleteImage(image: string) {
+    const _path = join(__dirname, '..', '..', '..', 'uploads', image);
+
+    if (existsSync(_path)) {
+      unlinkSync(_path);
+    }
+  }
+}
