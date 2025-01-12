@@ -69,7 +69,20 @@ export class UserService {
       },
       include: {
         foods: {
-          include: { food: true },
+          include: {
+            food: {
+              include: {
+                categories: true,
+              },
+              omit: {
+                categoryId: true,
+              },
+            },
+          },
+          omit: {
+            userId: true,
+            foodId: true,
+          },
         },
       },
       omit: {

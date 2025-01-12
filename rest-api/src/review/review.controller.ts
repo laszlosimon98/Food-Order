@@ -35,20 +35,6 @@ export class ReviewController {
     return this.reviewService.create(createReviewDto, req.user);
   }
 
-  @Public()
-  @ApiOkResponse({ type: ReviewEntity, isArray: true })
-  @Get()
-  findAll() {
-    return this.reviewService.findAll();
-  }
-
-  @Public()
-  @ApiOkResponse({ type: ReviewEntity })
-  @Get(':id')
-  findOne(@Param('id', ParseIntPipe) id: number) {
-    return this.reviewService.findOne(id);
-  }
-
   @ApiBearerAuth()
   @ApiOkResponse({ type: ReviewEntity })
   @Roles(RoleEnum.User)

@@ -73,9 +73,24 @@ export class OrderService {
         deliveryStatus: true,
         orderItems: {
           include: {
-            foods: true,
+            foods: {
+              include: {
+                categories: true,
+              },
+              omit: {
+                categoryId: true,
+              },
+            },
+          },
+          omit: {
+            foodId: true,
+            orderId: true,
           },
         },
+      },
+      omit: {
+        userId: true,
+        deliveryStatusId: true,
       },
     });
   }
@@ -89,9 +104,24 @@ export class OrderService {
         deliveryStatus: true,
         orderItems: {
           include: {
-            foods: true,
+            foods: {
+              include: {
+                categories: true,
+              },
+              omit: {
+                categoryId: true,
+              },
+            },
+          },
+          omit: {
+            foodId: true,
+            orderId: true,
           },
         },
+      },
+      omit: {
+        userId: true,
+        deliveryStatusId: true,
       },
     });
   }
@@ -105,9 +135,24 @@ export class OrderService {
         deliveryStatus: true,
         orderItems: {
           include: {
-            foods: true,
+            foods: {
+              include: {
+                categories: true,
+              },
+              omit: {
+                categoryId: true,
+              },
+            },
+          },
+          omit: {
+            foodId: true,
+            orderId: true,
           },
         },
+      },
+      omit: {
+        userId: true,
+        deliveryStatusId: true,
       },
     });
   }

@@ -13,27 +13,43 @@ export class FoodService {
     });
   }
 
-  async findAll() {
+  async findAll(
+    isOnPromotion?: boolean,
+    minValue?: number,
+    maxValue?: number,
+    isSpice?: boolean,
+    isVegetarian?: boolean,
+    categoryId?: number,
+  ) {
     return await this.prismaService.foods.findMany({
+      where: {
+        promotions: isOnPromotion
+          ? {
+              some: {
+                isActive: isOnPromotion,
+              },
+            }
+          : undefined,
+        price: {
+          gte: minValue ? minValue : undefined,
+          lte: maxValue ? maxValue : undefined,
+        },
+        isSpice,
+        isVegetarian,
+        categoryId: categoryId ? categoryId : undefined,
+      },
       include: {
         categories: true,
-        reviews: true,
-        users: true,
-        promotions: true,
+        promotions: {
+          select: {
+            promotionId: true,
+            discountValue: true,
+            isActive: true,
+          },
+        },
       },
       omit: {
         categoryId: true,
-      },
-    });
-  }
-
-  async findByCategory(categoryId: number) {
-    return await this.prismaService.foods.findMany({
-      where: {
-        categoryId,
-      },
-      include: {
-        reviews: true,
       },
     });
   }
@@ -45,7 +61,21 @@ export class FoodService {
       },
       include: {
         categories: true,
-        reviews: true,
+        reviews: {
+          include: {
+            user: {
+              select: {
+                userId: true,
+                fullname: true,
+              },
+            },
+          },
+          omit: {
+            userId: true,
+            foodId: true,
+          },
+        },
+        promotions: true,
       },
       omit: {
         categoryId: true,
@@ -66,11 +96,22 @@ export class FoodService {
             orderItems: true,
           },
         },
+        categories: true,
+        promotions: {
+          select: {
+            promotionId: true,
+            discountValue: true,
+            isActive: true,
+          },
+        },
       },
       orderBy: {
         orderItems: {
           _count: 'desc',
         },
+      },
+      omit: {
+        categoryId: true,
       },
       take: 10,
     });
@@ -78,35 +119,6 @@ export class FoodService {
     return topTenFoods.map((food) => {
       const { _count, ...rest } = food;
       return rest;
-    });
-  }
-
-  async getPromotions(
-    isOnPromotion?: boolean,
-    minValue?: number,
-    maxValue?: number,
-    isSpice?: boolean,
-    isVegetarian?: boolean,
-  ) {
-    return await this.prismaService.foods.findMany({
-      where: {
-        promotions: isOnPromotion
-          ? {
-              some: {
-                isActive: isOnPromotion,
-              },
-            }
-          : undefined,
-        price: {
-          gte: minValue ? minValue : undefined,
-          lte: maxValue ? maxValue : undefined,
-        },
-        isSpice,
-        isVegetarian,
-      },
-      include: {
-        promotions: true,
-      },
     });
   }
 
@@ -118,9 +130,6 @@ export class FoodService {
         reviews: {
           some: {},
         },
-      },
-      include: {
-        reviews: true,
       },
       take: 3,
     });

@@ -30,13 +30,6 @@ export class UserController {
 
   @ApiBearerAuth()
   @Roles(RoleEnum.User)
-  @Get('favoriteFood')
-  async getFavoriteFoods(@Req() req: Request) {
-    return await this.userService.getFavoriteFoods(req.user);
-  }
-
-  @ApiBearerAuth()
-  @Roles(RoleEnum.User)
   @Patch('userDetails')
   async updateUserDetails(
     @Body() updateUserDetailsDto: UpdateUserDetailsDto,
