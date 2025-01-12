@@ -19,7 +19,11 @@ export class FileUploadService {
     }
 
     await this.deleteImage(food.imageUrl);
-    return await this.foodService.update(foodId, { imageUrl: filename });
+    await this.foodService.update(foodId, { imageUrl: filename });
+
+    return {
+      success: true,
+    };
   }
 
   async deleteImage(image: string) {

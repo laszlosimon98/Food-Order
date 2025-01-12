@@ -73,22 +73,18 @@ export class OrderItemService {
 
     const calcOrderTotalPrice = order.totalPrice - oldPrice + newPrice;
 
-    return await this.prismaService.orders.update({
+    await this.prismaService.orders.update({
       where: {
         orderId: order.orderId,
       },
       data: {
         totalPrice: calcOrderTotalPrice,
       },
-      include: {
-        deliveryStatus: true,
-        orderItems: {
-          include: {
-            foods: true,
-          },
-        },
-      },
     });
+
+    return {
+      success: true,
+    };
   }
 
   async remove(id: number) {

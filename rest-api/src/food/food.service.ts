@@ -8,9 +8,13 @@ export class FoodService {
   constructor(private readonly prismaService: PrismaService) {}
 
   async create(createFoodDto: CreateFoodDto) {
-    return await this.prismaService.foods.create({
+    await this.prismaService.foods.create({
       data: createFoodDto,
     });
+
+    return {
+      success: true,
+    };
   }
 
   async findAll(
@@ -164,7 +168,7 @@ export class FoodService {
   }
 
   async update(id: number, updateFoodDto: UpdateFoodDto) {
-    return await this.prismaService.foods.update({
+    await this.prismaService.foods.update({
       where: {
         foodId: id,
       },
@@ -176,10 +180,14 @@ export class FoodService {
         categoryId: true,
       },
     });
+
+    return {
+      success: true,
+    };
   }
 
   async remove(id: number) {
-    return await this.prismaService.foods.delete({
+    await this.prismaService.foods.delete({
       where: {
         foodId: id,
       },
@@ -190,5 +198,9 @@ export class FoodService {
         categoryId: true,
       },
     });
+
+    return {
+      success: true,
+    };
   }
 }

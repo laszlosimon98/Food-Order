@@ -9,35 +9,21 @@ export class FavoriteFoodService {
   async add(createFavoriteFoodDto: CreateFavoriteFoodDto, user: any) {
     const { foodId } = createFavoriteFoodDto;
 
-    // return await this.prismaService.foods.update({
-    //   where: {
-    //     foodId,
-    //   },
-    //   data: {
-    //     users: {
-    //       create: {
-    //         addedAt: new Date(),
-    //         user: {
-    //           connect: {
-    //             userId: user.userId,
-    //           },
-    //         },
-    //       },
-    //     },
-    //   },
-    // });
-
-    return await this.prismaService.favoritesOnFoods.create({
+    await this.prismaService.favoritesOnFoods.create({
       data: {
         addedAt: new Date(),
         userId: user.userId,
         foodId,
       },
     });
+
+    return {
+      success: true,
+    };
   }
 
   async remove(id: number, user: any) {
-    return await this.prismaService.favoritesOnFoods.delete({
+    await this.prismaService.favoritesOnFoods.delete({
       where: {
         userId_foodId: {
           userId: user.userId,
@@ -45,5 +31,9 @@ export class FavoriteFoodService {
         },
       },
     });
+
+    return {
+      success: true,
+    };
   }
 }

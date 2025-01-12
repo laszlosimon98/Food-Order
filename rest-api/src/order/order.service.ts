@@ -49,22 +49,18 @@ export class OrderService {
       0,
     );
 
-    return await this.prismaService.orders.update({
+    await this.prismaService.orders.update({
       where: {
         orderId: order.orderId,
       },
       data: {
         totalPrice,
       },
-      include: {
-        deliveryStatus: true,
-        orderItems: {
-          include: {
-            foods: true,
-          },
-        },
-      },
     });
+
+    return {
+      success: true,
+    };
   }
 
   async findAll() {
@@ -180,22 +176,18 @@ export class OrderService {
       },
     });
 
-    return await this.prismaService.orders.update({
+    await this.prismaService.orders.update({
       where: {
         orderId: id,
       },
       data: {
         deliveryStatusId: statusId,
       },
-      include: {
-        deliveryStatus: true,
-        orderItems: {
-          include: {
-            foods: true,
-          },
-        },
-      },
     });
+
+    return {
+      success: true,
+    };
   }
 
   async remove(id: number) {
@@ -212,18 +204,15 @@ export class OrderService {
       );
     }
 
-    return await this.prismaService.orders.delete({
+    await this.prismaService.orders.delete({
       where: {
         orderId: id,
         deliveryStatusId: 1,
       },
-      include: {
-        orderItems: {
-          include: {
-            foods: true,
-          },
-        },
-      },
     });
+
+    return {
+      success: true,
+    };
   }
 }

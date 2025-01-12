@@ -14,7 +14,7 @@ export class AuthService {
     private readonly configService: ConfigService,
   ) {}
 
-  generatePayload(user: any) {
+  private generatePayload(user: any) {
     return {
       sub: user.user_id,
       fullname: user.fullname,
@@ -23,7 +23,7 @@ export class AuthService {
     };
   }
 
-  generateAccessToken(payload: any) {
+  private generateAccessToken(payload: any) {
     const accessToken = this.jwtService.sign(payload, {
       secret: this.configService.getOrThrow('JWT_ACCESS_TOKEN_SECRET'),
       expiresIn: `${parseInt(this.configService.getOrThrow('JWT_ACCESS_TOKEN_EXPIRATION'))}ms`,
@@ -56,7 +56,11 @@ export class AuthService {
   }
 
   async register(registerDto: RegisterDto) {
-    return await this.userService.createUser(registerDto);
+    await this.userService.createUser(registerDto);
+
+    return {
+      success: true,
+    };
   }
 
   async login(user: any, response: Response) {
@@ -81,7 +85,10 @@ export class AuthService {
 
   async logout(user: any) {
     await this.userService.updateRefreshToken(user.username, null);
-    return true;
+
+    return {
+      success: true,
+    };
   }
 
   async validateUser(username: string, pwd: string) {

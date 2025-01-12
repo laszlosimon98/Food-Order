@@ -39,7 +39,9 @@ export class UserService {
       },
     });
 
-    return true;
+    return {
+      success: true,
+    };
   }
 
   async getAllUsers() {
@@ -116,7 +118,9 @@ export class UserService {
       },
     });
 
-    return true;
+    return {
+      success: true,
+    };
   }
 
   async updateUserRole(id: number, role: UserRolesEnum, user: any) {
@@ -124,7 +128,7 @@ export class UserService {
       throw new ConflictException();
     }
 
-    return await this.prismaService.users.update({
+    await this.prismaService.users.update({
       where: {
         userId: id,
       },
@@ -136,13 +140,17 @@ export class UserService {
         refreshToken: true,
       },
     });
+
+    return {
+      success: true,
+    };
   }
 
   async updateUserDetails(
     updateUserDetailsDto: UpdateUserDetailsDto,
     user: any,
   ) {
-    return await this.prismaService.users.update({
+    await this.prismaService.users.update({
       where: {
         userId: user.userId,
       },
@@ -152,6 +160,10 @@ export class UserService {
         refreshToken: true,
       },
     });
+
+    return {
+      success: true,
+    };
   }
 
   async changePassword(newPasswordDto: NewPasswordDto, user: any) {
@@ -195,7 +207,7 @@ export class UserService {
       throw new ConflictException();
     }
 
-    return await this.prismaService.users.delete({
+    await this.prismaService.users.delete({
       where: {
         userId: id,
       },
@@ -204,5 +216,9 @@ export class UserService {
         refreshToken: true,
       },
     });
+
+    return {
+      success: true,
+    };
   }
 }

@@ -2,7 +2,6 @@ import { Injectable } from '@nestjs/common';
 import { CreatePromotionDto } from './dto/create-promotion.dto';
 import { UpdatePromotionDto } from './dto/update-promotion.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { FoodService } from 'src/food/food.service';
 
 @Injectable()
 export class PromotionService {
@@ -42,7 +41,7 @@ export class PromotionService {
       });
     }
 
-    return await this.prismaService.promotions.update({
+    await this.prismaService.promotions.update({
       where: {
         promotionId: id,
       },
@@ -50,5 +49,9 @@ export class PromotionService {
         ...rest,
       },
     });
+
+    return {
+      success: true,
+    };
   }
 }

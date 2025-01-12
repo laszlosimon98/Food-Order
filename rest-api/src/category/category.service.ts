@@ -8,9 +8,13 @@ export class CategoryService {
   constructor(private readonly prismaService: PrismaService) {}
 
   async create(createCategoryDto: CreateCategoryDto) {
-    return await this.prismaService.categories.create({
+    await this.prismaService.categories.create({
       data: createCategoryDto,
     });
+
+    return {
+      success: true,
+    };
   }
 
   async findAll() {
@@ -30,19 +34,27 @@ export class CategoryService {
   }
 
   async update(id: number, updateCategoryDto: UpdateCategoryDto) {
-    return await this.prismaService.categories.update({
+    await this.prismaService.categories.update({
       where: {
         categoryId: id,
       },
       data: updateCategoryDto,
     });
+
+    return {
+      success: true,
+    };
   }
 
   async remove(id: number) {
-    return await this.prismaService.categories.delete({
+    await this.prismaService.categories.delete({
       where: {
         categoryId: id,
       },
     });
+
+    return {
+      success: true,
+    };
   }
 }
