@@ -16,4 +16,5 @@ model Foods {
     categoryId Int
     promotions Promotions[]
     users      FavoritesOnFoods[]
+    rating     Float?
 }

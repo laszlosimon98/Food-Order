@@ -29,6 +29,8 @@ import { NotNegativePipe } from 'src/pipes/not-negative/not-negative.pipe';
 import { OptionalNumberPipe } from 'src/pipes/optional-number/optional-number.pipe';
 import { UserService } from 'src/user/user.service';
 import { Request } from 'express';
+import { OrderType } from 'src/types/order.type';
+import { OrderPipe } from 'src/pipes/order/order.pipe';
 
 @Controller('food')
 export class FoodController {
@@ -71,6 +73,18 @@ export class FoodController {
     name: 'categoryId',
     required: false,
   })
+  @ApiQuery({
+    name: 'orderByPrice',
+    required: false,
+  })
+  @ApiQuery({
+    name: 'orderByRating',
+    required: false,
+  })
+  @ApiQuery({
+    name: 'hasRating',
+    required: false,
+  })
   @Get()
   async findAll(
     @Query('isOnPromotion', OptionalBoolPipe) isOnPromotion?: boolean,
@@ -79,6 +93,9 @@ export class FoodController {
     @Query('isSpice', OptionalBoolPipe) isSpice?: boolean,
     @Query('isVegetarian', OptionalBoolPipe) isVegetartian?: boolean,
     @Query('categoryId', OptionalNumberPipe) categoryId?: number,
+    @Query('orderByPrice', OrderPipe) orderByPrice?: OrderType,
+    @Query('orderByRating', OrderPipe) orderByRating?: OrderType,
+    @Query('hasRating', OptionalBoolPipe) hasRating?: boolean,
   ) {
     return await this.foodService.findAll(
       isOnPromotion,
@@ -87,6 +104,9 @@ export class FoodController {
       isSpice,
       isVegetartian,
       categoryId,
+      orderByPrice,
+      orderByRating,
+      hasRating,
     );
   }
 
@@ -102,13 +122,6 @@ export class FoodController {
   @Get('/topTenOrder')
   async getTOpTenOrder() {
     return await this.foodService.getTopTenOrder();
-  }
-
-  @Public()
-  @ApiOkResponse({ type: FoodEntity, isArray: true })
-  @Get('/topThreeReviewsFood')
-  async getTopThreeReviewsFood() {
-    return await this.foodService.getTopThreeReviewsFoods();
   }
 
   @Public()

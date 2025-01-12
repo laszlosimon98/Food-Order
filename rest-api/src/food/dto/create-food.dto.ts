@@ -30,8 +30,8 @@ export class CreateFoodDto {
   @ApiProperty()
   isVegetarian: boolean;
 
-  // @ApiProperty()
-  // orderItemId: number;
+  @IsOptional()
+  rating: number;
 
   @IsNumber()
   @ApiProperty()

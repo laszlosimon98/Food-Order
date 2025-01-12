@@ -2,10 +2,14 @@ import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { CreateReviewDto } from './dto/create-review.dto';
 import { UpdateReviewDto } from './dto/update-review.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { FoodService } from 'src/food/food.service';
 
 @Injectable()
 export class ReviewService {
-  constructor(private readonly prismaService: PrismaService) {}
+  constructor(
+    private readonly prismaService: PrismaService,
+    private readonly foodService: FoodService,
+  ) {}
 
   async create(createReviewDto: CreateReviewDto, user: any) {
     await this.prismaService.reviews.create({
@@ -15,13 +19,17 @@ export class ReviewService {
       },
     });
 
+    const food = await this.foodService.findOne(createReviewDto.foodId);
+
+    const rating =
+      food.reviews.reduce((previous, current) => previous + current.rating, 0) /
+      food.reviews.length;
+
+    await this.foodService.update(food.foodId, { rating });
+
     return {
       success: true,
     };
-  }
-
-  async findAll() {
-    return await this.prismaService.reviews.findMany();
   }
 
   async findOne(id: number) {

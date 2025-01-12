@@ -24,6 +24,9 @@ export class FoodEntity implements Foods {
   isVegetarian: boolean;
 
   @ApiProperty()
+  rating: number;
+
+  @ApiProperty()
   orderItemId: number;
 
   @ApiProperty()

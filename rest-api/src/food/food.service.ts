@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { CreateFoodDto } from './dto/create-food.dto';
 import { UpdateFoodDto } from './dto/update-food.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { OrderType } from 'src/types/order.type';
 
 @Injectable()
 export class FoodService {
@@ -24,6 +25,9 @@ export class FoodService {
     isSpice?: boolean,
     isVegetarian?: boolean,
     categoryId?: number,
+    orderByPrice?: OrderType,
+    orderByRating?: OrderType,
+    hasRating?: boolean,
   ) {
     return await this.prismaService.foods.findMany({
       where: {
@@ -41,6 +45,13 @@ export class FoodService {
         isSpice,
         isVegetarian,
         categoryId: categoryId ? categoryId : undefined,
+        rating: {
+          not: hasRating ? null : undefined,
+        },
+      },
+      orderBy: {
+        price: orderByPrice,
+        rating: orderByRating,
       },
       include: {
         categories: true,
@@ -124,47 +135,6 @@ export class FoodService {
       const { _count, ...rest } = food;
       return rest;
     });
-  }
-
-  async getTopThreeReviewsFoods() {
-    const result = [];
-
-    const topThree = await this.prismaService.foods.findMany({
-      where: {
-        reviews: {
-          some: {},
-        },
-      },
-      take: 3,
-    });
-
-    const raitings = await this.prismaService.reviews.groupBy({
-      by: ['foodId'],
-      _avg: {
-        rating: true,
-      },
-      orderBy: {
-        _avg: {
-          rating: 'desc',
-        },
-      },
-      take: 3,
-    });
-
-    for (const food of topThree) {
-      for (const raiting of raitings) {
-        if (food.foodId === raiting.foodId) {
-          const item = {
-            ...food,
-            ...raiting,
-          };
-
-          result.push(item);
-        }
-      }
-    }
-
-    return result;
   }
 
   async update(id: number, updateFoodDto: UpdateFoodDto) {
