@@ -100,7 +100,7 @@ export class FoodController {
   @Public()
   @ApiOkResponse({ type: FoodEntity, isArray: true })
   @Get('/topTenOrder')
-  async getTOpTenOrder() {
+  async getTopTenOrder() {
     return await this.foodService.getTopTenOrder();
   }
 
