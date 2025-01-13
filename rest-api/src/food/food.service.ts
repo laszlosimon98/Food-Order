@@ -19,15 +19,17 @@ export class FoodService {
   }
 
   async findAll(
-    isOnPromotion?: boolean,
+    categoryId?: number,
     minValue?: number,
     maxValue?: number,
+    isOnPromotion?: boolean,
     isSpice?: boolean,
     isVegetarian?: boolean,
-    categoryId?: number,
+    hasRating?: boolean,
     orderByPrice?: OrderType,
     orderByRating?: OrderType,
-    hasRating?: boolean,
+    page?: number,
+    limit?: number,
   ) {
     return await this.prismaService.foods.findMany({
       where: {
@@ -66,6 +68,8 @@ export class FoodService {
       omit: {
         categoryId: true,
       },
+      skip: page ? limit * (page - 1) : 0,
+      take: limit ? limit : undefined,
     });
   }
 
