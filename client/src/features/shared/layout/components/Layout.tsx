@@ -1,4 +1,4 @@
-import Header from "@/header/components/Header";
+import Menu from "features/menu/components/Menu";
 import { PropsWithChildren, ReactElement } from "react";
 
 type LayoutProps = {} & PropsWithChildren;
@@ -6,7 +6,7 @@ type LayoutProps = {} & PropsWithChildren;
 const Layout = ({ children }: LayoutProps): ReactElement => {
   return (
     <>
-      <Header />
+      <Menu />
       {children}
     </>
   );
