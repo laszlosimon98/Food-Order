@@ -1,55 +1,59 @@
-import CloseButton from "features/menu/components/CloseButton";
-import OpenButton from "features/menu/components/OpenButton";
-import { ReactElement, useState } from "react";
-import { Link } from "react-router-dom";
+import Navigation from "@/menu/components/Navigation";
+import SvgNavButton from "@/menu/components/SvgNavButton";
+import { useAppDispatch, useAppSelector } from "@/storeHooks/store.hooks";
+import { close, open } from "features/overlay/slice/overlaySlice";
+import { ReactElement } from "react";
 
 const Menu = (): ReactElement => {
-  const [isOverLayVisible, setIsOverLayVisible] = useState<boolean>(false);
-
-  const closeMenu = () => {
-    setIsOverLayVisible(false);
-  };
-
-  const openMenu = () => {
-    setIsOverLayVisible(true);
-  };
+  const isOverlayVisible = useAppSelector(
+    (state) => state.overlay.isOverlayVisible
+  );
+  const dispatch = useAppDispatch();
 
   return (
     <>
-      {isOverLayVisible && (
-        <div
-          className="absolute top-0 left-0 bg-black bg-opacity-50 inset-0"
-          onClick={closeMenu}
-        ></div>
-      )}
-
       <header className="h-16 w-full bg-amber-500 flex flex-row justify-between items-center px-5">
         <h1 className="text-2xl font-bold italic">Ételrendelő</h1>
 
         <div className="md:hidden">
-          {isOverLayVisible && <CloseButton closeMenu={closeMenu} />}
-          {!isOverLayVisible && <OpenButton openMenu={openMenu} />}
+          {isOverlayVisible && (
+            <SvgNavButton fn={() => dispatch(close())}>
+              <g id="x" transform="translate(60, 5)">
+                <line
+                  x1="0"
+                  y1="0"
+                  x2="30"
+                  y2="30"
+                  stroke="black"
+                  strokeWidth="3"
+                />
+                <line
+                  x1="30"
+                  y1="0"
+                  x2="0"
+                  y2="30"
+                  stroke="black"
+                  strokeWidth="3"
+                />
+              </g>
+            </SvgNavButton>
+          )}
+
+          {!isOverlayVisible && (
+            <SvgNavButton fn={() => dispatch(open())}>
+              <g id="hamburger" transform="translate(40, 10)">
+                <rect x="20" y="0" width="30" height="6" rx="5" fill="black" />
+                <rect x="20" y="10" width="30" height="6" rx="5" fill="black" />
+                <rect x="20" y="20" width="30" height="6" rx="5" fill="black" />
+              </g>
+            </SvgNavButton>
+          )}
         </div>
 
-        <nav className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 md:static md:translate-x-0 md:translate-y-0">
-          <ul
-            className={`flex flex-col gap-8 text-3xl font-semibold italic text-amber-500 justify-center items-center ${
-              !isOverLayVisible ? "hidden" : ""
-            } cursor-pointer md:text-black md:flex md:text-xl md:flex-row`}
-          >
-            <li onClick={closeMenu}>
-              <Link to={"/"}>Főoldal</Link>
-            </li>
-
-            <li onClick={closeMenu}>
-              <Link to={"/login"}>Bejelentkezés</Link>
-            </li>
-
-            <li onClick={closeMenu}>
-              <Link to={"/register"}>Regisztráció</Link>
-            </li>
-          </ul>
-        </nav>
+        <Navigation
+          isOverlayVisible={isOverlayVisible}
+          closeMenu={() => dispatch(close())}
+        />
       </header>
     </>
   );

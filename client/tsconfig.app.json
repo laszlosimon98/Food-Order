@@ -24,10 +24,12 @@
 
     "baseUrl": "./src",
     "paths": {
-      "@/header/*": ["./features/header/*"],
       "@/shared/*": ["./features/shared/*"],
       "@/auth/*": ["./features/home/*"],
-      "@/home/*": ["./features/auth//*"]
+      "@/home/*": ["./features/auth//*"],
+      "@/menu/*": ["./features/menu/*"],
+      "@/storeHooks/*": ["./services/store/hooks/*"],
+      "@/storeTypes/*": ["./services/store/*"]
     }
   },
   "include": ["src"]
