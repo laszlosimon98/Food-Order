@@ -1,6 +1,6 @@
 import Login from "@/home/components/Login";
 import Register from "@/home/components/Register";
-import Layout from "@/shared/layout/components/Layout";
+import Layout from "@/shared/components/Layout";
 import Home from "features/home/components/Home";
 import { Route, Routes } from "react-router-dom";
 

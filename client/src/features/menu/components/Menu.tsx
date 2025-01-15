@@ -12,7 +12,7 @@ const Menu = (): ReactElement => {
 
   return (
     <>
-      <header className="h-16 w-full bg-amber-500 flex flex-row justify-between items-center px-5">
+      <header className="h-16 w-full bg-baseColor flex flex-row justify-between items-center px-5">
         <h1 className="text-2xl font-bold italic">Ételrendelő</h1>
 
         <div className="md:hidden">

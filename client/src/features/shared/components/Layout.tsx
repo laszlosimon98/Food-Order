@@ -16,12 +16,13 @@ const Layout = ({ children }: LayoutProps): ReactElement => {
     <>
       {isOverlayVisible && (
         <div
-          className="absolute top-0 left-0 bg-black bg-opacity-50 inset-0"
+          className="absolute bg-black bg-opacity-50 inset-0"
           onClick={() => dispatch(close())}
         ></div>
       )}
       <Menu />
-      {children}
+
+      <div className="w-full h-screen">{children}</div>
     </>
   );
 };

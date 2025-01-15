@@ -13,7 +13,7 @@ const Navigation = ({
   return (
     <nav className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 md:static md:translate-x-0 md:translate-y-0">
       <ul
-        className={`flex flex-col gap-8 text-3xl font-semibold italic text-amber-500 justify-center items-center ${
+        className={`flex flex-col gap-8 text-3xl font-semibold italic text-baseColor justify-center items-center ${
           !isOverlayVisible ? "hidden" : ""
         } cursor-pointer md:text-black md:flex md:text-xl md:flex-row`}
         onClick={closeMenu}
