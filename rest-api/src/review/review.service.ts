@@ -1,4 +1,9 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { CreateReviewDto } from './dto/create-review.dto';
 import { UpdateReviewDto } from './dto/update-review.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
@@ -12,14 +17,17 @@ export class ReviewService {
   ) {}
 
   async create(createReviewDto: CreateReviewDto, user: any) {
+    const food = await this.foodService.findOne(createReviewDto.foodId);
+
+    if (!food) {
+      throw new NotFoundException('A keresett étel nem található!');
+    }
     await this.prismaService.reviews.create({
       data: {
         ...createReviewDto,
         userId: user.userId,
       },
     });
-
-    const food = await this.foodService.findOne(createReviewDto.foodId);
 
     const rating =
       food.reviews.reduce((previous, current) => previous + current.rating, 0) /
@@ -44,7 +52,11 @@ export class ReviewService {
     const review = await this.findOne(id);
 
     if (review.userId !== user.userId) {
-      throw new UnauthorizedException();
+      throw new UnauthorizedException('Bejelentkezés szükséges!');
+    }
+
+    if (!review.isEditable) {
+      throw new BadRequestException('A komment nem módosítható!');
     }
 
     await this.prismaService.reviews.update({
@@ -79,7 +91,11 @@ export class ReviewService {
     const review = await this.findOne(id);
 
     if (review.userId !== user.userId) {
-      throw new UnauthorizedException();
+      throw new UnauthorizedException('Bejelentkezés szükséges!');
+    }
+
+    if (!review.isEditable) {
+      throw new BadRequestException('A komment nem módosítható!');
     }
 
     await this.prismaService.reviews.delete({

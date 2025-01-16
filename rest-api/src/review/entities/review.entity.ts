@@ -18,6 +18,9 @@ export class ReviewEntity implements Reviews {
   userId: number;
 
   @ApiProperty()
+  isEditable: boolean;
+
+  @ApiProperty()
   foodId: number;
 
   createdAt: Date;

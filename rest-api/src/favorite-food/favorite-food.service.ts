@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateFavoriteFoodDto } from './dto/create-favorite-food.dto';
 
@@ -8,6 +8,16 @@ export class FavoriteFoodService {
 
   async add(createFavoriteFoodDto: CreateFavoriteFoodDto, user: any) {
     const { foodId } = createFavoriteFoodDto;
+
+    const food = await this.prismaService.foods.findUnique({
+      where: {
+        foodId,
+      },
+    });
+
+    if (!food) {
+      throw new NotFoundException('A keresett étel nem található!');
+    }
 
     await this.prismaService.favoritesOnFoods.create({
       data: {

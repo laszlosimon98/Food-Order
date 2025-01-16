@@ -10,4 +10,6 @@ model Reviews {
     userId Int
     food   Foods @relation(fields: [foodId], references: [foodId])
     foodId Int
+
+    isEditable Boolean @default(true)
 }

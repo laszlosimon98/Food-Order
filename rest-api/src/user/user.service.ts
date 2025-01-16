@@ -1,4 +1,5 @@
 import {
+  BadRequestException,
   ConflictException,
   Injectable,
   UnauthorizedException,
@@ -10,7 +11,6 @@ import { ConfigService } from '@nestjs/config';
 import { UserRolesEnum } from 'src/enums/roles';
 import { UpdateUserDetailsDto } from './dto/update-user-details.dto';
 import { NewPasswordDto } from 'src/auth/dto/newPassword.dto';
-import { config } from 'process';
 
 @Injectable()
 export class UserService {
@@ -106,7 +106,7 @@ export class UserService {
     }
 
     if (!user) {
-      throw new UnauthorizedException();
+      throw new UnauthorizedException('Bejelentkezés szükséges!');
     }
 
     await this.prismaService.users.update({
@@ -176,7 +176,7 @@ export class UserService {
     );
 
     if (!isOldPasswordValid) {
-      throw new UnauthorizedException();
+      throw new BadRequestException('Helytelen jelszó!');
     }
 
     await this.prismaService.users.update({
@@ -204,7 +204,7 @@ export class UserService {
     });
 
     if (id === user.user_id || userToDelete.role === 'admin') {
-      throw new ConflictException();
+      throw new ConflictException('Admin felhasználó nem törölhető!');
     }
 
     await this.prismaService.users.delete({

@@ -1,8 +1,8 @@
 import {
+  BadRequestException,
   forwardRef,
   Inject,
   Injectable,
-  NotFoundException,
 } from '@nestjs/common';
 import { CreateOrderItemDto } from './dto/create-order-item.dto';
 import { UpdateOrderItemDto } from './dto/update-order-item.dto';
@@ -53,7 +53,7 @@ export class OrderItemService {
     const food = await this.foodService.findOne(orderItem.foodId);
 
     if (!order) {
-      throw new NotFoundException(
+      throw new BadRequestException(
         "A rendelést csak a 'Rendelés leadva' állapotban lehet módosítani!",
       );
     }
@@ -100,7 +100,7 @@ export class OrderItemService {
     );
 
     if (!order) {
-      throw new NotFoundException(
+      throw new BadRequestException(
         "A rendelést csak a 'Rendelés leadva' állapotban lehet törölni!",
       );
     }

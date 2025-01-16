@@ -95,13 +95,13 @@ export class AuthService {
     const user = await this.userService.findUser(username);
 
     if (!user) {
-      throw new UnauthorizedException();
+      throw new UnauthorizedException('A megadott adat(ok) helytelen(ek)!');
     }
 
     const isPasswordValid = await bcrypt.compare(pwd, user.password);
 
     if (!isPasswordValid) {
-      throw new UnauthorizedException();
+      throw new UnauthorizedException('A megadott adat(ok) helytelen(ek)!');
     }
 
     const { password, refreshToken, ...rest } = user;
@@ -112,13 +112,13 @@ export class AuthService {
     const user = await this.userService.findUser(username);
 
     if (!user) {
-      throw new UnauthorizedException();
+      throw new UnauthorizedException('A megadott adat(ok) helytelen(ek)!');
     }
 
     const isRefreshTokenValid = await bcrypt.compare(token, user.refreshToken);
 
     if (!isRefreshTokenValid) {
-      throw new UnauthorizedException();
+      throw new UnauthorizedException('A megadott adat(ok) helytelen(ek)!');
     }
 
     const { password, refreshToken, ...rest } = user;
