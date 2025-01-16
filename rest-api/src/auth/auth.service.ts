@@ -1,4 +1,8 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import {
+  ConflictException,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { UserService } from 'src/user/user.service';
 import { RegisterDto } from './dto/register.dto';
 import { JwtService } from '@nestjs/jwt';
@@ -56,10 +60,16 @@ export class AuthService {
   }
 
   async register(registerDto: RegisterDto) {
+    const user = await this.userService.findUser(registerDto.username);
+
+    if (user) {
+      throw new ConflictException('A felhasználó már létezik!');
+    }
+
     await this.userService.createUser(registerDto);
 
     return {
-      success: true,
+      isSuccess: true,
     };
   }
 
@@ -87,7 +97,7 @@ export class AuthService {
     await this.userService.updateRefreshToken(user.username, null);
 
     return {
-      success: true,
+      isSuccess: true,
     };
   }
 

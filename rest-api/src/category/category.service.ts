@@ -13,7 +13,7 @@ export class CategoryService {
     });
 
     return {
-      success: true,
+      isSuccess: true,
     };
   }
 
@@ -42,7 +42,7 @@ export class CategoryService {
     });
 
     return {
-      success: true,
+      isSuccess: true,
     };
   }
 
@@ -54,7 +54,7 @@ export class CategoryService {
     });
 
     return {
-      success: true,
+      isSuccess: true,
     };
   }
 }

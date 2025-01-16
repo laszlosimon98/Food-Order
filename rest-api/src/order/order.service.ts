@@ -58,7 +58,7 @@ export class OrderService {
     });
 
     return {
-      success: true,
+      isSuccess: true,
     };
   }
 
@@ -185,7 +185,7 @@ export class OrderService {
     });
 
     return {
-      success: true,
+      isSuccess: true,
     };
   }
 
@@ -211,7 +211,7 @@ export class OrderService {
     });
 
     return {
-      success: true,
+      isSuccess: true,
     };
   }
 }

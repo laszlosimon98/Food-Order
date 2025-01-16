@@ -18,7 +18,7 @@ export class FileUploadService {
     await this.foodService.update(foodId, { imageUrl: filename });
 
     return {
-      success: true,
+      isSuccess: true,
     };
   }
 

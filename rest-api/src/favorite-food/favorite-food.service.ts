@@ -28,7 +28,7 @@ export class FavoriteFoodService {
     });
 
     return {
-      success: true,
+      isSuccess: true,
     };
   }
 
@@ -43,7 +43,7 @@ export class FavoriteFoodService {
     });
 
     return {
-      success: true,
+      isSuccess: true,
     };
   }
 }

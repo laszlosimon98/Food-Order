@@ -83,7 +83,7 @@ export class OrderItemService {
     });
 
     return {
-      success: true,
+      isSuccess: true,
     };
   }
 
@@ -131,7 +131,7 @@ export class OrderItemService {
     }
 
     return {
-      success: true,
+      isSuccess: true,
     };
   }
 }

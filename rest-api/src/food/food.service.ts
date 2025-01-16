@@ -14,7 +14,7 @@ export class FoodService {
     });
 
     return {
-      success: true,
+      isSuccess: true,
     };
   }
 
@@ -156,7 +156,7 @@ export class FoodService {
     });
 
     return {
-      success: true,
+      isSuccess: true,
     };
   }
 
@@ -174,7 +174,7 @@ export class FoodService {
     });
 
     return {
-      success: true,
+      isSuccess: true,
     };
   }
 }

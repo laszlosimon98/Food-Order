@@ -51,7 +51,7 @@ export class PromotionService {
     });
 
     return {
-      success: true,
+      isSuccess: true,
     };
   }
 }

@@ -36,7 +36,7 @@ export class ReviewService {
     await this.foodService.update(food.foodId, { rating });
 
     return {
-      success: true,
+      isSuccess: true,
     };
   }
 
@@ -67,7 +67,7 @@ export class ReviewService {
     });
 
     return {
-      success: true,
+      isSuccess: true,
     };
   }
 
@@ -83,7 +83,7 @@ export class ReviewService {
     });
 
     return {
-      success: true,
+      isSuccess: true,
     };
   }
 
@@ -105,7 +105,7 @@ export class ReviewService {
     });
 
     return {
-      success: true,
+      isSuccess: true,
     };
   }
 }

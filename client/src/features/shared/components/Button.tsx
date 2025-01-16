@@ -1,8 +1,8 @@
 import { cva, VariantProps } from "class-variance-authority";
-import { ReactElement } from "react";
+import { HTMLAttributes, ReactElement } from "react";
 import { cn } from "utils/cn";
 
-type ButtonProps = React.HTMLAttributes<HTMLButtonElement> &
+type ButtonProps = HTMLAttributes<HTMLButtonElement> &
   VariantProps<typeof buttonVariants> & {
     variant?: "primary" | "secondary";
     size?: "default" | "sm";

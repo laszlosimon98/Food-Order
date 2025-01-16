@@ -40,7 +40,7 @@ export class UserService {
     });
 
     return {
-      success: true,
+      isSuccess: true,
     };
   }
 
@@ -119,7 +119,7 @@ export class UserService {
     });
 
     return {
-      success: true,
+      isSuccess: true,
     };
   }
 
@@ -142,7 +142,7 @@ export class UserService {
     });
 
     return {
-      success: true,
+      isSuccess: true,
     };
   }
 
@@ -162,7 +162,7 @@ export class UserService {
     });
 
     return {
-      success: true,
+      isSuccess: true,
     };
   }
 
@@ -192,7 +192,7 @@ export class UserService {
     });
 
     return {
-      success: true,
+      isSuccess: true,
     };
   }
 
@@ -218,7 +218,7 @@ export class UserService {
     });
 
     return {
-      success: true,
+      isSuccess: true,
     };
   }
 }
