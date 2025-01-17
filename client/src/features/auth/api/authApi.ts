@@ -1,5 +1,5 @@
-import { LoginType } from "@/home/components/Login";
-import { RegisterType } from "@/home/components/Register";
+import { LoginType } from "@/auth/components/Login";
+import { RegisterType } from "@/auth/components/Register";
 import { storeApi } from "@/storeTypes/api/storeApi";
 
 export type RegisterResultType = {
@@ -18,6 +18,7 @@ export const authApi = storeApi.injectEndpoints({
         method: "POST",
         body,
       }),
+      invalidatesTags: ["Auth"],
     }),
     login: builder.mutation<LoginResultType, LoginType>({
       query: (body) => ({
@@ -25,8 +26,25 @@ export const authApi = storeApi.injectEndpoints({
         method: "POST",
         body,
       }),
+      invalidatesTags: ["Auth"],
+    }),
+    logout: builder.mutation<{ isSuccess: boolean }, void>({
+      query: () => ({
+        url: "auth/logout",
+        method: "POST",
+      }),
+      invalidatesTags: ["Auth"],
+    }),
+    getUser: builder.query<any, void>({
+      query: () => "auth/currentUser",
+      providesTags: ["Auth"],
     }),
   }),
 });
 
-export const { useRegisterMutation, useLoginMutation } = authApi;
+export const {
+  useGetUserQuery,
+  useRegisterMutation,
+  useLoginMutation,
+  useLogoutMutation,
+} = authApi;

@@ -1,5 +1,5 @@
-import Login from "@/home/components/Login";
-import Register from "@/home/components/Register";
+import Login from "@/auth/components/Login";
+import Register from "@/auth/components/Register";
 import Layout from "@/shared/components/Layout";
 import Home from "features/home/components/Home";
 import { Route, Routes } from "react-router-dom";

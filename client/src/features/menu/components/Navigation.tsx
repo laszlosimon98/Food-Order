@@ -1,4 +1,7 @@
+import { useLogoutMutation } from "@/auth/api/authApi";
+import { removeToken } from "@/auth/slice/authSlice";
 import ListElement from "@/menu/components/ListElement";
+import { useAppDispatch, useAppSelector } from "@/storeHooks/store.hooks";
 import { ReactElement } from "react";
 
 type NavigationPropsType = {
@@ -10,6 +13,16 @@ const Navigation = ({
   isOverlayVisible,
   closeMenu,
 }: NavigationPropsType): ReactElement => {
+  const { isAuthenticated } = useAppSelector((state) => state.auth.data);
+
+  const [useLogout] = useLogoutMutation();
+  const dispatch = useAppDispatch();
+
+  const logout = () => {
+    useLogout();
+    dispatch(removeToken());
+  };
+
   return (
     <nav className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 md:static md:translate-x-0 md:translate-y-0">
       <ul
@@ -19,8 +32,17 @@ const Navigation = ({
         onClick={closeMenu}
       >
         <ListElement link="/">Főoldal</ListElement>
-        <ListElement link="/login">Bejelentkezés</ListElement>
-        <ListElement link="/register">Regisztráció</ListElement>
+
+        {!isAuthenticated ? (
+          <>
+            <ListElement link="/login">Bejelentkezés</ListElement>
+            <ListElement link="/register">Regisztráció</ListElement>
+          </>
+        ) : (
+          <ListElement link="/" onClick={logout}>
+            Kijelentkezés
+          </ListElement>
+        )}
       </ul>
     </nav>
   );

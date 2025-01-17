@@ -1,4 +1,4 @@
-import { useRegisterMutation } from "@/home/api/authApi";
+import { useRegisterMutation } from "@/auth/api/authApi";
 import Button from "@/shared/components/Button";
 import ErrorText from "@/shared/components/ErrorText";
 import FormContainer from "@/shared/components/FormContainer";

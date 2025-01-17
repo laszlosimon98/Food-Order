@@ -125,10 +125,14 @@ export class AuthService {
       throw new UnauthorizedException('A megadott adat(ok) helytelen(ek)!');
     }
 
+    if (!user.refreshToken) {
+      throw new UnauthorizedException();
+    }
+
     const isRefreshTokenValid = await bcrypt.compare(token, user.refreshToken);
 
     if (!isRefreshTokenValid) {
-      throw new UnauthorizedException('A megadott adat(ok) helytelen(ek)!');
+      throw new UnauthorizedException();
     }
 
     const { password, refreshToken, ...rest } = user;

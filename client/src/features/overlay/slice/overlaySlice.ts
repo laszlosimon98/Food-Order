@@ -1,26 +1,30 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 type OverlayState = {
-  isOverlayVisible: boolean;
+  data: {
+    isOverlayVisible: boolean;
+  };
 };
 
 const initialState: OverlayState = {
-  isOverlayVisible: false,
+  data: {
+    isOverlayVisible: false,
+  },
 };
 
 export const overlaySlice = createSlice({
   name: "overlay",
   initialState,
   reducers: {
-    open: (state) => {
-      state.isOverlayVisible = true;
+    openOverlay: (state) => {
+      state.data.isOverlayVisible = true;
     },
-    close: (state) => {
-      state.isOverlayVisible = false;
+    closeOverlay: (state) => {
+      state.data.isOverlayVisible = false;
     },
   },
 });
 
-export const { open, close } = overlaySlice.actions;
+export const { openOverlay, closeOverlay } = overlaySlice.actions;
 
 export default overlaySlice.reducer;

@@ -1,10 +1,12 @@
-import { useLoginMutation } from "@/home/api/authApi";
+import { useLoginMutation } from "@/auth/api/authApi";
+import { saveToken } from "@/auth/slice/authSlice";
 import Button from "@/shared/components/Button";
 import ErrorText from "@/shared/components/ErrorText";
 import FormContainer from "@/shared/components/FormContainer";
 import TextInput from "@/shared/components/TextInput";
+import { useAppDispatch } from "@/storeHooks/store.hooks";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { FormEvent, ReactElement } from "react";
+import { ReactElement } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { z } from "zod";
@@ -28,11 +30,12 @@ const Login = (): ReactElement => {
 
   const navigate = useNavigate();
   const [useLogin] = useLoginMutation();
+  const dispatch = useAppDispatch();
 
   const onSubmit: SubmitHandler<LoginType> = async (data) => {
     try {
       const accessToken = await useLogin(data).unwrap();
-      console.log(accessToken);
+      dispatch(saveToken(accessToken));
 
       if (accessToken) {
         navigate("/");
