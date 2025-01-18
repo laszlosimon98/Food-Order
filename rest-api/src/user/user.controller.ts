@@ -10,18 +10,20 @@ import {
   Req,
 } from '@nestjs/common';
 import { UserService } from './user.service';
-import { ApiBearerAuth, ApiQuery } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOkResponse, ApiQuery } from '@nestjs/swagger';
 import { RoleEnum, UserRolesEnum } from 'src/enums/roles';
 import { Roles } from 'src/decorators/roles/roles.decorator';
 import { Request } from 'express';
 import { UpdateUserDetailsDto } from './dto/update-user-details.dto';
 import { NewPasswordDto } from 'src/auth/dto/newPassword.dto';
+import { UserEntity } from 'src/user/entities/user.entity';
 
 @Controller('user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @ApiBearerAuth()
+  @ApiOkResponse({ type: UserEntity, isArray: true })
   @Roles(RoleEnum.Admin)
   @Get()
   async getUsers() {

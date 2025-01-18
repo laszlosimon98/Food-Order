@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { OrderItems } from '@prisma/client';
+import { FoodEntity } from 'src/food/entities/food.entity';
 
 export class OrderItemEntity implements OrderItems {
   @ApiProperty()
@@ -11,12 +12,12 @@ export class OrderItemEntity implements OrderItems {
   @ApiProperty()
   price: number;
 
-  @ApiProperty()
   orderId: number;
-
-  @ApiProperty()
   foodId: number;
 
   createdAt: Date;
   updatedAt: Date;
+
+  @ApiProperty({ type: FoodEntity })
+  foods: FoodEntity;
 }

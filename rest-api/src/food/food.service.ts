@@ -57,13 +57,7 @@ export class FoodService {
       },
       include: {
         categories: true,
-        promotions: {
-          select: {
-            promotionId: true,
-            discountValue: true,
-            isActive: true,
-          },
-        },
+        promotions: true,
       },
       omit: {
         categoryId: true,

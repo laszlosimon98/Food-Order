@@ -32,6 +32,7 @@ import { OptionalNumberPipe } from 'src/pipes/optional-number/optional-number.pi
 import { OrderPipe } from 'src/pipes/order/order.pipe';
 import { OrderType } from 'src/types/order.type';
 import { PositivePipe } from 'src/pipes/positive/positive.pipe';
+import { FavoriteFoodEntity } from 'src/favorite-food/entities/favorite-food.entity';
 
 @Controller('food')
 export class FoodController {
@@ -91,6 +92,7 @@ export class FoodController {
   }
 
   @ApiBearerAuth()
+  @ApiOkResponse({ type: FavoriteFoodEntity })
   @Roles(RoleEnum.User)
   @Get('favoriteFood')
   async getFavoriteFoods(@Req() req: Request) {

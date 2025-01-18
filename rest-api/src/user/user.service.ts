@@ -88,6 +88,7 @@ export class UserService {
         },
       },
       omit: {
+        username: true,
         password: true,
         refreshToken: true,
       },

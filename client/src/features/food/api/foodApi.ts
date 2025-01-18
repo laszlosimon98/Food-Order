@@ -1,9 +1,15 @@
-import { IdType, ModifyResultType } from "@/shared/types/query.types";
+import { IdType, ResultType } from "utils/types/query.type";
 import { storeApi } from "@/storeTypes/api/storeApi";
+import {
+  CreateFoodType,
+  FoodQueryParamsTypes,
+  FoodType,
+  UpdateFoodType,
+} from "utils/types/food.type";
 
 export const foodApi = storeApi.injectEndpoints({
   endpoints: (builder) => ({
-    addFood: builder.mutation<ModifyResultType, any>({
+    addFood: builder.mutation<ResultType, CreateFoodType>({
       query: (body) => ({
         url: "food",
         method: "POST",
@@ -11,23 +17,26 @@ export const foodApi = storeApi.injectEndpoints({
       }),
       invalidatesTags: ["Food"],
     }),
-    getFoods: builder.query<any, void>({
-      query: () => "food",
+    getFoods: builder.query<FoodType, FoodQueryParamsTypes>({
+      query: (params) => ({
+        url: "food",
+        params,
+      }),
       providesTags: ["Food"],
     }),
-    getFavoriteFoods: builder.query<any, void>({
+    getFavoriteFoods: builder.query<FoodType, void>({
       query: () => "food/favoriteFood",
       providesTags: ["Food"],
     }),
-    getTopTenOrder: builder.query<any, void>({
+    getTopTenOrder: builder.query<FoodType, void>({
       query: () => "food/topTenOrder",
       providesTags: ["Food"],
     }),
-    getFoodById: builder.query<any, IdType>({
-      query: (id) => `food/${id}`,
+    getFoodById: builder.query<FoodType, IdType>({
+      query: ({ id }) => `food/${id}`,
       providesTags: ["Food"],
     }),
-    updateFood: builder.mutation<any, any>({
+    updateFood: builder.mutation<any, UpdateFoodType>({
       query: ({ id, ...body }) => ({
         url: `food/${id}`,
         method: "PATCH",
@@ -36,7 +45,7 @@ export const foodApi = storeApi.injectEndpoints({
       invalidatesTags: ["Food"],
     }),
     deleteFood: builder.mutation<any, IdType>({
-      query: (id) => ({
+      query: ({ id }) => ({
         url: `food/${id}`,
         method: "DELETE",
       }),

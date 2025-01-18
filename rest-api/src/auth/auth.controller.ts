@@ -12,9 +12,10 @@ import { RegisterDto } from './dto/register.dto';
 import { LoginDto } from './dto/login.dto';
 import { LocalAuthGuard } from 'src/guards/auth/local.guard';
 import { Public } from 'src/decorators/public/public.decorator';
-import { ApiBearerAuth } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOkResponse } from '@nestjs/swagger';
 import { JwtRefreshAuthGuard } from 'src/guards/auth/jwt-refresh.guard';
 import { Request, Response } from 'express';
+import { UserEntity } from 'src/user/entities/user.entity';
 
 @Controller('auth')
 export class AuthController {
@@ -51,6 +52,7 @@ export class AuthController {
   }
 
   @ApiBearerAuth()
+  @ApiOkResponse({ type: UserEntity })
   @Get('currentUser')
   getCurrentUser(@Req() req: Request) {
     return req.user;
