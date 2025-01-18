@@ -1,47 +1,70 @@
 import { saveToken } from "@/auth/slice/authSlice";
 import { RootState } from "@/storeTypes/store";
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import {
+  BaseQueryFn,
+  createApi,
+  FetchArgs,
+  fetchBaseQuery,
+  FetchBaseQueryError,
+} from "@reduxjs/toolkit/query/react";
 
 const URL = "http://localhost:3000";
 
-export const storeApi = createApi({
-  reducerPath: "api",
-  baseQuery: async (args, api, extraOptions) => {
-    const baseQuery = fetchBaseQuery({
-      baseUrl: URL,
-      prepareHeaders: (headers: Headers, { getState }) => {
-        const accessToken = (getState() as RootState).auth.data.accessToken;
+const baseQuery = fetchBaseQuery({
+  baseUrl: URL,
+  prepareHeaders: (headers: Headers, { getState }) => {
+    const accessToken = (getState() as RootState).auth.data.accessToken;
 
-        if (accessToken) {
-          headers.set("Authorization", `Bearer ${accessToken}`);
-        }
-
-        return headers;
-      },
-      credentials: "include",
-    });
-
-    let result = await baseQuery(args, api, extraOptions);
-
-    if (result.error && result.error.status === 401) {
-      const { data } = await baseQuery(
-        {
-          url: "auth/refresh",
-          method: "POST",
-        },
-        api,
-        extraOptions
-      );
-
-      if (data) {
-        const accessToken: string = data.accessToken;
-        api.dispatch(saveToken({ accessToken }));
-        result = await baseQuery(args, api, extraOptions);
-      }
+    if (accessToken) {
+      headers.set("Authorization", `Bearer ${accessToken}`);
     }
 
-    return result;
+    return headers;
   },
-  tagTypes: ["Auth"],
+  credentials: "include",
+});
+
+const baseQueryWithReauth: BaseQueryFn<
+  string | FetchArgs,
+  unknown,
+  FetchBaseQueryError
+> = async (args, api, extraOptions) => {
+  let result = await baseQuery(args, api, extraOptions);
+
+  if (result.error && result.error.status === 401) {
+    const { data } = await baseQuery(
+      {
+        url: "auth/refresh",
+        method: "POST",
+      },
+      api,
+      extraOptions
+    );
+
+    if (data) {
+      const accessToken: string = data.accessToken;
+      api.dispatch(saveToken({ accessToken }));
+      result = await baseQuery(args, api, extraOptions);
+    }
+  }
+
+  return result;
+};
+
+export const storeApi = createApi({
+  reducerPath: "api",
+  baseQuery: baseQueryWithReauth,
+  tagTypes: [
+    "Auth",
+    "User",
+    "Category",
+    "Food",
+    "Promotion",
+    "Review",
+    "FavoriteFood",
+    "Order",
+    "OrderItem",
+    "FileUpload",
+  ],
   endpoints: () => ({}),
 });

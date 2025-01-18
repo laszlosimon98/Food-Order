@@ -1,9 +1,15 @@
 import Navigation from "@/menu/components/Navigation";
-import SvgNavButton from "@/menu/components/SvgNavButton";
 import { useAppDispatch, useAppSelector } from "@/storeHooks/store.hooks";
 import { closeOverlay, openOverlay } from "features/overlay/slice/overlaySlice";
 import { ReactElement } from "react";
 import { Link } from "react-router-dom";
+
+import {
+  faBars,
+  faCartShopping,
+  faClose,
+} from "@fortawesome/free-solid-svg-icons";
+import Icon from "@/shared/components/Icon";
 
 const Menu = (): ReactElement => {
   const isOverlayVisible = useAppSelector(
@@ -19,45 +25,32 @@ const Menu = (): ReactElement => {
           <h1 className="text-2xl font-bold italic">Ételrendelő</h1>
         </Link>
 
-        <div className="md:hidden">
-          {isOverlayVisible && (
-            <SvgNavButton fn={() => dispatch(closeOverlay())}>
-              <g id="x" transform="translate(60, 5)">
-                <line
-                  x1="0"
-                  y1="0"
-                  x2="30"
-                  y2="30"
-                  stroke="black"
-                  strokeWidth="3"
-                />
-                <line
-                  x1="30"
-                  y1="0"
-                  x2="0"
-                  y2="30"
-                  stroke="black"
-                  strokeWidth="3"
-                />
-              </g>
-            </SvgNavButton>
-          )}
+        <div className="flex gap-8 flex-row-reverse md:flex-row">
+          <div className="md:hidden">
+            {!isOverlayVisible && (
+              <Icon
+                icon={faBars}
+                size="2x"
+                onClick={() => dispatch(openOverlay())}
+              />
+            )}
 
-          {!isOverlayVisible && (
-            <SvgNavButton fn={() => dispatch(openOverlay())}>
-              <g id="hamburger" transform="translate(40, 10)">
-                <rect x="20" y="0" width="30" height="6" rx="5" fill="black" />
-                <rect x="20" y="10" width="30" height="6" rx="5" fill="black" />
-                <rect x="20" y="20" width="30" height="6" rx="5" fill="black" />
-              </g>
-            </SvgNavButton>
-          )}
+            {isOverlayVisible && (
+              <Icon
+                icon={faClose}
+                size="2x"
+                onClick={() => dispatch(closeOverlay())}
+              />
+            )}
+          </div>
+
+          <Navigation
+            isOverlayVisible={isOverlayVisible}
+            closeMenu={() => dispatch(closeOverlay())}
+          />
+
+          <Icon icon={faCartShopping} size="2x" />
         </div>
-
-        <Navigation
-          isOverlayVisible={isOverlayVisible}
-          closeMenu={() => dispatch(closeOverlay())}
-        />
       </header>
     </>
   );

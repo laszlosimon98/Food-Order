@@ -13,7 +13,9 @@ const ListElement = ({
 }: ListElementProps): ReactElement => {
   return (
     <Link to={link}>
-      <li {...props}>{children}</li>
+      <li {...props} className="hover:scale-110 transition-all">
+        {children}
+      </li>
     </Link>
   );
 };
