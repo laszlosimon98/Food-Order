@@ -10,11 +10,13 @@ import {
   faClose,
 } from "@fortawesome/free-solid-svg-icons";
 import Icon from "@/shared/components/Icon";
+import Cart from "features/cart/components/Cart";
+import { closeCart, toogleCart } from "features/cart/slice/cartSlice";
 
 const Menu = (): ReactElement => {
-  const isOverlayVisible = useAppSelector(
-    (state) => state.overlay.data.isOverlayVisible
-  );
+  const { isOverlayVisible } = useAppSelector((state) => state.overlay.data);
+
+  const { isCartVisible } = useAppSelector((state) => state.cart.data);
 
   const dispatch = useAppDispatch();
 
@@ -31,7 +33,10 @@ const Menu = (): ReactElement => {
               <Icon
                 icon={faBars}
                 size="2x"
-                onClick={() => dispatch(openOverlay())}
+                onClick={() => {
+                  dispatch(openOverlay());
+                  dispatch(closeCart());
+                }}
               />
             )}
 
@@ -49,7 +54,12 @@ const Menu = (): ReactElement => {
             closeMenu={() => dispatch(closeOverlay())}
           />
 
-          <Icon icon={faCartShopping} size="2x" />
+          <Icon
+            icon={faCartShopping}
+            size="2x"
+            onClick={() => dispatch(toogleCart())}
+          />
+          {isCartVisible && <Cart></Cart>}
         </div>
       </header>
     </>

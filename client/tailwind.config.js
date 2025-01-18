@@ -8,9 +8,13 @@ export default {
       },
       width: {
         formContainer: "clamp(22rem, 50vw, 36rem)",
+        cartWidth: "clamp(20rem, 50vw, 30rem)",
       },
       colors: {
         baseColor: "#EE964B",
+      },
+      fontSize: {
+        cartButton: "clamp(0.75rem, calc(1vw + 5px), 1.3rem)",
       },
     },
   },
