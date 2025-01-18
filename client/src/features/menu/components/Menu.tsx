@@ -58,7 +58,11 @@ const Menu = (): ReactElement => {
             icon={faCartShopping}
             size="2x"
             onClick={() => dispatch(toogleCart())}
-          />
+          >
+            <div className="w-6 h-6 bg-amber-100 text-black absolute -bottom-3 -right-3 font-semibold flex justify-center items-center rounded-full">
+              10
+            </div>
+          </Icon>
           {isCartVisible && <Cart></Cart>}
         </div>
       </header>

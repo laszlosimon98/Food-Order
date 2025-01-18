@@ -2,12 +2,14 @@ import { IdType, ResultType } from "utils/types/query.type";
 import { storeApi } from "@/storeTypes/api/storeApi";
 import {
   CreateFoodType,
+  FavoriteFoodType,
   FoodQueryParamsTypes,
   FoodType,
   UpdateFoodType,
 } from "utils/types/food.type";
+import { isDirty } from "zod";
 
-export const foodApi = storeApi.injectEndpoints({
+const foodApi = storeApi.injectEndpoints({
   endpoints: (builder) => ({
     addFood: builder.mutation<ResultType, CreateFoodType>({
       query: (body) => ({
@@ -17,18 +19,18 @@ export const foodApi = storeApi.injectEndpoints({
       }),
       invalidatesTags: ["Food"],
     }),
-    getFoods: builder.query<FoodType, FoodQueryParamsTypes>({
+    getFoods: builder.query<FoodType[], FoodQueryParamsTypes>({
       query: (params) => ({
         url: "food",
         params,
       }),
       providesTags: ["Food"],
     }),
-    getFavoriteFoods: builder.query<FoodType, void>({
+    getFavoriteFoods: builder.query<FoodType[], void>({
       query: () => "food/favoriteFood",
       providesTags: ["Food"],
     }),
-    getTopTenOrder: builder.query<FoodType, void>({
+    getTopTenOrder: builder.query<FoodType[], void>({
       query: () => "food/topTenOrder",
       providesTags: ["Food"],
     }),
@@ -51,6 +53,21 @@ export const foodApi = storeApi.injectEndpoints({
       }),
       invalidatesTags: ["Food"],
     }),
+    addFavoriteFood: builder.mutation<any, FavoriteFoodType>({
+      query: (body) => ({
+        url: "favorite-food",
+        method: "POST",
+        body,
+      }),
+      invalidatesTags: ["FavoriteFood"],
+    }),
+    deleteFavoriteFood: builder.mutation<any, IdType>({
+      query: ({ id }) => ({
+        url: `favorite-food/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["FavoriteFood"],
+    }),
   }),
 });
 
@@ -62,4 +79,6 @@ export const {
   useAddFoodMutation,
   useUpdateFoodMutation,
   useDeleteFoodMutation,
+  useAddFavoriteFoodMutation,
+  useDeleteFavoriteFoodMutation,
 } = foodApi;

@@ -1,3 +1,5 @@
+import { IdType } from "utils/types/query.type";
+
 export type UserType = {
   userId: number;
   fullname: string;
@@ -17,6 +19,6 @@ export type PasswordChangeType = {
   newPassword: string;
 };
 
-export type Roles = {
+export type UpdateRoles = IdType & {
   role: "user" | "empoloyee";
 };

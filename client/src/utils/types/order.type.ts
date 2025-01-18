@@ -15,3 +15,11 @@ export type OrderType = {
   };
   orderItems: OrderItemType;
 };
+
+export type OrderStatusType = {
+  status:
+    | "Rendelés leadva"
+    | "Feldolgozás alatt"
+    | "Szállítás alatt"
+    | "Teljesítve";
+};

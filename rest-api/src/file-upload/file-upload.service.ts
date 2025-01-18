@@ -23,6 +23,10 @@ export class FileUploadService {
   }
 
   async deleteImage(image: string) {
+    if (!image) {
+      return;
+    }
+
     const _path = join(__dirname, '..', '..', '..', 'uploads', image);
 
     if (existsSync(_path)) {
