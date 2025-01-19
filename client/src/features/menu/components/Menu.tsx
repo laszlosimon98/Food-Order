@@ -12,6 +12,7 @@ import {
 import Icon from "@/shared/components/Icon";
 import Cart from "features/cart/components/Cart";
 import { closeCart, toogleCart } from "features/cart/slice/cartSlice";
+import CartItemCounter from "features/cart/components/CartItemCounter";
 
 const Menu = (): ReactElement => {
   const { isOverlayVisible } = useAppSelector((state) => state.overlay.data);
@@ -22,9 +23,11 @@ const Menu = (): ReactElement => {
 
   return (
     <>
-      <header className="h-16 w-full bg-baseColor flex flex-row justify-between items-center px-5">
+      <header className="top-0 h-20 w-full flex flex-row justify-between bg-background items-center px-10 z-10">
         <Link to={"/"}>
-          <h1 className="text-2xl font-bold italic">Ételrendelő</h1>
+          <h1 className="text-3xl font-bold  italic hover:scale-105 transition-all">
+            Ételrendelő
+          </h1>
         </Link>
 
         <div className="flex gap-8 flex-row-reverse md:flex-row">
@@ -59,9 +62,7 @@ const Menu = (): ReactElement => {
             size="2x"
             onClick={() => dispatch(toogleCart())}
           >
-            <div className="w-6 h-6 bg-amber-100 text-black absolute -bottom-3 -right-3 font-semibold flex justify-center items-center rounded-full">
-              10
-            </div>
+            <CartItemCounter>10</CartItemCounter>
           </Icon>
           {isCartVisible && <Cart></Cart>}
         </div>

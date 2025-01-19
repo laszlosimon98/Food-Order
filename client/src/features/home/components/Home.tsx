@@ -5,14 +5,13 @@ import { FoodType } from "utils/types/food.type";
 
 const Home = (): ReactElement => {
   const { data: foods } = useGetFoodsQuery({});
-  console.log(foods);
 
   return (
     <>
-      <h1 className="text-3xl font-bold text-center mt-5 mb-3 italic underline ">
+      <h1 className="text-3xl font-bold text-center pt-5 mb-3 italic underline ">
         Ételek
       </h1>
-      <div className="flex flex-wrap justify-center items-center ">
+      <div className="flex flex-wrap justify-center items-center">
         {foods &&
           foods.map((food: FoodType) => (
             <FoodCard key={food.foodId} food={food} />

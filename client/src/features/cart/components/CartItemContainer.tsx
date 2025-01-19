@@ -6,7 +6,7 @@ const CartItemContainer = ({
   children,
 }: CartItemContainerProps): ReactElement => {
   return (
-    <div className="w-[90%] mx-auto mt-5 h-full overflow-y-auto">
+    <div className="w-[90%] bg-white rounded-lg shadow-lg mx-auto mt-5 max-h-48 overflow-y-auto">
       {children}
     </div>
   );

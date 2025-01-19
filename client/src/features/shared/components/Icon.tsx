@@ -11,7 +11,7 @@ const Icon = ({ children, ...props }: IconProps): ReactElement => {
     <div className="relative">
       <FontAwesomeIcon
         {...props}
-        className="cursor-pointer hover:scale-125 transition-all"
+        className="cursor-pointer hover:scale-110 transition-all"
       />
       {children}
     </div>

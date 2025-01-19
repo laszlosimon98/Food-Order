@@ -4,7 +4,7 @@ export default {
   theme: {
     extend: {
       height: {
-        screen: "calc(100dvh - 4rem)",
+        calcScreen: "calc(100dvh - 5rem)",
       },
       width: {
         formContainer: "clamp(22rem, 50vw, 36rem)",
@@ -12,6 +12,9 @@ export default {
       },
       colors: {
         baseColor: "#EE964B",
+        // background: "#F0EDEE",
+        // background: "#FBFEF9",
+        background: "#F7F7FF",
       },
       fontSize: {
         cartButton: "clamp(0.75rem, calc(1vw + 5px), 1.3rem)",

@@ -24,7 +24,7 @@ const Layout = ({ children }: LayoutProps): ReactElement => {
       )}
       <Menu />
 
-      <div className="w-full h-screen">{children}</div>
+      <div className="w-full bg-background">{children}</div>
     </>
   );
 };

@@ -64,49 +64,53 @@ const Register = (): ReactElement => {
   };
 
   return (
-    <FormContainer title="Regisztráció" onSubmit={handleSubmit(onSubmit)}>
-      {errors.root && (
-        <ErrorText>
-          <div className="text-lg text-center mt-3">{errors.root.message} </div>
-        </ErrorText>
-      )}
-
-      <div className="w-2/3 mx-auto">
-        <TextInput {...register("username")} label="Felhasználó név" />
-        {errors.username && <ErrorText>{errors.username.message}</ErrorText>}
-      </div>
-
-      <div className="w-2/3 mx-auto">
-        <TextInput {...register("fullname")} label="Teljes név" />
-        {errors.fullname && <ErrorText>{errors.fullname.message}</ErrorText>}
-      </div>
-
-      <div className="w-2/3 mx-auto">
-        <TextInput
-          {...register("password")}
-          label="Jelszó Újra"
-          type="password"
-        />
-        {errors.password && <ErrorText>{errors.password.message}</ErrorText>}
-      </div>
-
-      <div className="w-2/3 mx-auto">
-        <TextInput
-          {...register("passwordAgain")}
-          label="Jelszó"
-          type="password"
-        />
-        {errors.passwordAgain && (
-          <ErrorText>{errors.passwordAgain.message}</ErrorText>
+    <div className="h-calcScreen">
+      <FormContainer title="Regisztráció" onSubmit={handleSubmit(onSubmit)}>
+        {errors.root && (
+          <ErrorText>
+            <div className="text-lg text-center mt-3">
+              {errors.root.message}{" "}
+            </div>
+          </ErrorText>
         )}
-      </div>
 
-      <div className="flex justify-center items-center ">
-        <Button variant="primary" size="default">
-          Regisztrálás
-        </Button>
-      </div>
-    </FormContainer>
+        <div className="w-2/3 mx-auto">
+          <TextInput {...register("username")} label="Felhasználó név" />
+          {errors.username && <ErrorText>{errors.username.message}</ErrorText>}
+        </div>
+
+        <div className="w-2/3 mx-auto">
+          <TextInput {...register("fullname")} label="Teljes név" />
+          {errors.fullname && <ErrorText>{errors.fullname.message}</ErrorText>}
+        </div>
+
+        <div className="w-2/3 mx-auto">
+          <TextInput
+            {...register("password")}
+            label="Jelszó Újra"
+            type="password"
+          />
+          {errors.password && <ErrorText>{errors.password.message}</ErrorText>}
+        </div>
+
+        <div className="w-2/3 mx-auto">
+          <TextInput
+            {...register("passwordAgain")}
+            label="Jelszó"
+            type="password"
+          />
+          {errors.passwordAgain && (
+            <ErrorText>{errors.passwordAgain.message}</ErrorText>
+          )}
+        </div>
+
+        <div className="flex justify-center items-center ">
+          <Button variant="primary" size="default" className="mt-5">
+            Regisztrálás
+          </Button>
+        </div>
+      </FormContainer>
+    </div>
   );
 };
 

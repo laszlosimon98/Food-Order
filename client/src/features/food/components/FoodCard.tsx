@@ -11,10 +11,7 @@ type FoodCardProps = {
 
 const FoodCard = ({ food }: FoodCardProps): ReactElement => {
   return (
-    <div
-      onClick={() => console.log("container")}
-      className="w-[32rem] bg-amber-100 m-5 py-3 px-2 rounded-lg shadow-lg cursor-pointer hover:scale-105 transition-all md:w-[28rem]"
-    >
+    <div className="w-[32rem] bg-white m-5 py-3 px-2 rounded-3xl shadow-xl cursor-pointer hover:scale-105 transition-all md:w-[28rem]">
       <FoodHeader>{food.name}</FoodHeader>
       <FoodImage url={food.imageUrl} description={food.description} />
 
@@ -32,8 +29,8 @@ const FoodCard = ({ food }: FoodCardProps): ReactElement => {
           variant="primary"
           onClick={(e) => {
             e.stopPropagation();
-            console.log("button");
           }}
+          className="mt-5"
         >
           Kosárba
         </Button>

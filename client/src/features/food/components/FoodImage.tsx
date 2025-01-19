@@ -11,7 +11,12 @@ const FoodImage = ({ url, description }: FoodImageProps): ReactElement => {
   return (
     <div className="flex justify-center items-center w-full h-32 ">
       {url !== null ? (
-        <img src={image} alt={`${description}`} width={150} height={150} />
+        <img
+          src={image}
+          alt={`${description}`}
+          width={250}
+          className="rounded-2xl"
+        />
       ) : (
         <p className="text-xl">Nincs kép</p>
       )}

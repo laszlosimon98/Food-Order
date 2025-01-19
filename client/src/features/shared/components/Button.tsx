@@ -23,7 +23,7 @@ const Button = ({
 };
 
 const buttonVariants = cva(
-  "rounded-md font-semibold hover:opacity:50 hover:scale-105 active:scale-95 cursor-pointer mt-3",
+  "rounded-md font-semibold hover:opacity:50 hover:scale-105 active:scale-100 cursor-pointer",
   {
     variants: {
       variant: {

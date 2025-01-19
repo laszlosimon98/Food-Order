@@ -48,28 +48,32 @@ const Login = (): ReactElement => {
   };
 
   return (
-    <FormContainer title="Bejelentkezés" onSubmit={handleSubmit(onSubmit)}>
-      {errors.root && (
-        <ErrorText>
-          <div className="text-lg text-center mt-3">{errors.root.message} </div>
-        </ErrorText>
-      )}
+    <div className="h-calcScreen">
+      <FormContainer title="Bejelentkezés" onSubmit={handleSubmit(onSubmit)}>
+        {errors.root && (
+          <ErrorText>
+            <div className="text-lg text-center mt-3">
+              {errors.root.message}{" "}
+            </div>
+          </ErrorText>
+        )}
 
-      <div className="w-2/3 mx-auto">
-        <TextInput {...register("username")} label="Felhasználó név" />
-        {errors.username && <ErrorText>{errors.username.message}</ErrorText>}
-      </div>
-      <div className="w-2/3 mx-auto">
-        <TextInput {...register("password")} label="Jelszó" type="password" />
-        {errors.password && <ErrorText>{errors.password.message}</ErrorText>}
-      </div>
+        <div className="w-2/3 mx-auto">
+          <TextInput {...register("username")} label="Felhasználó név" />
+          {errors.username && <ErrorText>{errors.username.message}</ErrorText>}
+        </div>
+        <div className="w-2/3 mx-auto">
+          <TextInput {...register("password")} label="Jelszó" type="password" />
+          {errors.password && <ErrorText>{errors.password.message}</ErrorText>}
+        </div>
 
-      <div className="flex justify-center items-center ">
-        <Button variant="primary" size="default">
-          Bejelentkezés
-        </Button>
-      </div>
-    </FormContainer>
+        <div className="flex justify-center items-center ">
+          <Button variant="primary" size="default" className="mt-5">
+            Bejelentkezés
+          </Button>
+        </div>
+      </FormContainer>
+    </div>
   );
 };
 
