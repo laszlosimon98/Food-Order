@@ -7,7 +7,7 @@ const Home = (): ReactElement => {
   const { data: foods } = useGetFoodsQuery({});
 
   return (
-    <>
+    <div className="min-h-calcScreen">
       <h1 className="text-3xl font-bold text-center pt-5 mb-3 italic underline ">
         Ételek
       </h1>
@@ -17,7 +17,7 @@ const Home = (): ReactElement => {
             <FoodCard key={food.foodId} food={food} />
           ))}
       </div>
-    </>
+    </div>
   );
 };
 

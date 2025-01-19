@@ -1,5 +1,6 @@
 import { PrismaClient } from '@prisma/client';
 import * as bcrypt from 'bcrypt';
+import { faker } from '@faker-js/faker';
 
 const prisma = new PrismaClient();
 
@@ -70,9 +71,9 @@ const createFoods = async () => {
         data: {
           name: food,
           description: '',
-          price: Math.floor(Math.random() * 1800) + 200,
-          isSpice: false,
-          isVegetarian: false,
+          price: faker.number.int({ min: 500, max: 2500, multipleOf: 10 }),
+          isSpice: Math.random() < 0.5,
+          isVegetarian: Math.random() < 0.5,
           categoryId: parseInt(key),
         },
       });

@@ -8,7 +8,7 @@ import {
   FetchBaseQueryError,
 } from "@reduxjs/toolkit/query/react";
 
-const URL = "http://localhost:3000";
+const URL = "http://localhost:3000/api/v1";
 
 const baseQuery = fetchBaseQuery({
   baseUrl: URL,
@@ -29,9 +29,9 @@ const baseQueryWithReauth: BaseQueryFn<
   unknown,
   FetchBaseQueryError
 > = async (args, api, extraOptions) => {
-  let result = await baseQuery(args, api, extraOptions);
+  const accessToken = (api.getState() as RootState).auth.data.accessToken;
 
-  if (result.error && result.error.status === 401) {
+  if (!accessToken) {
     const { data } = await baseQuery(
       {
         url: "auth/refresh",
@@ -42,11 +42,19 @@ const baseQueryWithReauth: BaseQueryFn<
     );
 
     if (data) {
-      const accessToken: string = data.accessToken;
-      api.dispatch(saveToken({ accessToken }));
-      result = await baseQuery(args, api, extraOptions);
+      api.dispatch(saveToken({ accessToken: data.accessToken }));
+    } else {
+      await baseQuery(
+        {
+          url: "auth/logout",
+          method: "POST",
+        },
+        api,
+        extraOptions
+      );
     }
   }
+  let result = await baseQuery(args, api, extraOptions);
 
   return result;
 };
