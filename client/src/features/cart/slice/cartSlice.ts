@@ -1,26 +1,53 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { FoodType } from "utils/types/food.type";
 
-type CartState = {
-  data: {
-    isCartVisible: boolean;
-    cartItems: FoodType[];
+type CartItemsType = {
+  [key: number]: {
+    amount: number;
   };
 };
 
-const initializeCart = () => {
-  const savedCart: string | null = localStorage.getItem("cart");
-  return savedCart ? JSON.parse(savedCart) : [];
+type CartType = {
+  isCartVisible: boolean;
+  cartItems: CartItemsType;
+  totalItems: number;
+  totalPrice: number;
 };
 
-const saveCartToLocalstorage = (items: FoodType[]) => {
-  localStorage.setItem("cart", JSON.stringify(items));
+type CartState = {
+  data: CartType;
+};
+
+const getCart = (): string | null => {
+  const savedCart: string | null = localStorage.getItem("cart");
+  return savedCart;
+};
+
+const initializeCart = () => {
+  const savedCart = getCart();
+  return savedCart ? JSON.parse(savedCart)["cartItems"] : {};
+};
+
+const initializePrice = () => {
+  const savedCart = getCart();
+  return savedCart ? parseInt(JSON.parse(savedCart)["totalPrice"]) : 0;
+};
+
+const initializeItems = () => {
+  const savedCart = getCart();
+  return savedCart ? parseInt(JSON.parse(savedCart)["totalItems"]) : 0;
+};
+
+const saveCartToLocalstorage = (cart: CartType) => {
+  localStorage.setItem("cart", JSON.stringify(cart));
 };
 
 const initialState: CartState = {
   data: {
     isCartVisible: false,
     cartItems: initializeCart(),
+    totalItems: initializeItems(),
+    totalPrice: initializePrice(),
   },
 };
 
@@ -35,27 +62,42 @@ export const cartSlice = createSlice({
       state.data.isCartVisible = false;
     },
     saveItem: (state, action: PayloadAction<FoodType>) => {
-      state.data.cartItems.push(action.payload);
-      saveCartToLocalstorage(state.data.cartItems);
+      const { foodId: key } = action.payload;
+
+      if (!state.data.cartItems[key]) {
+        state.data.cartItems[key] = {
+          amount: 1,
+        };
+      } else {
+        state.data.cartItems[key].amount += 1;
+      }
+
+      state.data.totalItems++;
+      state.data.totalPrice += action.payload.price;
+
+      saveCartToLocalstorage(state.data);
     },
     removeItem: (state, action: PayloadAction<FoodType>) => {
-      const index = state.data.cartItems.findIndex(
-        (food) => food === action.payload
-      );
+      const { foodId: key } = action.payload;
 
-      if (index === -1) return;
+      if (state.data.cartItems[key] && state.data.cartItems[key].amount >= 1) {
+        state.data.cartItems[key].amount -= 1;
 
-      const updatedCart = [
-        ...state.data.cartItems.slice(0, index),
-        ...state.data.cartItems.slice(index + 1),
-      ];
+        if (state.data.cartItems[key].amount === 0) {
+          delete state.data.cartItems[key];
+        }
+      }
 
-      state.data.cartItems = updatedCart;
-      saveCartToLocalstorage(state.data.cartItems);
+      state.data.totalItems--;
+      state.data.totalPrice -= action.payload.price;
+      saveCartToLocalstorage(state.data);
     },
     clearCart: (state) => {
-      state.data.cartItems = [];
-      saveCartToLocalstorage(state.data.cartItems);
+      state.data.cartItems = {};
+      state.data.totalItems = 0;
+      state.data.totalPrice = 0;
+
+      saveCartToLocalstorage(state.data);
     },
   },
 });

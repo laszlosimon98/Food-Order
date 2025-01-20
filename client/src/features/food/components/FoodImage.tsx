@@ -3,9 +3,14 @@ import { ReactElement } from "react";
 type FoodImageProps = {
   url: string | null;
   description: string;
+  width?: number;
 };
 
-const FoodImage = ({ url, description }: FoodImageProps): ReactElement => {
+const FoodImage = ({
+  url,
+  description,
+  width,
+}: FoodImageProps): ReactElement => {
   const image: string | null = `${process.env.SERVER_ADDRESS}/uploads/${url}`;
 
   return (
@@ -14,7 +19,7 @@ const FoodImage = ({ url, description }: FoodImageProps): ReactElement => {
         <img
           src={image}
           alt={`${description}`}
-          width={250}
+          width={width ?? 250}
           className="rounded-2xl"
         />
       ) : (

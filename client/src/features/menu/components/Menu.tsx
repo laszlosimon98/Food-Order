@@ -20,11 +20,18 @@ const Menu = (): ReactElement => {
   const { isCartVisible } = useAppSelector((state) => state.cart.data);
 
   const dispatch = useAppDispatch();
-  const { cartItems } = useAppSelector((state) => state.cart.data);
+  const { cartItems, totalItems } = useAppSelector((state) => state.cart.data);
 
   return (
     <>
-      <header className="top-0 h-20 w-full flex flex-row justify-between bg-background items-center px-10 z-10">
+      <header
+        className="top-0 h-20 w-full flex flex-row justify-between bg-background items-center px-10 z-10"
+        onClick={() => {
+          if (isCartVisible) {
+            dispatch(closeCart());
+          }
+        }}
+      >
         <Link to={"/"}>
           <h1 className="text-3xl font-bold  italic hover:scale-105 transition-all">
             Ételrendelő
@@ -63,16 +70,20 @@ const Menu = (): ReactElement => {
             size="2x"
             onClick={() => dispatch(toogleCart())}
           >
-            {cartItems.length > 0 && (
-              <CartItemCounter>{cartItems.length}</CartItemCounter>
-            )}
+            {totalItems > 0 && <CartItemCounter>{totalItems}</CartItemCounter>}
           </Icon>
 
           {isCartVisible && (
             <Cart>
-              {cartItems.map((item, index) => {
-                return <CartItem key={index}>{item.name}</CartItem>;
-              })}
+              {Object.keys(cartItems).length > 0 ? (
+                Object.keys(cartItems).map((id) => {
+                  return <CartItem key={id} id={id} />;
+                })
+              ) : (
+                <div className="h-full flex justify-center items-center">
+                  A kosár üres
+                </div>
+              )}
             </Cart>
           )}
         </div>
