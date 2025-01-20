@@ -13,13 +13,14 @@ import Icon from "@/shared/components/Icon";
 import Cart from "features/cart/components/Cart";
 import { closeCart, toogleCart } from "features/cart/slice/cartSlice";
 import CartItemCounter from "features/cart/components/CartItemCounter";
+import CartItem from "features/cart/components/CartItem";
 
 const Menu = (): ReactElement => {
   const { isOverlayVisible } = useAppSelector((state) => state.overlay.data);
-
   const { isCartVisible } = useAppSelector((state) => state.cart.data);
 
   const dispatch = useAppDispatch();
+  const { cartItems } = useAppSelector((state) => state.cart.data);
 
   return (
     <>
@@ -62,9 +63,18 @@ const Menu = (): ReactElement => {
             size="2x"
             onClick={() => dispatch(toogleCart())}
           >
-            <CartItemCounter>10</CartItemCounter>
+            {cartItems.length > 0 && (
+              <CartItemCounter>{cartItems.length}</CartItemCounter>
+            )}
           </Icon>
-          {isCartVisible && <Cart></Cart>}
+
+          {isCartVisible && (
+            <Cart>
+              {cartItems.map((item, index) => {
+                return <CartItem key={index}>{item.name}</CartItem>;
+              })}
+            </Cart>
+          )}
         </div>
       </header>
     </>

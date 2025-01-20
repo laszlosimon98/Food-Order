@@ -1,4 +1,6 @@
 import Button from "@/shared/components/Button";
+import { useAppDispatch } from "@/storeHooks/store.hooks";
+import { saveItem } from "features/cart/slice/cartSlice";
 import FoodHeader from "features/food/components/FoodHeader";
 import FoodImage from "features/food/components/FoodImage";
 import FoodProperties from "features/food/components/FoodProperties";
@@ -10,6 +12,8 @@ type FoodCardProps = {
 };
 
 const FoodCard = ({ food }: FoodCardProps): ReactElement => {
+  const dispatch = useAppDispatch();
+
   return (
     <div className="w-[32rem] bg-white m-5 py-3 px-2 rounded-3xl shadow-xl cursor-pointer hover:scale-105 transition-all md:w-[28rem]">
       <FoodHeader>{food.name}</FoodHeader>
@@ -29,6 +33,7 @@ const FoodCard = ({ food }: FoodCardProps): ReactElement => {
           variant="primary"
           onClick={(e) => {
             e.stopPropagation();
+            dispatch(saveItem(food));
           }}
           className="mt-5"
         >

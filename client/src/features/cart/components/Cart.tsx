@@ -6,8 +6,8 @@ type CartProps = PropsWithChildren & {};
 
 const Cart = ({ children }: CartProps): ReactElement => {
   return (
-    <div className="bg-white absolute w-[24rem] top-[4.5rem] right-5 rounded-3xl shadow-xl">
-      <div className="w-full h-80">
+    <div className="bg-white absolute w-[24rem] top-[4.5rem] right-5 rounded-3xl shadow-xl z-30">
+      <div className="w-full h-[24rem]">
         <h1 className="text-center mt-3 text-3xl font-bold italic">Kosár</h1>
         <CartItemContainer>{children}</CartItemContainer>
         <Button
