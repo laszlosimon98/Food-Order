@@ -3,6 +3,7 @@ import { removeToken } from "@/features/auth/slice/authSlice";
 import ListElement from "@/features/menu/components/ListElement";
 import { useAppSelector, useAppDispatch } from "@/store/hooks/store.hooks";
 import { ReactElement } from "react";
+import { useNavigate } from "react-router-dom";
 
 type NavigationPropsType = {
   isOverlayVisible: boolean;
@@ -17,10 +18,12 @@ const Navigation = ({
 
   const [useLogout] = useLogoutMutation();
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const logout = () => {
     useLogout();
     dispatch(removeToken());
+    navigate("/");
   };
 
   return (

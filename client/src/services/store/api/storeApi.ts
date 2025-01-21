@@ -1,5 +1,5 @@
-import { saveToken } from "@/features/auth/slice/authSlice";
-import { RootState } from "@/storeTypes/store";
+import { removeToken, saveToken } from "@/features/auth/slice/authSlice";
+import { RootState } from "@/store/store";
 import {
   BaseQueryFn,
   createApi,
@@ -43,20 +43,10 @@ const baseQueryWithReauth: BaseQueryFn<
 
     if (data) {
       api.dispatch(saveToken({ accessToken: data.accessToken }));
-    } else {
-      await baseQuery(
-        {
-          url: "auth/logout",
-          method: "POST",
-        },
-        api,
-        extraOptions
-      );
     }
   }
-  let result = await baseQuery(args, api, extraOptions);
 
-  return result;
+  return await baseQuery(args, api, extraOptions);
 };
 
 export const storeApi = createApi({

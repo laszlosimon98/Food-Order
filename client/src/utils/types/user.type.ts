@@ -1,10 +1,12 @@
 import { IdType } from "@/utils/types/query.type";
 
+export type UserRoles = "admin" | "employee" | "user";
+
 export type UserType = {
   userId: number;
   fullname: string;
   username: string;
-  role: string;
+  role: UserRoles;
   address: string | null;
   phoneNumber: string | null;
 };
@@ -20,5 +22,5 @@ export type PasswordChangeType = {
 };
 
 export type UpdateRoles = IdType & {
-  role: "user" | "empoloyee";
+  role: Omit<UserRoles, "admin">;
 };
