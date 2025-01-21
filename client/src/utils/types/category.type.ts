@@ -1,4 +1,4 @@
-import { IdType } from "utils/types/query.type";
+import { IdType } from "@/utils/types/query.type";
 
 export type CreateCategoryType = {
   categoryName: string;

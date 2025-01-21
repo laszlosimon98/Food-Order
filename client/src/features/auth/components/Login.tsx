@@ -1,13 +1,13 @@
-import { useLoginMutation } from "@/auth/api/authApi";
-import { saveToken } from "@/auth/slice/authSlice";
-import Button from "@/shared/components/Button";
-import ErrorText from "@/shared/components/ErrorText";
-import FormContainer from "@/shared/components/FormContainer";
-import TextInput from "@/shared/components/TextInput";
-import { useAppDispatch } from "@/storeHooks/store.hooks";
+import { useLoginMutation } from "@/features/auth/api/authApi";
+import { saveToken } from "@/features/auth/slice/authSlice";
+import Button from "@/features/shared/components/Button";
+import ErrorText from "@/features/shared/components/ErrorText";
+import FormContainer from "@/features/shared/components/FormContainer";
+import TextInput from "@/features/shared/components/TextInput";
+import { useAppDispatch } from "@/store/hooks/store.hooks";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ReactElement } from "react";
-import { SubmitHandler, useForm } from "react-hook-form";
+import { useForm, SubmitHandler } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { z } from "zod";
 

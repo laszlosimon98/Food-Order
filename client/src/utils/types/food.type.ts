@@ -1,6 +1,6 @@
-import { CategoryType } from "utils/types/category.type";
-import { PromotionType } from "utils/types/promotion.type";
-import { IdType } from "utils/types/query.type";
+import { CategoryType } from "@/utils/types/category.type";
+import { PromotionType } from "@/utils/types/promotion.type";
+import { IdType } from "@/utils/types/query.type";
 
 export type CreateFoodType = {
   name: string;

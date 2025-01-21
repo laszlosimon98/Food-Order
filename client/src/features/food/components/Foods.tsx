@@ -1,7 +1,7 @@
-import { useGetFoodsQuery } from "features/food/api/foodApi";
-import FoodCard from "features/food/components/FoodCard";
+import { useGetFoodsQuery } from "@/features/food/api/foodApi";
+import FoodCard from "@/features/food/components/FoodCard";
+import { FoodType } from "@/utils/types/food.type";
 import { ReactElement } from "react";
-import { FoodType } from "utils/types/food.type";
 
 const Foods = (): ReactElement => {
   const { data: foods } = useGetFoodsQuery({});

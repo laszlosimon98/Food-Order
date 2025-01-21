@@ -1,9 +1,9 @@
-import { useAppDispatch, useAppSelector } from "@/storeHooks/store.hooks";
+import CartButton from "@/features/cart/components/CartButton";
+import { removeItem, saveItem } from "@/features/cart/slice/cartSlice";
+import { useGetFoodByIdQuery } from "@/features/food/api/foodApi";
+import { useAppSelector, useAppDispatch } from "@/store/hooks/store.hooks";
 import { faMinus, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import CartButton from "features/cart/components/CartButton";
-import { removeItem, saveItem } from "features/cart/slice/cartSlice";
-import { useGetFoodByIdQuery } from "features/food/api/foodApi";
 import { ReactElement } from "react";
 
 type CartItemProps = {

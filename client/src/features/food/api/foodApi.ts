@@ -1,12 +1,12 @@
-import { IdType, ResultType } from "utils/types/query.type";
-import { storeApi } from "@/storeTypes/api/storeApi";
+import { storeApi } from "@/store/api/storeApi";
 import {
   CreateFoodType,
-  FavoriteFoodType,
-  FoodQueryParamsTypes,
   FoodType,
+  FoodQueryParamsTypes,
   UpdateFoodType,
-} from "utils/types/food.type";
+  FavoriteFoodType,
+} from "@/utils/types/food.type";
+import { ResultType, IdType } from "@/utils/types/query.type";
 
 const foodApi = storeApi.injectEndpoints({
   endpoints: (builder) => ({

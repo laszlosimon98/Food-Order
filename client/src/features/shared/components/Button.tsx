@@ -1,6 +1,6 @@
+import { cn } from "@/utils/cn";
 import { cva, VariantProps } from "class-variance-authority";
 import { HTMLAttributes, ReactElement } from "react";
-import { cn } from "utils/cn";
 
 type ButtonProps = HTMLAttributes<HTMLButtonElement> &
   VariantProps<typeof buttonVariants> & {

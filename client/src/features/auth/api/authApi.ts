@@ -1,7 +1,7 @@
-import { LoginType } from "@/auth/components/Login";
-import { RegisterType } from "@/auth/components/Register";
-import { ResultType, LoginResultType } from "utils/types/query.type";
-import { storeApi } from "@/storeTypes/api/storeApi";
+import { storeApi } from "@/store/api/storeApi";
+import { RegisterType } from "@/features/auth/components/Register";
+import { LoginType } from "@/features/auth/components/Login";
+import { ResultType, LoginResultType } from "@/utils/types/query.type";
 
 export const authApi = storeApi.injectEndpoints({
   endpoints: (builder) => ({

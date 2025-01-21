@@ -1,7 +1,7 @@
-import { useLogoutMutation } from "@/auth/api/authApi";
-import { removeToken } from "@/auth/slice/authSlice";
-import ListElement from "@/menu/components/ListElement";
-import { useAppDispatch, useAppSelector } from "@/storeHooks/store.hooks";
+import { useLogoutMutation } from "@/features/auth/api/authApi";
+import { removeToken } from "@/features/auth/slice/authSlice";
+import ListElement from "@/features/menu/components/ListElement";
+import { useAppSelector, useAppDispatch } from "@/store/hooks/store.hooks";
 import { ReactElement } from "react";
 
 type NavigationPropsType = {

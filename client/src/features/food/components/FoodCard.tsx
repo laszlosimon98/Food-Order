@@ -1,11 +1,11 @@
-import Button from "@/shared/components/Button";
-import { useAppDispatch } from "@/storeHooks/store.hooks";
-import { saveItem } from "features/cart/slice/cartSlice";
-import FoodHeader from "features/food/components/FoodHeader";
-import FoodImage from "features/food/components/FoodImage";
-import FoodProperties from "features/food/components/FoodProperties";
+import { saveItem } from "@/features/cart/slice/cartSlice";
+import FoodHeader from "@/features/food/components/FoodHeader";
+import FoodImage from "@/features/food/components/FoodImage";
+import FoodProperties from "@/features/food/components/FoodProperties";
+import Button from "@/features/shared/components/Button";
+import { useAppDispatch } from "@/store/hooks/store.hooks";
+import { FoodType } from "@/utils/types/food.type";
 import { ReactElement } from "react";
-import { FoodType } from "utils/types/food.type";
 
 type FoodCardProps = {
   food: FoodType;

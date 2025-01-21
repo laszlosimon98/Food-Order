@@ -1,4 +1,4 @@
-import { saveToken } from "@/auth/slice/authSlice";
+import { saveToken } from "@/features/auth/slice/authSlice";
 import { RootState } from "@/storeTypes/store";
 import {
   BaseQueryFn,

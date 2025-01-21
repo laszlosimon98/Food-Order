@@ -1,6 +1,6 @@
-import { storeApi } from "@/storeTypes/api/storeApi";
-import { IdType } from "utils/types/query.type";
-import { CreateReviewType, UpdateReviewType } from "utils/types/review.type";
+import { storeApi } from "@/store/api/storeApi";
+import { IdType } from "@/utils/types/query.type";
+import { CreateReviewType, UpdateReviewType } from "@/utils/types/review.type";
 
 const reviewApi = storeApi.injectEndpoints({
   endpoints: (builder) => ({

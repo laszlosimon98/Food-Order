@@ -1,10 +1,10 @@
-import { storeApi } from "@/storeTypes/api/storeApi";
+import { storeApi } from "@/store/api/storeApi";
 import {
   CategoryType,
   CreateCategoryType,
   UpdateCategoryType,
-} from "utils/types/category.type";
-import { IdType } from "utils/types/query.type";
+} from "@/utils/types/category.type";
+import { IdType } from "@/utils/types/query.type";
 
 const categoryApi = storeApi.injectEndpoints({
   endpoints: (builder) => ({

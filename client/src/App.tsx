@@ -1,7 +1,7 @@
-import Login from "@/auth/components/Login";
-import Register from "@/auth/components/Register";
-import Layout from "@/shared/components/Layout";
-import Home from "features/home/components/Home";
+import Login from "@/features/auth/components/Login";
+import Register from "@/features/auth/components/Register";
+import Layout from "@/features/shared/components/Layout";
+import Home from "@/features/home/components/Home";
 import { Route, Routes } from "react-router-dom";
 
 function App() {

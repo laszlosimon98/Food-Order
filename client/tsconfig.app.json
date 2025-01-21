@@ -24,13 +24,9 @@
 
     "baseUrl": "./src",
     "paths": {
-      "@/shared/*": ["./features/shared/*"],
-      "@/home/*": ["./features/home/*"],
-      "@/overlay/*": ["./features/overlay/*"],
-      "@/auth/*": ["./features/auth/*"],
-      "@/menu/*": ["./features/menu/*"],
-      "@/storeHooks/*": ["./services/store/hooks/*"],
-      "@/storeTypes/*": ["./services/store/*"]
+      "@/features/*": ["./features/*"],
+      "@/utils/*": ["./utils/*"],
+      "@/store/*": ["./services/store/*"]
     }
   },
   "include": ["src"]

@@ -1,4 +1,4 @@
-import { useAppSelector } from "@/storeHooks/store.hooks";
+import { useAppSelector } from "@/store/hooks/store.hooks";
 import { ReactElement } from "react";
 
 type CartTotalProps = {};

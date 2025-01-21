@@ -1,5 +1,5 @@
+import { FoodType } from "@/utils/types/food.type";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { FoodType } from "utils/types/food.type";
 
 type CartItemsType = {
   [key: number]: {

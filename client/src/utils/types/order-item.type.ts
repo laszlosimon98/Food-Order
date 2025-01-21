@@ -1,5 +1,5 @@
-import { FoodType } from "utils/types/food.type";
-import { IdType } from "utils/types/query.type";
+import { FoodType } from "@/utils/types/food.type";
+import { IdType } from "@/utils/types/query.type";
 
 export type UpdateOrderItemType = IdType & {
   quantity: number;

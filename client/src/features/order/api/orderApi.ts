@@ -1,11 +1,11 @@
-import { storeApi } from "@/storeTypes/api/storeApi";
-import { UpdateOrderItemType } from "utils/types/order-item.type";
+import { storeApi } from "@/store/api/storeApi";
+import { UpdateOrderItemType } from "@/utils/types/order-item.type";
 import {
   CreateOrderType,
-  OrderStatusType,
   OrderType,
-} from "utils/types/order.type";
-import { IdType } from "utils/types/query.type";
+  OrderStatusType,
+} from "@/utils/types/order.type";
+import { IdType } from "@/utils/types/query.type";
 
 const orderApi = storeApi.injectEndpoints({
   endpoints: (builder) => ({

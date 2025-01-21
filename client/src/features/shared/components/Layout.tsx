@@ -1,6 +1,6 @@
-import Menu from "@/menu/components/Menu";
-import { useAppDispatch, useAppSelector } from "@/storeHooks/store.hooks";
-import { closeOverlay } from "features/overlay/slice/overlaySlice";
+import Menu from "@/features/menu/components/Menu";
+import { closeOverlay } from "@/features/overlay/slice/overlaySlice";
+import { useAppDispatch, useAppSelector } from "@/store/hooks/store.hooks";
 import { PropsWithChildren, ReactElement } from "react";
 
 type LayoutProps = {} & PropsWithChildren;

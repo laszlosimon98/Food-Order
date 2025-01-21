@@ -1,8 +1,8 @@
-import { storeApi } from "@/storeTypes/api/storeApi";
+import { storeApi } from "@/store/api/storeApi";
 import { configureStore } from "@reduxjs/toolkit";
-import overlayReducer from "features/overlay/slice/overlaySlice";
-import authReducer from "@/auth/slice/authSlice";
-import cartReducer from "features/cart/slice/cartSlice";
+import overlayReducer from "@/features/overlay/slice/overlaySlice";
+import authReducer from "@/features/auth/slice/authSlice";
+import cartReducer from "@/features/cart/slice/cartSlice";
 
 export const store = configureStore({
   reducer: {

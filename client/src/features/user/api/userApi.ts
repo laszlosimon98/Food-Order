@@ -1,4 +1,4 @@
-import { storeApi } from "@/storeTypes/api/storeApi";
+import { storeApi } from "@/store/api/storeApi";
 import { IdType } from "utils/types/query.type";
 import {
   PasswordChangeType,

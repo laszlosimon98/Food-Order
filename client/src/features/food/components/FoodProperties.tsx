@@ -1,5 +1,5 @@
-import FoodProperty from "features/food/components/FoodProperty";
-import FoodValue from "features/food/components/FoodValue";
+import FoodProperty from "@/features/food/components/FoodProperty";
+import FoodValue from "@/features/food/components/FoodValue";
 import { ReactElement } from "react";
 
 type FoodPropertiesProps = {

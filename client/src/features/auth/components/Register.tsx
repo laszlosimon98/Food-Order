@@ -1,11 +1,11 @@
-import { useRegisterMutation } from "@/auth/api/authApi";
-import Button from "@/shared/components/Button";
-import ErrorText from "@/shared/components/ErrorText";
-import FormContainer from "@/shared/components/FormContainer";
-import TextInput from "@/shared/components/TextInput";
+import { useRegisterMutation } from "@/features/auth/api/authApi";
+import Button from "@/features/shared/components/Button";
+import ErrorText from "@/features/shared/components/ErrorText";
+import FormContainer from "@/features/shared/components/FormContainer";
+import TextInput from "@/features/shared/components/TextInput";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ReactElement } from "react";
-import { SubmitHandler, useForm } from "react-hook-form";
+import { useForm, SubmitHandler } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { z } from "zod";
 

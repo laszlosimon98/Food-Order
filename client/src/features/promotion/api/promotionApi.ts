@@ -1,9 +1,9 @@
-import { storeApi } from "@/storeTypes/api/storeApi";
+import { storeApi } from "@/store/api/storeApi";
 import {
-  CreatePromotionType,
   PromotionType,
+  CreatePromotionType,
   UpdatePromotionType,
-} from "utils/types/promotion.type";
+} from "@/utils/types/promotion.type";
 
 const promotionApi = storeApi.injectEndpoints({
   endpoints: (builder) => ({

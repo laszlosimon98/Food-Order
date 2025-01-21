@@ -1,4 +1,4 @@
-import { OrderItemType } from "utils/types/order-item.type";
+import { OrderItemType } from "@/utils/types/order-item.type";
 
 export type CreateOrderType = {
   quantity: number;
