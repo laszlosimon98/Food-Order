@@ -6,12 +6,12 @@ import { ReactElement } from "react";
 import { useNavigate } from "react-router-dom";
 
 type NavigationPropsType = {
-  isOverlayVisible: boolean;
+  isMenuOverlayOpen: boolean;
   closeMenu: () => void;
 };
 
 const Navigation = ({
-  isOverlayVisible,
+  isMenuOverlayOpen,
   closeMenu,
 }: NavigationPropsType): ReactElement => {
   const { isAuthenticated } = useAppSelector((state) => state.auth.data);
@@ -30,7 +30,7 @@ const Navigation = ({
     <nav className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 md:static md:translate-x-0 md:translate-y-0">
       <ul
         className={`flex flex-col gap-8 text-3xl font-semibold italic text-baseColor justify-center items-center ${
-          !isOverlayVisible ? "hidden" : ""
+          !isMenuOverlayOpen ? "hidden" : ""
         } cursor-pointer md:text-black md:flex md:text-xl md:flex-row`}
         onClick={closeMenu}
       >

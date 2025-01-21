@@ -1,7 +1,7 @@
 import { closeCart } from "@/features/cart/slice/cartSlice";
 import {
-  openOverlay,
-  closeOverlay,
+  openMenuOverlay,
+  closeOverlays,
 } from "@/features/overlay/slice/overlaySlice";
 import Icon from "@/features/shared/components/Icon";
 import { useAppSelector, useAppDispatch } from "@/store/hooks/store.hooks";
@@ -11,27 +11,27 @@ import { ReactElement } from "react";
 type SmallDeviceIconsProps = {};
 
 const SmallDeviceIcons = ({}: SmallDeviceIconsProps): ReactElement => {
-  const { isOverlayVisible } = useAppSelector((state) => state.overlay.data);
+  const { isMenuOverlayOpen } = useAppSelector((state) => state.overlay.data);
   const dispatch = useAppDispatch();
 
   return (
     <div className="md:hidden">
-      {!isOverlayVisible && (
+      {!isMenuOverlayOpen && (
         <Icon
           icon={faBars}
           size="2x"
           onClick={() => {
-            dispatch(openOverlay());
+            dispatch(openMenuOverlay());
             dispatch(closeCart());
           }}
         />
       )}
 
-      {isOverlayVisible && (
+      {isMenuOverlayOpen && (
         <Icon
           icon={faClose}
           size="2x"
-          onClick={() => dispatch(closeOverlay())}
+          onClick={() => dispatch(closeOverlays())}
         />
       )}
     </div>

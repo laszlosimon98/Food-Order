@@ -5,12 +5,12 @@ import MenuTitle from "@/features/menu/components/MenuTitle";
 import Navigation from "@/features/menu/components/Navigation";
 import ShoppingCart from "@/features/menu/components/ShoppingCart";
 import SmallDeviceIcons from "@/features/menu/components/SmallDeviceIcons";
-import { closeOverlay } from "@/features/overlay/slice/overlaySlice";
+import { closeOverlays } from "@/features/overlay/slice/overlaySlice";
 import { useAppSelector, useAppDispatch } from "@/store/hooks/store.hooks";
 import { ReactElement } from "react";
 
 const Menu = (): ReactElement => {
-  const { isOverlayVisible } = useAppSelector((state) => state.overlay.data);
+  const { isMenuOverlayOpen } = useAppSelector((state) => state.overlay.data);
   const { isCartVisible } = useAppSelector((state) => state.cart.data);
 
   const dispatch = useAppDispatch();
@@ -24,8 +24,8 @@ const Menu = (): ReactElement => {
         <SmallDeviceIcons />
 
         <Navigation
-          isOverlayVisible={isOverlayVisible}
-          closeMenu={() => dispatch(closeOverlay())}
+          isMenuOverlayOpen={isMenuOverlayOpen}
+          closeMenu={() => dispatch(closeOverlays())}
         />
 
         <ShoppingCart />

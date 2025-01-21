@@ -10,6 +10,8 @@ function App() {
       <Routes>
         <Route index element={<Home />} />
 
+        <Route path=":foodId" element={<Home />} />
+
         <Route path="register" element={<Register />} />
         <Route path="login" element={<Login />} />
         <Route path="*" element={<Home />} />

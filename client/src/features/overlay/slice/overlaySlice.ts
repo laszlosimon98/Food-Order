@@ -2,13 +2,15 @@ import { createSlice } from "@reduxjs/toolkit";
 
 type OverlayState = {
   data: {
-    isOverlayVisible: boolean;
+    isMenuOverlayOpen: boolean;
+    isFoodOverlayOpen: boolean;
   };
 };
 
 const initialState: OverlayState = {
   data: {
-    isOverlayVisible: false,
+    isMenuOverlayOpen: false,
+    isFoodOverlayOpen: false,
   },
 };
 
@@ -16,15 +18,20 @@ export const overlaySlice = createSlice({
   name: "overlay",
   initialState,
   reducers: {
-    openOverlay: (state) => {
-      state.data.isOverlayVisible = true;
+    openMenuOverlay: (state) => {
+      state.data.isMenuOverlayOpen = true;
     },
-    closeOverlay: (state) => {
-      state.data.isOverlayVisible = false;
+    openFoodOverlay: (state) => {
+      state.data.isFoodOverlayOpen = true;
+    },
+    closeOverlays: (state) => {
+      state.data.isMenuOverlayOpen = false;
+      state.data.isFoodOverlayOpen = false;
     },
   },
 });
 
-export const { openOverlay, closeOverlay } = overlaySlice.actions;
+export const { openMenuOverlay, openFoodOverlay, closeOverlays } =
+  overlaySlice.actions;
 
 export default overlaySlice.reducer;

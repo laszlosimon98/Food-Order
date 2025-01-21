@@ -1,4 +1,4 @@
-import { removeToken, saveToken } from "@/features/auth/slice/authSlice";
+import { saveToken } from "@/features/auth/slice/authSlice";
 import { RootState } from "@/store/store";
 import {
   BaseQueryFn,
@@ -23,7 +23,11 @@ const baseQuery = fetchBaseQuery({
   },
   credentials: "include",
 });
-
+// BaseQueryFn<
+//   string | FetchArgs,
+//   unknown,
+//   FetchBaseQueryError
+// >
 const baseQueryWithReauth: BaseQueryFn<
   string | FetchArgs,
   unknown,
