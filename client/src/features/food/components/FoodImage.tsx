@@ -1,6 +1,7 @@
-import { ReactElement } from "react";
+import { cn } from "@/utils/cn";
+import { HTMLAttributes, ReactElement } from "react";
 
-type FoodImageProps = {
+type FoodImageProps = HTMLAttributes<HTMLDivElement> & {
   url: string | null;
   description: string;
   width?: number;
@@ -10,11 +11,14 @@ const FoodImage = ({
   url,
   description,
   width,
+  className,
 }: FoodImageProps): ReactElement => {
   const image: string | null = `${process.env.SERVER_ADDRESS}/uploads/${url}`;
 
   return (
-    <div className="flex justify-center items-center w-full h-32 ">
+    <div
+      className={cn("flex justify-center items-center w-full h-32", className)}
+    >
       {url !== null ? (
         <img
           src={image}
