@@ -12,8 +12,9 @@ export type UserType = {
 };
 
 export type UserDetailsType = {
-  address: string | null;
-  phoneNumber: string | null;
+  fullname?: string;
+  address?: string;
+  phoneNumber?: string;
 };
 
 export type PasswordChangeType = {

@@ -3,8 +3,6 @@ import { useGetFoodByIdQuery } from "@/features/food/api/foodApi";
 import FoodHeader from "@/features/food/components/FoodHeader";
 import FoodImage from "@/features/food/components/FoodImage";
 import FoodProperties from "@/features/food/components/FoodProperties";
-import FoodProperty from "@/features/food/components/FoodProperty";
-import FoodValue from "@/features/food/components/FoodValue";
 import { closeOverlays } from "@/features/overlay/slice/overlaySlice";
 import Button from "@/features/shared/components/Button";
 import { useAppDispatch } from "@/store/hooks/store.hooks";

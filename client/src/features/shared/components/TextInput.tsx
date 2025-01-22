@@ -26,10 +26,10 @@ const TextInput = forwardRef<HTMLInputElement, InputProps>(
         </label>
         <input
           ref={ref}
-          {...props}
           id={`${label}`}
           placeholder={`${label}`}
-          className={`border-2 w-full h-10 rounded-xl px-4 text-lg focus:outline-baseColor `}
+          {...props}
+          className={`border-2 w-full h-10 rounded-xl px-4 text-lg focus:outline-baseColor [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none`}
         />
       </div>
     );

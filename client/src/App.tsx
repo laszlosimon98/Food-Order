@@ -3,6 +3,7 @@ import Register from "@/features/auth/components/Register";
 import Layout from "@/features/shared/components/Layout";
 import Home from "@/features/home/components/Home";
 import { Route, Routes } from "react-router-dom";
+import Profile from "@/features/profile/components/Profile";
 
 function App() {
   return (
@@ -11,6 +12,8 @@ function App() {
         <Route index element={<Home />} />
 
         <Route path=":foodId" element={<Home />} />
+
+        <Route path="profile" element={<Profile />} />
 
         <Route path="register" element={<Register />} />
         <Route path="login" element={<Login />} />

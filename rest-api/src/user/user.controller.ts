@@ -31,7 +31,6 @@ export class UserController {
   }
 
   @ApiBearerAuth()
-  @Roles(RoleEnum.User)
   @Patch('userDetails')
   async updateUserDetails(
     @Body() updateUserDetailsDto: UpdateUserDetailsDto,
@@ -44,7 +43,6 @@ export class UserController {
   }
 
   @ApiBearerAuth()
-  @Roles(RoleEnum.User)
   @Patch('changePassword')
   async changePassword(
     @Body() newPasswordDto: NewPasswordDto,

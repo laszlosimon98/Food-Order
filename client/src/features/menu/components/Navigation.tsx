@@ -42,9 +42,12 @@ const Navigation = ({
             <ListElement link="/register">Regisztráció</ListElement>
           </>
         ) : (
-          <ListElement link="/" onClick={logout}>
-            Kijelentkezés
-          </ListElement>
+          <>
+            <ListElement link="/profile">Profilom</ListElement>
+            <ListElement link="/" onClick={logout}>
+              Kijelentkezés
+            </ListElement>
+          </>
         )}
       </ul>
     </nav>

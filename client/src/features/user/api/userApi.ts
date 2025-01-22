@@ -16,7 +16,7 @@ const userApi = storeApi.injectEndpoints({
     updateUserDetails: builder.mutation<any, UserDetailsType>({
       query: (body) => ({
         url: "user/userDetails",
-        method: "POST",
+        method: "PATCH",
         body,
       }),
       invalidatesTags: ["User"],
@@ -24,7 +24,7 @@ const userApi = storeApi.injectEndpoints({
     changePassword: builder.mutation<any, PasswordChangeType>({
       query: (body) => ({
         url: "user/changePassword",
-        method: "POST",
+        method: "PATCH",
         body,
       }),
       invalidatesTags: ["User"],
