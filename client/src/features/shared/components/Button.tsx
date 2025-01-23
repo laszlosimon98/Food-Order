@@ -6,7 +6,7 @@ type ButtonProps = HTMLAttributes<HTMLButtonElement> &
   VariantProps<typeof buttonVariants> & {
     type?: "button" | "submit";
     variant?: "primary" | "secondary";
-    size?: "default" | "sm";
+    size?: "default" | "sm" | "icon";
   };
 
 const Button = ({
@@ -36,6 +36,7 @@ const buttonVariants = cva(
       size: {
         default: "h-10 px-4",
         sm: "h-9 px-2",
+        icon: "h-10 w-10 ",
       },
     },
     defaultVariants: {

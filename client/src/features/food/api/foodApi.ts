@@ -33,6 +33,10 @@ const foodApi = storeApi.injectEndpoints({
       query: () => "food/topTenOrder",
       providesTags: ["Food"],
     }),
+    getFoodCount: builder.query<number, void>({
+      query: () => "food/foodCount",
+      providesTags: ["Food"],
+    }),
     getFoodById: builder.query<FoodType, IdType>({
       query: ({ id }) => `food/${id}`,
       providesTags: ["Food"],
@@ -75,6 +79,7 @@ export const {
   useGetFoodByIdQuery,
   useGetFavoriteFoodsQuery,
   useGetTopTenOrderQuery,
+  useGetFoodCountQuery,
   useAddFoodMutation,
   useUpdateFoodMutation,
   useDeleteFoodMutation,

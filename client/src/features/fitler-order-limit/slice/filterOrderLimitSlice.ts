@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-type FilterOrderState = {
+type FilterOrderLimitState = {
   data: {
     isOnPromotion?: boolean;
     minValue: number;
@@ -9,20 +9,22 @@ type FilterOrderState = {
     isVegetarian?: boolean;
     categoryId?: number;
     hasRating?: boolean;
-    orderByPrice?: "asc" | "desc" | undefined;
-    orderByRating?: "asc" | "desc" | undefined;
+    orderByPrice?: "asc" | "desc";
+    orderByRating?: "asc" | "desc";
+    page?: number;
+    limit?: number;
   };
 };
 
-const initialState: FilterOrderState = {
+const initialState: FilterOrderLimitState = {
   data: {
     minValue: 0,
     maxValue: 3000,
   },
 };
 
-const filterOrderSlice = createSlice({
-  name: "filterOrder",
+const filterOrderLimitSlice = createSlice({
+  name: "filterOrderLimit",
   initialState,
   reducers: {
     setPromotion: (state, action: PayloadAction<boolean | undefined>) => {
@@ -75,6 +77,12 @@ const filterOrderSlice = createSlice({
       state.data.orderByPrice = action.payload;
       state.data.orderByRating = action.payload;
     },
+    setLimit: (state, action: PayloadAction<number | undefined>) => {
+      state.data.limit = action.payload;
+    },
+    setPage: (state, action: PayloadAction<number | undefined>) => {
+      state.data.page = action.payload;
+    },
   },
 });
 
@@ -89,5 +97,7 @@ export const {
   setOrderByPrice,
   setOrderByRating,
   setOrderToDefault,
-} = filterOrderSlice.actions;
-export default filterOrderSlice.reducer;
+  setLimit,
+  setPage,
+} = filterOrderLimitSlice.actions;
+export default filterOrderLimitSlice.reducer;

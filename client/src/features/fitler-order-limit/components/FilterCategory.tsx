@@ -1,5 +1,5 @@
 import { useGetCategoriesQuery } from "@/features/category/api/categoryApi";
-import { setCategoryId } from "@/features/fitler-order/slice/filterOrderSlice";
+import { setCategoryId } from "@/features/fitler-order-limit/slice/filterOrderLimitSlice";
 import Loading from "@/features/shared/components/Loading";
 import { useAppDispatch } from "@/store/hooks/store.hooks";
 import { ReactElement } from "react";

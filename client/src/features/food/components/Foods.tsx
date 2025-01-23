@@ -1,17 +1,17 @@
-import FilterCategory from "@/features/fitler-order/components/FilterCategory";
-import FilterHasRating from "@/features/fitler-order/components/FilterHasRating";
-import FilterIsOnPromotion from "@/features/fitler-order/components/FilterIsOnPromotion";
-import FilterIsSpice from "@/features/fitler-order/components/FilterIsSpice";
-import FilterIsVegetarian from "@/features/fitler-order/components/FilterIsVegetarian";
-import FilterMax from "@/features/fitler-order/components/FilterMax";
-import FilterMin from "@/features/fitler-order/components/FilterMin";
-import OrderItems from "@/features/fitler-order/components/OrderItems";
-import { useGetFoodsQuery } from "@/features/food/api/foodApi";
+import FilterContainer from "@/features/fitler-order-limit/components/FIlterContainer";
+import Limit from "@/features/fitler-order-limit/components/Limit";
+import OrderItems from "@/features/fitler-order-limit/components/OrderItems";
+import Pagination from "@/features/fitler-order-limit/components/Pagination";
+import {
+  useGetFoodCountQuery,
+  useGetFoodsQuery,
+} from "@/features/food/api/foodApi";
 import FoodCard from "@/features/food/components/FoodCard";
 import FoodModal from "@/features/food/components/FoodModal";
 import Loading from "@/features/shared/components/Loading";
 import { useAppSelector } from "@/store/hooks/store.hooks";
 import { FoodType } from "@/utils/types/food.type";
+
 import { ReactElement } from "react";
 import { Link } from "react-router-dom";
 
@@ -26,6 +26,8 @@ const Foods = (): ReactElement => {
     maxValue,
     orderByPrice,
     orderByRating,
+    limit,
+    page,
   } = useAppSelector((state) => state.filter.data);
 
   const { data: foods, isLoading: isFoodsLoading } = useGetFoodsQuery({
@@ -38,28 +40,29 @@ const Foods = (): ReactElement => {
     isOnPromotion,
     orderByPrice,
     orderByRating,
+    limit,
+    page,
   });
+
+  const { data: foodCount, isLoading: isFoodCountLoading } =
+    useGetFoodCountQuery();
 
   const { isFoodOverlayOpen } = useAppSelector((state) => state.overlay.data);
 
-  if (isFoodsLoading) {
+  if (isFoodsLoading || isFoodCountLoading) {
     return <Loading />;
   }
+
+  const pageButtonCount = Math.ceil(
+    (foodCount as number) / (limit ? limit : (foodCount as number))
+  );
 
   return (
     <>
       <div>
-        <h2>Szűrés</h2>
-        <FilterCategory />
-        <FilterIsSpice />
-        <FilterIsVegetarian />
-        <FilterMin />
-        <FilterMax />
-        <FilterIsOnPromotion />
-        <FilterHasRating />
-
-        <h2>Rendezés</h2>
+        <FilterContainer />
         <OrderItems />
+        <Limit />
       </div>
 
       {isFoodOverlayOpen ? (
@@ -74,6 +77,7 @@ const Foods = (): ReactElement => {
             ))}
         </div>
       )}
+      <Pagination pageButtonCount={pageButtonCount} />
     </>
   );
 };

@@ -1,4 +1,4 @@
-import { setSpice } from "@/features/fitler-order/slice/filterOrderSlice";
+import { setSpice } from "@/features/fitler-order-limit/slice/filterOrderLimitSlice";
 import { useAppDispatch } from "@/store/hooks/store.hooks";
 import { ReactElement } from "react";
 
