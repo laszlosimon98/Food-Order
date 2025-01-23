@@ -7,10 +7,16 @@ export class OrderEntity implements Orders {
   orderId: number;
 
   @ApiProperty()
-  totalPrice: number;
+  totalOrderPrice: number;
 
   @ApiProperty()
   orderDate: Date;
+
+  @ApiProperty()
+  address: string;
+
+  @ApiProperty()
+  phoneNumber: string;
 
   @ApiProperty()
   userId: number;

@@ -25,11 +25,11 @@ export class OrderItemService {
       createOrderItemDtos.map(async (orderItem) => {
         const { quantity, foodId } = orderItem;
         const food = await this.foodService.findOne(foodId);
-        const price = quantity * food.price;
+        const totalPrice = quantity * food.price;
 
         return {
           ...orderItem,
-          price,
+          totalPrice,
         };
       }),
     );
@@ -58,7 +58,7 @@ export class OrderItemService {
       );
     }
 
-    const oldPrice = orderItem.price;
+    const oldPrice = orderItem.totalPrice;
     const newPrice = food.price * quantity;
 
     await this.prismaService.orderItems.update({
@@ -67,18 +67,18 @@ export class OrderItemService {
       },
       data: {
         quantity,
-        price: newPrice,
+        totalPrice: newPrice,
       },
     });
 
-    const calcOrderTotalPrice = order.totalPrice - oldPrice + newPrice;
+    const calcOrderTotalPrice = order.totalOrderPrice - oldPrice + newPrice;
 
     await this.prismaService.orders.update({
       where: {
         orderId: order.orderId,
       },
       data: {
-        totalPrice: calcOrderTotalPrice,
+        totalOrderPrice: calcOrderTotalPrice,
       },
     });
 
@@ -111,21 +111,26 @@ export class OrderItemService {
       },
     });
 
-    const newPrice = order.totalPrice - deletedOrderItem.price;
+    const orderItemsLength = await this.prismaService.orderItems.count({
+      where: {
+        orderId: orderItem.orderId,
+      },
+    });
 
-    if (order.orderItems.length === 1) {
+    if (orderItemsLength === 0) {
       await this.prismaService.orders.delete({
         where: {
           orderId: orderItem.orderId,
         },
       });
     } else {
+      const newPrice = order.totalOrderPrice - deletedOrderItem.totalPrice;
       await this.prismaService.orders.update({
         where: {
           orderId: orderItem.orderId,
         },
         data: {
-          totalPrice: newPrice,
+          totalOrderPrice: newPrice,
         },
       });
     }

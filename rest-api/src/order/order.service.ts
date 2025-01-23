@@ -9,6 +9,7 @@ import { PrismaService } from 'src/prisma/prisma.service';
 import { OrderItemService } from 'src/order-item/order-item.service';
 import { CreateOrderItemDto } from 'src/order-item/dto/create-order-item.dto';
 import { StatusEnum } from 'src/enums/status';
+import { CreateOrderDto } from 'src/order/dto/create-order.dto';
 
 @Injectable()
 export class OrderService {
@@ -19,11 +20,19 @@ export class OrderService {
     private readonly orderItemService: OrderItemService,
   ) {}
 
-  async create(createOrderItemDto: CreateOrderItemDto[], user: any) {
+  async create(createOrderDto: CreateOrderDto, user: any) {
+    const {
+      address,
+      phoneNumber,
+      orderItems: createOrderItemDto,
+    } = createOrderDto;
+
     const order = await this.prismaService.orders.create({
       data: {
+        address,
+        phoneNumber,
         orderDate: new Date(),
-        totalPrice: 0,
+        totalOrderPrice: 0,
         deliveryStatusId: 1,
         userId: user.userId,
       },
@@ -43,8 +52,8 @@ export class OrderService {
       data: createOrderItems,
     });
 
-    const totalPrice = orderItems.reduce(
-      (prev, current) => prev + current.price,
+    const totalOrderPrice = orderItems.reduce(
+      (prev, current) => prev + current.totalPrice,
       0,
     );
 
@@ -53,7 +62,7 @@ export class OrderService {
         orderId: order.orderId,
       },
       data: {
-        totalPrice,
+        totalOrderPrice,
       },
     });
 

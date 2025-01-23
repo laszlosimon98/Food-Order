@@ -34,15 +34,9 @@ export class OrderController {
   @ApiBearerAuth()
   @Roles(RoleEnum.User)
   @ApiCreatedResponse({ type: CreateOrderDto })
-  @ApiBody({
-    type: [CreateOrderItemDto],
-  })
   @Post()
-  async create(
-    @Body() createOrderItemDto: CreateOrderItemDto[],
-    @Req() req: Request,
-  ) {
-    return await this.orderService.create(createOrderItemDto, req.user);
+  async create(@Body() createOrderDto: CreateOrderDto, @Req() req: Request) {
+    return await this.orderService.create(createOrderDto, req.user);
   }
 
   @ApiBearerAuth()

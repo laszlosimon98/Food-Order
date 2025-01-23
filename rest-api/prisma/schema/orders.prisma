@@ -1,9 +1,11 @@
 model Orders {
-    orderId    Int      @id @default(autoincrement())
-    totalPrice Int
-    orderDate  DateTime
-    createdAt  DateTime @default(now())
-    updatedAt  DateTime @updatedAt
+    orderId         Int      @id @default(autoincrement())
+    totalOrderPrice Int
+    orderDate       DateTime
+    address         String
+    phoneNumber     String
+    createdAt       DateTime @default(now())
+    updatedAt       DateTime @updatedAt
 
     user             Users          @relation(fields: [userId], references: [userId])
     userId           Int

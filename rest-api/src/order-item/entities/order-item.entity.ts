@@ -10,7 +10,7 @@ export class OrderItemEntity implements OrderItems {
   quantity: number;
 
   @ApiProperty()
-  price: number;
+  totalPrice: number;
 
   orderId: number;
   foodId: number;
