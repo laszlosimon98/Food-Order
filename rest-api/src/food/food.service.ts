@@ -139,6 +139,16 @@ export class FoodService {
     return await this.prismaService.foods.count();
   }
 
+  async getFoodByIds(ids: number[]) {
+    return await this.prismaService.foods.findMany({
+      where: {
+        foodId: {
+          in: ids,
+        },
+      },
+    });
+  }
+
   async update(id: number, updateFoodDto: UpdateFoodDto) {
     await this.prismaService.foods.update({
       where: {

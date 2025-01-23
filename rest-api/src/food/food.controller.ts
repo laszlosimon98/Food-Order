@@ -9,6 +9,7 @@ import {
   ParseIntPipe,
   Query,
   Req,
+  ParseArrayPipe,
 } from '@nestjs/common';
 import { FoodService } from './food.service';
 import { CreateFoodDto } from './dto/create-food.dto';
@@ -33,6 +34,7 @@ import { OrderPipe } from 'src/pipes/order/order.pipe';
 import { OrderType } from 'src/types/order.type';
 import { PositivePipe } from 'src/pipes/positive/positive.pipe';
 import { FavoriteFoodEntity } from 'src/favorite-food/entities/favorite-food.entity';
+import { NumberArrayPipe } from 'src/pipes/number-array/number-array.pipe';
 
 @Controller('food')
 export class FoodController {
@@ -110,6 +112,15 @@ export class FoodController {
   @Get('/foodCount')
   async getFoodCount() {
     return await this.foodService.getFoodCount();
+  }
+
+  @Public()
+  @ApiOkResponse({ type: FoodEntity, isArray: true })
+  @Get('getFoodByIds')
+  async getFoodByIds(
+    @Query('ids', ParseArrayPipe, NumberArrayPipe) ids: number[],
+  ) {
+    return await this.foodService.getFoodByIds(ids);
   }
 
   @Public()
