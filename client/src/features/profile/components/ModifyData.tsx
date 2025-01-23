@@ -5,8 +5,7 @@ import TextInput from "@/features/shared/components/TextInput";
 import { useUpdateUserDetailsMutation } from "@/features/user/api/userApi";
 import { UserType } from "@/utils/types/user.type";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { current } from "@reduxjs/toolkit";
-import { ReactElement, useEffect, useMemo } from "react";
+import { ReactElement } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { z } from "zod";
@@ -14,10 +13,6 @@ import { z } from "zod";
 type ModifyDataProps = {
   currentUser: UserType;
 };
-
-// Legyen egyszerűbb, amikor a profilomra nyomok, akkor kiadja az bejelentkezett felhasználó adatait
-// és lesznek gombok, hogy mit akarok csinálni, pl név változatás, cim megadás, telefonszám megadás, jelszó változtatás
-// és amit választok az alapján fog megjelenni, a form
 
 const schema = z
   .object({

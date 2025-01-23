@@ -1,6 +1,10 @@
-import { useLogoutMutation } from "@/features/auth/api/authApi";
+import {
+  useGetCurrentUserQuery,
+  useLogoutMutation,
+} from "@/features/auth/api/authApi";
 import { removeToken } from "@/features/auth/slice/authSlice";
 import ListElement from "@/features/menu/components/ListElement";
+import Loading from "@/features/shared/components/Loading";
 import { useAppSelector, useAppDispatch } from "@/store/hooks/store.hooks";
 import { ReactElement } from "react";
 import { useNavigate } from "react-router-dom";
@@ -15,6 +19,7 @@ const Navigation = ({
   closeMenu,
 }: NavigationPropsType): ReactElement => {
   const { isAuthenticated } = useAppSelector((state) => state.auth.data);
+  const { data: currentUser, isLoading } = useGetCurrentUserQuery();
 
   const [useLogout] = useLogoutMutation();
   const dispatch = useAppDispatch();
@@ -25,6 +30,10 @@ const Navigation = ({
     dispatch(removeToken());
     navigate("/");
   };
+
+  if (isLoading) {
+    return <Loading />;
+  }
 
   return (
     <nav className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 md:static md:translate-x-0 md:translate-y-0">
@@ -43,6 +52,24 @@ const Navigation = ({
           </>
         ) : (
           <>
+            {currentUser.role === "user" && (
+              <>
+                <ListElement link="/my-orders">Rendeléseim</ListElement>
+                <ListElement link="/favorite-foods">Kedvenceim</ListElement>
+              </>
+            )}
+
+            {currentUser.role === "employee" && (
+              <>
+                <ListElement link="/orders">Rendelések</ListElement>
+              </>
+            )}
+
+            {currentUser.role === "admin" && (
+              <>
+                <ListElement link="/users">Felhasználók</ListElement>
+              </>
+            )}
             <ListElement link="/profile">Profilom</ListElement>
             <ListElement link="/" onClick={logout}>
               Kijelentkezés

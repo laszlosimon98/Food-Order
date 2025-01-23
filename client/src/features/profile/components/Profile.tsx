@@ -1,19 +1,21 @@
-import { useGetUserQuery } from "@/features/auth/api/authApi";
+import { useGetCurrentUserQuery } from "@/features/auth/api/authApi";
 import ChangePassword from "@/features/profile/components/ChangePassword";
 import ModifyData from "@/features/profile/components/ModifyData";
 import Button from "@/features/shared/components/Button";
+import Loading from "@/features/shared/components/Loading";
 import { UserType } from "@/utils/types/user.type";
 import { ReactElement, useState } from "react";
 
 const Profile = (): ReactElement => {
-  const { data: currentUser, isLoading } = useGetUserQuery(undefined, {
+  const { data: currentUser, isLoading } = useGetCurrentUserQuery(undefined, {
     refetchOnMountOrArgChange: true,
   });
+
   const [isPasswordChangeFormVisible, setIsPasswordChangeFormVisible] =
     useState<boolean>(false);
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <Loading />;
   }
 
   return (

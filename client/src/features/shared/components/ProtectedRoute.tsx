@@ -1,4 +1,5 @@
-import { useGetUserQuery } from "@/features/auth/api/authApi";
+import { useGetCurrentUserQuery } from "@/features/auth/api/authApi";
+import Loading from "@/features/shared/components/Loading";
 import Redirect from "@/features/shared/components/Redirect";
 import { UserRoles } from "@/utils/types/user.type";
 import { PropsWithChildren, ReactElement } from "react";
@@ -11,10 +12,10 @@ const ProtectedRoute = ({
   children,
   allowedRoles,
 }: ProtectedRouteProps): ReactElement => {
-  const { data: currentUser, isLoading } = useGetUserQuery();
+  const { data: currentUser, isLoading } = useGetCurrentUserQuery();
 
   if (isLoading) {
-    return <div>Loading</div>;
+    return <Loading />;
   }
 
   if (currentUser === undefined) {

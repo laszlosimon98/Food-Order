@@ -28,7 +28,7 @@ export const authApi = storeApi.injectEndpoints({
       }),
       invalidatesTags: ["Auth"],
     }),
-    getUser: builder.query<any, void>({
+    getCurrentUser: builder.query<any, void>({
       query: () => "auth/currentUser",
       providesTags: ["Auth"],
     }),
@@ -36,7 +36,7 @@ export const authApi = storeApi.injectEndpoints({
 });
 
 export const {
-  useGetUserQuery,
+  useGetCurrentUserQuery,
   useRegisterMutation,
   useLoginMutation,
   useLogoutMutation,
