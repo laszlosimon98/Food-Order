@@ -8,7 +8,7 @@ import {
   FetchBaseQueryError,
 } from "@reduxjs/toolkit/query/react";
 
-const URL = "http://localhost:3000/api/v1";
+const URL = `${process.env.SERVER}/api/v1`;
 
 const baseQuery = fetchBaseQuery({
   baseUrl: URL,
@@ -23,11 +23,7 @@ const baseQuery = fetchBaseQuery({
   },
   credentials: "include",
 });
-// BaseQueryFn<
-//   string | FetchArgs,
-//   unknown,
-//   FetchBaseQueryError
-// >
+
 const baseQueryWithReauth: BaseQueryFn<
   string | FetchArgs,
   unknown,

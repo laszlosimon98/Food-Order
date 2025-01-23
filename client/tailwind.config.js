@@ -12,6 +12,7 @@ export default {
       width: {
         formContainer: "clamp(22rem, 50vw, 36rem)",
         cartWidth: "clamp(20rem, 85vw, 24rem)",
+        inputWidth: "clamp(18rem, 80%, 28rem)",
       },
       colors: {
         baseColor: "#EE964B",

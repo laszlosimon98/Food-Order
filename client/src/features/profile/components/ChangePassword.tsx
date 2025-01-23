@@ -4,7 +4,7 @@ import FormContainer from "@/features/shared/components/form/FormContainer";
 import TextInput from "@/features/shared/components/TextInput";
 import { useChangePasswordMutation } from "@/features/user/api/userApi";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ReactElement } from "react";
+import { Dispatch, ReactElement, SetStateAction } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { z } from "zod";
@@ -28,8 +28,13 @@ const schema = z.object({
 });
 
 type ChangePasswordType = z.infer<typeof schema>;
+type ChangePasswordProps = {
+  setIsPasswordChangeFormVisible: Dispatch<SetStateAction<boolean>>;
+};
 
-const ChangePassword = (): ReactElement => {
+const ChangePassword = ({
+  setIsPasswordChangeFormVisible,
+}: ChangePasswordProps): ReactElement => {
   const {
     register,
     handleSubmit,
@@ -68,28 +73,49 @@ const ChangePassword = (): ReactElement => {
   return (
     <FormContainer title="Jelszó változtatás" onSubmit={handleSubmit(onSubmit)}>
       <div className="w-4/5 mx-auto">
-        <TextInput {...register("oldPassword")} label="Jelenlegi jelszó" />
+        <TextInput
+          {...register("oldPassword")}
+          label="Jelenlegi jelszó"
+          type="password"
+        />
         {errors.oldPassword && (
           <ErrorText>{errors.oldPassword.message}</ErrorText>
         )}
       </div>
 
       <div className="w-4/5 mx-auto">
-        <TextInput {...register("newPassword")} label="Új jelszó" />
+        <TextInput
+          {...register("newPassword")}
+          label="Új jelszó"
+          type="password"
+        />
         {errors.newPassword && (
           <ErrorText>{errors.newPassword.message}</ErrorText>
         )}
       </div>
 
       <div className="w-4/5 mx-auto">
-        <TextInput {...register("newPasswordAgain")} label="Jelszó újra" />
+        <TextInput
+          {...register("newPasswordAgain")}
+          label="Jelszó újra"
+          type="password"
+        />
         {errors.newPasswordAgain && (
           <ErrorText>{errors.newPasswordAgain.message}</ErrorText>
         )}
       </div>
 
-      <div className="flex justify-center items-center ">
-        <Button variant="primary" size="default" className="mt-5">
+      <div className="flex justify-around items-center ">
+        <Button
+          variant="secondary"
+          size="sm"
+          className="mt-5"
+          onClick={() => setIsPasswordChangeFormVisible(false)}
+        >
+          Mégse
+        </Button>
+
+        <Button variant="primary" size="default" className="mt-5" type="submit">
           Jelszó változtatás
         </Button>
       </div>

@@ -13,7 +13,7 @@ const FoodImage = ({
   width,
   className,
 }: FoodImageProps): ReactElement => {
-  const image: string | null = `${process.env.SERVER_ADDRESS}/uploads/${url}`;
+  const image: string | undefined = `${process.env.SERVER}/uploads/${url}`;
 
   return (
     <div

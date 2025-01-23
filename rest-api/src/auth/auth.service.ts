@@ -53,6 +53,8 @@ export class AuthService {
 
     response.cookie('refreshToken', refreshToken, {
       httpOnly: true,
+      sameSite: 'none',
+      secure: true,
       expires: refreshTokenExpirationDate,
     });
 

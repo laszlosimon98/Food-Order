@@ -55,18 +55,14 @@ const Login = (): ReactElement => {
         </ErrorText>
       )}
 
-      <div className="w-2/3 mx-auto">
-        <TextInput {...register("username")} label="Felhasználó név" />
-        {errors.username && <ErrorText>{errors.username.message}</ErrorText>}
-      </div>
+      <TextInput {...register("username")} label="Felhasználó név" />
+      {errors.username && <ErrorText>{errors.username.message}</ErrorText>}
 
-      <div className="w-2/3 mx-auto">
-        <TextInput {...register("password")} label="Jelszó" type="password" />
-        {errors.password && <ErrorText>{errors.password.message}</ErrorText>}
-      </div>
+      <TextInput {...register("password")} label="Jelszó" type="password" />
+      {errors.password && <ErrorText>{errors.password.message}</ErrorText>}
 
       <div className="flex justify-center items-center ">
-        <Button variant="primary" size="default" className="mt-5">
+        <Button variant="primary" size="default" className="mt-5" type="submit">
           Bejelentkezés
         </Button>
       </div>

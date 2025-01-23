@@ -16,7 +16,10 @@ const FormContainer = ({
 }: FormContainerProps): ReactElement => {
   return (
     <div
-      className={cn("h-calcScreen flex justify-center items-center", className)}
+      className={cn(
+        "h-calcScreen flex justify-center pt-16 md:pt-5 md:items-center",
+        className
+      )}
     >
       <form onSubmit={onSubmit}>
         <div className=" w-formContainer shadow-2xl rounded-3xl p-5 bg-white">

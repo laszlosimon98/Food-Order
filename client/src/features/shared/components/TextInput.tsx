@@ -1,3 +1,4 @@
+import { cn } from "@/utils/cn";
 import {
   ForwardedRef,
   forwardRef,
@@ -13,14 +14,19 @@ type InputProps = HTMLAttributes<HTMLInputElement> &
 
 const TextInput = forwardRef<HTMLInputElement, InputProps>(
   (
-    { label, ...props }: InputProps,
+    { label, className, ...props }: InputProps,
     ref: ForwardedRef<HTMLInputElement>
   ): ReactElement => {
     return (
-      <div className="flex flex-col justify-center items-center pb-2">
+      <div
+        className={cn(
+          "flex flex-col justify-center items-center pb-2 w-inputWidth mx-auto",
+          className
+        )}
+      >
         <label
           htmlFor={`${label}`}
-          className="py-2 pl-5 self-start text-xl font-semibold text-baseColor"
+          className="py-2 pl-3 self-start text-xl font-semibold text-baseColor"
         >
           {label}
         </label>

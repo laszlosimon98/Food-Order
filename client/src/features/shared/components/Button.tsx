@@ -4,6 +4,7 @@ import { HTMLAttributes, ReactElement } from "react";
 
 type ButtonProps = HTMLAttributes<HTMLButtonElement> &
   VariantProps<typeof buttonVariants> & {
+    type?: "button" | "submit";
     variant?: "primary" | "secondary";
     size?: "default" | "sm";
   };
@@ -12,10 +13,12 @@ const Button = ({
   className,
   variant,
   size,
+  type,
   ...props
 }: ButtonProps): ReactElement => {
   return (
     <button
+      type={type ? type : "button"}
       {...props}
       className={cn(buttonVariants({ variant, size }), className)}
     />
