@@ -6,7 +6,7 @@ export type CreateOrderType = {
 };
 
 export type OrderType = {
-  orderId: number;
+  id: number;
   totalPrice: number;
   orderDate: Date;
   deliveryStatus: {

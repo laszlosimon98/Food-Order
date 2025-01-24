@@ -2,12 +2,15 @@ import CartItemContainer from "@/features/cart/components/CartItemContainer";
 import CartTotal from "@/features/cart/components/CartTotal";
 import { clearCart } from "@/features/cart/slice/cartSlice";
 import Button from "@/features/shared/components/Button";
-import { useAppDispatch } from "@/store/hooks/store.hooks";
+import { useAppDispatch, useAppSelector } from "@/store/hooks/store.hooks";
 import { PropsWithChildren, ReactElement } from "react";
+import { Link } from "react-router-dom";
 
 type CartProps = PropsWithChildren & {};
 
 const Cart = ({ children }: CartProps): ReactElement => {
+  const cartItems = useAppSelector((state) => state.cart.data.cartItems);
+
   const dispatch = useAppDispatch();
 
   return (
@@ -20,10 +23,20 @@ const Cart = ({ children }: CartProps): ReactElement => {
         <CartTotal />
 
         <div className="flex justify-around items-end mt-3">
-          <Button variant="primary">Megrendelem</Button>
-          <Button variant="secondary" onClick={() => dispatch(clearCart())}>
-            Kosár törlése
-          </Button>
+          <Link to={"/order-summary"}>
+            <Button
+              variant="primary"
+              disabled={Object.keys(cartItems).length === 0}
+            >
+              Tovább
+            </Button>
+          </Link>
+
+          <Link to={"/"}>
+            <Button variant="secondary" onClick={() => dispatch(clearCart())}>
+              Kosár törlése
+            </Button>
+          </Link>
         </div>
       </div>
     </div>

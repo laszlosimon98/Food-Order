@@ -35,14 +35,18 @@ const userApi = storeApi.injectEndpoints({
         method: "PATCH",
         body: rest,
       }),
-      invalidatesTags: ["User"],
+      invalidatesTags(result, error, arg, meta) {
+        return [{ type: "User", id: arg.id }];
+      },
     }),
     deleteUser: builder.mutation<any, IdType>({
       query: ({ id }) => ({
         url: `user/${id}`,
         method: "DELETE",
       }),
-      invalidatesTags: ["User"],
+      invalidatesTags(result, error, arg, meta) {
+        return [{ type: "User", id: arg.id }];
+      },
     }),
   }),
 });

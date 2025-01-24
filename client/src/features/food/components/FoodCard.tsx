@@ -43,6 +43,7 @@ const FoodCard = ({ food }: FoodCardProps): ReactElement => {
             dispatch(saveItem(food));
           }}
           className="mt-5"
+          type="button"
         >
           Kosárba
         </Button>

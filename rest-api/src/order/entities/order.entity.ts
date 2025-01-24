@@ -4,13 +4,16 @@ import { OrderItemEntity } from 'src/order-item/entities/order-item.entity';
 
 export class OrderEntity implements Orders {
   @ApiProperty()
-  orderId: number;
+  id: number;
 
   @ApiProperty()
   totalOrderPrice: number;
 
   @ApiProperty()
   orderDate: Date;
+
+  @ApiProperty()
+  fullname: string;
 
   @ApiProperty()
   address: string;

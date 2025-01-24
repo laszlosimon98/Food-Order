@@ -7,6 +7,7 @@ type ButtonProps = HTMLAttributes<HTMLButtonElement> &
     type?: "button" | "submit";
     variant?: "primary" | "secondary";
     size?: "default" | "sm" | "icon";
+    disabled?: boolean;
   };
 
 const Button = ({
@@ -14,11 +15,13 @@ const Button = ({
   variant,
   size,
   type,
+  disabled = false,
   ...props
 }: ButtonProps): ReactElement => {
   return (
     <button
       type={type ? type : "button"}
+      disabled={disabled}
       {...props}
       className={cn(buttonVariants({ variant, size }), className)}
     />

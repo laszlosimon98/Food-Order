@@ -6,7 +6,7 @@ export type UpdateOrderItemType = IdType & {
 };
 
 export type OrderItemType = {
-  orderItemId: number;
+  id: number;
   quantity: number;
   price: number;
   foods: FoodType & { rating: number };

@@ -20,7 +20,7 @@ const FilterCategory = (): ReactElement => {
         <option value=""></option>
         {categories &&
           categories.map((category) => (
-            <option key={category.categoryId} value={category.categoryId}>
+            <option key={category.id} value={category.id}>
               {category.categoryName}
             </option>
           ))}

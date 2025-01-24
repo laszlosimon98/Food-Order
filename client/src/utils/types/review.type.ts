@@ -8,7 +8,7 @@ export type CreateReviewType = {
 };
 
 export type ReviewType = {
-  reviewId: number;
+  id: number;
 } & CreateReviewType & {
     userId: number;
     idEditable: boolean;

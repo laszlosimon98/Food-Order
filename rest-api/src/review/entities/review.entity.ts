@@ -3,7 +3,7 @@ import { Reviews } from '@prisma/client';
 
 export class ReviewEntity implements Reviews {
   @ApiProperty()
-  reviewId: number;
+  id: number;
 
   @ApiProperty({ default: 1 })
   rating: number;

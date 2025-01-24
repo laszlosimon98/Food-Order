@@ -5,6 +5,7 @@ import Home from "@/features/home/components/Home";
 import { Route, Routes } from "react-router-dom";
 import Profile from "@/features/profile/components/Profile";
 import ProtectedRoute from "@/features/shared/components/ProtectedRoute";
+import OrderSummary from "@/features/order/components/OrderSummary";
 
 function App() {
   return (
@@ -19,6 +20,15 @@ function App() {
           element={
             <ProtectedRoute>
               <Profile />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="order-summary"
+          element={
+            <ProtectedRoute>
+              <OrderSummary />
             </ProtectedRoute>
           }
         />

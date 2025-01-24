@@ -6,6 +6,10 @@ import { CreateOrderItemDto } from 'src/order-item/dto/create-order-item.dto';
 export class CreateOrderDto {
   @IsString()
   @ApiProperty()
+  fullname: string;
+
+  @IsString()
+  @ApiProperty()
   address: string;
 
   @IsString()

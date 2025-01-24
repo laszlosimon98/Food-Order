@@ -1,13 +1,13 @@
 model OrderItems {
-    orderItemId Int      @id @default(autoincrement())
-    quantity    Int
-    totalPrice  Int
-    createdAt   DateTime @default(now())
-    updatedAt   DateTime @updatedAt
+    id         Int      @id @default(autoincrement())
+    quantity   Int
+    totalPrice Int
+    createdAt  DateTime @default(now())
+    updatedAt  DateTime @updatedAt
 
-    orders  Orders? @relation(fields: [orderId], references: [orderId], onDelete: Cascade)
+    orders  Orders? @relation(fields: [orderId], references: [id], onDelete: Cascade)
     orderId Int?
 
-    foods  Foods @relation(fields: [foodId], references: [foodId])
+    foods  Foods @relation(fields: [foodId], references: [id])
     foodId Int
 }

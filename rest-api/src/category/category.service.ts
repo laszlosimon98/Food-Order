@@ -20,7 +20,7 @@ export class CategoryService {
   async findAll() {
     return await this.prismaService.categories.findMany({
       orderBy: {
-        categoryId: 'asc',
+        id: 'asc',
       },
     });
   }
@@ -28,7 +28,7 @@ export class CategoryService {
   async findOne(id: number) {
     return await this.prismaService.categories.findUnique({
       where: {
-        categoryId: id,
+        id,
       },
     });
   }
@@ -36,7 +36,7 @@ export class CategoryService {
   async update(id: number, updateCategoryDto: UpdateCategoryDto) {
     await this.prismaService.categories.update({
       where: {
-        categoryId: id,
+        id,
       },
       data: updateCategoryDto,
     });
@@ -49,7 +49,7 @@ export class CategoryService {
   async remove(id: number) {
     await this.prismaService.categories.delete({
       where: {
-        categoryId: id,
+        id,
       },
     });
 

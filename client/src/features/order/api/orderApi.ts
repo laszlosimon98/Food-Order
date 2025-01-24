@@ -27,21 +27,27 @@ const orderApi = storeApi.injectEndpoints({
     }),
     getOrderById: builder.query<OrderType, IdType>({
       query: ({ id }) => `order/${id}`,
-      providesTags: ["Order"],
+      providesTags(_result, _error, arg, _meta) {
+        return [{ type: "Order", id: arg.id }];
+      },
     }),
     deleteOrder: builder.mutation<any, IdType>({
       query: ({ id }) => ({
         url: `order/${id}`,
         method: "DELETE",
       }),
-      invalidatesTags: ["Order"],
+      invalidatesTags(_result, _error, arg, _meta) {
+        return [{ type: "Order", id: arg.id }];
+      },
     }),
     updateOrderStatus: builder.mutation<any, IdType & OrderStatusType>({
       query: ({ id, status }) => ({
         url: `order/updateStatus/${id}?status=${status}`,
         method: "PATCH",
       }),
-      invalidatesTags: ["Order"],
+      invalidatesTags(_result, _error, arg, _meta) {
+        return [{ type: "Order", id: arg.id }];
+      },
     }),
     updateOrderItem: builder.mutation<any, UpdateOrderItemType>({
       query: ({ id, ...rest }) => ({
@@ -49,14 +55,18 @@ const orderApi = storeApi.injectEndpoints({
         method: "POST",
         body: rest,
       }),
-      invalidatesTags: ["OrderItem"],
+      invalidatesTags(_result, _error, arg, _meta) {
+        return [{ type: "Order", id: arg.id }];
+      },
     }),
     deleteOrderItem: builder.mutation<any, IdType>({
       query: ({ id }) => ({
         url: `order-item/${id}`,
         method: "DELETE",
       }),
-      invalidatesTags: ["OrderItem"],
+      invalidatesTags(_result, _error, arg, _meta) {
+        return [{ type: "Order", id: arg.id }];
+      },
     }),
   }),
 });

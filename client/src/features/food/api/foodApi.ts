@@ -16,12 +16,21 @@ const foodApi = storeApi.injectEndpoints({
         method: "POST",
         body,
       }),
-      invalidatesTags: ["Food"],
+      invalidatesTags(_result, _error, arg, _meta) {
+        return [{ type: "Food", name: arg.name }];
+      },
     }),
     getFoods: builder.query<FoodType[], FoodQueryParamsTypes>({
       query: (params) => ({
         url: "food",
         params,
+      }),
+      providesTags: ["Food"],
+    }),
+    getFoodsByIds: builder.query<FoodType[], { id: string[] }>({
+      query: ({ id }) => ({
+        url: "food/getFoodByIds",
+        params: { id },
       }),
       providesTags: ["Food"],
     }),
@@ -39,7 +48,9 @@ const foodApi = storeApi.injectEndpoints({
     }),
     getFoodById: builder.query<FoodType, IdType>({
       query: ({ id }) => `food/${id}`,
-      providesTags: ["Food"],
+      providesTags(_result, _error, arg, _meta) {
+        return [{ type: "Food", id: arg.id }];
+      },
     }),
     updateFood: builder.mutation<any, UpdateFoodType>({
       query: ({ id, ...body }) => ({
@@ -47,14 +58,18 @@ const foodApi = storeApi.injectEndpoints({
         method: "PATCH",
         body,
       }),
-      invalidatesTags: ["Food"],
+      invalidatesTags(_result, _error, arg, _meta) {
+        return [{ type: "Food", id: arg.id }];
+      },
     }),
     deleteFood: builder.mutation<any, IdType>({
       query: ({ id }) => ({
         url: `food/${id}`,
         method: "DELETE",
       }),
-      invalidatesTags: ["Food"],
+      invalidatesTags(_result, _error, arg, _meta) {
+        return [{ type: "Food", id: arg.id }];
+      },
     }),
     addFavoriteFood: builder.mutation<any, FavoriteFoodType>({
       query: (body) => ({
@@ -62,14 +77,18 @@ const foodApi = storeApi.injectEndpoints({
         method: "POST",
         body,
       }),
-      invalidatesTags: ["FavoriteFood"],
+      invalidatesTags(_result, _error, arg, _meta) {
+        return [{ type: "Food", id: arg.id }];
+      },
     }),
     deleteFavoriteFood: builder.mutation<any, IdType>({
       query: ({ id }) => ({
         url: `favorite-food/${id}`,
         method: "DELETE",
       }),
-      invalidatesTags: ["FavoriteFood"],
+      invalidatesTags(_result, _error, arg, _meta) {
+        return [{ type: "Food", id: arg.id }];
+      },
     }),
   }),
 });
@@ -80,6 +99,7 @@ export const {
   useGetFavoriteFoodsQuery,
   useGetTopTenOrderQuery,
   useGetFoodCountQuery,
+  useGetFoodsByIdsQuery,
   useAddFoodMutation,
   useUpdateFoodMutation,
   useDeleteFoodMutation,

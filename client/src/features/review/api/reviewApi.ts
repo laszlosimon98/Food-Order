@@ -18,21 +18,27 @@ const reviewApi = storeApi.injectEndpoints({
         method: "PATCH",
         body: rest,
       }),
-      invalidatesTags: ["Review"],
+      invalidatesTags(_result, _error, arg, _meta) {
+        return [{ type: "Review", id: arg.id }];
+      },
     }),
     deleteReview: builder.mutation<any, IdType>({
       query: ({ id }) => ({
         url: `review/${id}`,
         method: "DELETE",
       }),
-      invalidatesTags: ["Review"],
+      invalidatesTags(_result, _error, arg, _meta) {
+        return [{ type: "Review", id: arg.id }];
+      },
     }),
     deleteReviewComment: builder.mutation<any, IdType>({
       query: ({ id }) => ({
         url: `review/comment/${id}`,
         method: "DELETE",
       }),
-      invalidatesTags: ["Review"],
+      invalidatesTags(_result, _error, arg, _meta) {
+        return [{ type: "Review", id: arg.id }];
+      },
     }),
   }),
 });

@@ -33,7 +33,7 @@ export class ReviewService {
       food.reviews.reduce((previous, current) => previous + current.rating, 0) /
       food.reviews.length;
 
-    await this.foodService.update(food.foodId, { rating });
+    await this.foodService.update(food.id, { rating });
 
     return {
       isSuccess: true,
@@ -43,7 +43,7 @@ export class ReviewService {
   async findOne(id: number) {
     return await this.prismaService.reviews.findUnique({
       where: {
-        reviewId: id,
+        id,
       },
     });
   }
@@ -61,7 +61,7 @@ export class ReviewService {
 
     await this.prismaService.reviews.update({
       where: {
-        reviewId: id,
+        id,
       },
       data: updateReviewDto,
     });
@@ -74,7 +74,7 @@ export class ReviewService {
   async removeUnAppropriateComment(id: number) {
     await this.prismaService.reviews.update({
       where: {
-        reviewId: id,
+        id,
       },
       data: {
         reviewText:
@@ -100,7 +100,7 @@ export class ReviewService {
 
     await this.prismaService.reviews.delete({
       where: {
-        reviewId: id,
+        id,
       },
     });
 

@@ -13,7 +13,7 @@ export type CreateFoodType = {
 };
 
 export type FoodType = {
-  foodId: number;
+  id: number;
 } & CreateFoodType & {
     categories: CategoryType;
     promotions: PromotionType[];
@@ -22,7 +22,7 @@ export type FoodType = {
 export type UpdateFoodType = IdType & Partial<CreateFoodType>;
 
 export type FavoriteFoodType = {
-  foodId: number;
+  id: number;
 };
 
 export type FoodQueryParamsTypes = {

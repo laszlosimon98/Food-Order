@@ -7,9 +7,7 @@ import { UserType } from "@/utils/types/user.type";
 import { ReactElement, useState } from "react";
 
 const Profile = (): ReactElement => {
-  const { data: currentUser, isLoading } = useGetCurrentUserQuery(undefined, {
-    refetchOnMountOrArgChange: true,
-  });
+  const { data: currentUser, isLoading } = useGetCurrentUserQuery(undefined);
 
   const [isPasswordChangeFormVisible, setIsPasswordChangeFormVisible] =
     useState<boolean>(false);

@@ -5,7 +5,7 @@ export type CreateCategoryType = {
 };
 
 export type CategoryType = {
-  categoryId: number;
+  id: number;
 } & CreateCategoryType;
 
 export type UpdateCategoryType = IdType & Partial<CreateCategoryType>;

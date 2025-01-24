@@ -118,9 +118,9 @@ export class FoodController {
   @ApiOkResponse({ type: FoodEntity, isArray: true })
   @Get('getFoodByIds')
   async getFoodByIds(
-    @Query('ids', ParseArrayPipe, NumberArrayPipe) ids: number[],
+    @Query('id', ParseArrayPipe, NumberArrayPipe) id: number[],
   ) {
-    return await this.foodService.getFoodByIds(ids);
+    return await this.foodService.getFoodByIds(id);
   }
 
   @Public()

@@ -42,7 +42,7 @@ export class OrderItemService {
 
     const orderItem = await this.prismaService.orderItems.findUnique({
       where: {
-        orderItemId: id,
+        id,
       },
     });
 
@@ -63,7 +63,7 @@ export class OrderItemService {
 
     await this.prismaService.orderItems.update({
       where: {
-        orderItemId: id,
+        id,
       },
       data: {
         quantity,
@@ -75,7 +75,7 @@ export class OrderItemService {
 
     await this.prismaService.orders.update({
       where: {
-        orderId: order.orderId,
+        id: order.id,
       },
       data: {
         totalOrderPrice: calcOrderTotalPrice,
@@ -90,7 +90,7 @@ export class OrderItemService {
   async remove(id: number) {
     const orderItem = await this.prismaService.orderItems.findUnique({
       where: {
-        orderItemId: id,
+        id,
       },
     });
 
@@ -107,7 +107,7 @@ export class OrderItemService {
 
     const deletedOrderItem = await this.prismaService.orderItems.delete({
       where: {
-        orderItemId: id,
+        id,
       },
     });
 
@@ -120,14 +120,14 @@ export class OrderItemService {
     if (orderItemsLength === 0) {
       await this.prismaService.orders.delete({
         where: {
-          orderId: orderItem.orderId,
+          id: orderItem.id,
         },
       });
     } else {
       const newPrice = order.totalOrderPrice - deletedOrderItem.totalPrice;
       await this.prismaService.orders.update({
         where: {
-          orderId: orderItem.orderId,
+          id: orderItem.id,
         },
         data: {
           totalOrderPrice: newPrice,

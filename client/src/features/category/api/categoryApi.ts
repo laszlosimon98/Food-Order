@@ -14,7 +14,9 @@ const categoryApi = storeApi.injectEndpoints({
         method: "POST",
         body,
       }),
-      invalidatesTags: ["Category"],
+      invalidatesTags(_result, _error, arg, _meta) {
+        return [{ type: "Category", categoryName: arg.categoryName }];
+      },
     }),
     getCategories: builder.query<CategoryType[], void>({
       query: () => "category",
@@ -22,7 +24,9 @@ const categoryApi = storeApi.injectEndpoints({
     }),
     getCategoryById: builder.query<CategoryType, IdType>({
       query: ({ id }) => `category/${id}`,
-      providesTags: ["Category"],
+      providesTags(_result, _error, arg, _meta) {
+        return [{ type: "Category", id: arg.id }];
+      },
     }),
     updateCategory: builder.mutation<any, UpdateCategoryType>({
       query: ({ id, ...rest }) => ({
@@ -30,14 +34,18 @@ const categoryApi = storeApi.injectEndpoints({
         method: "PATCH",
         body: rest,
       }),
-      invalidatesTags: ["Category"],
+      invalidatesTags(_result, _error, arg, _meta) {
+        return [{ type: "Category", id: arg.id }];
+      },
     }),
     deleteCategory: builder.mutation<any, IdType>({
       query: ({ id }) => ({
         url: `category/${id}`,
         method: "DELETE",
       }),
-      invalidatesTags: ["Category"],
+      invalidatesTags(_result, _error, arg, _meta) {
+        return [{ type: "Category", id: arg.id }];
+      },
     }),
   }),
 });

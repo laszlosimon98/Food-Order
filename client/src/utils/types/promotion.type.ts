@@ -11,7 +11,7 @@ export type CreatePromotionType = {
 };
 
 export type PromotionType = {
-  promotionId: number;
+  id: number;
 } & Partial<CreatePromotionType> & {
     isActive: boolean;
   };

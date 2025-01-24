@@ -3,7 +3,7 @@ import { Users } from '@prisma/client';
 
 export class UserEntity implements Users {
   @ApiProperty()
-  userId: number;
+  id: number;
 
   @ApiProperty()
   fullname: string;

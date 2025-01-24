@@ -7,11 +7,11 @@ export class FavoriteFoodService {
   constructor(private readonly prismaService: PrismaService) {}
 
   async add(createFavoriteFoodDto: CreateFavoriteFoodDto, user: any) {
-    const { foodId } = createFavoriteFoodDto;
+    const { foodId: id } = createFavoriteFoodDto;
 
     const food = await this.prismaService.foods.findUnique({
       where: {
-        foodId,
+        id,
       },
     });
 
@@ -23,7 +23,7 @@ export class FavoriteFoodService {
       data: {
         addedAt: new Date(),
         userId: user.userId,
-        foodId,
+        foodId: id,
       },
     });
 

@@ -18,9 +18,9 @@ const Navigation = ({
   isMenuOverlayOpen,
   closeMenu,
 }: NavigationPropsType): ReactElement => {
-  const { isAuthenticated } = useAppSelector((state) => state.auth.data);
   const { data: currentUser, isLoading } = useGetCurrentUserQuery();
 
+  const { isAuthenticated } = useAppSelector((state) => state.auth.data);
   const [useLogout] = useLogoutMutation();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -52,20 +52,20 @@ const Navigation = ({
           </>
         ) : (
           <>
-            {currentUser.role === "user" && (
+            {currentUser && currentUser.role === "user" && (
               <>
                 <ListElement link="/my-orders">Rendeléseim</ListElement>
                 <ListElement link="/favorite-foods">Kedvenceim</ListElement>
               </>
             )}
 
-            {currentUser.role === "employee" && (
+            {currentUser && currentUser.role === "employee" && (
               <>
                 <ListElement link="/orders">Rendelések</ListElement>
               </>
             )}
 
-            {currentUser.role === "admin" && (
+            {currentUser && currentUser.role === "admin" && (
               <>
                 <ListElement link="/users">Felhasználók</ListElement>
               </>

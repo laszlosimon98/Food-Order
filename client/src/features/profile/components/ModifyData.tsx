@@ -4,10 +4,11 @@ import FormContainer from "@/features/shared/components/form/FormContainer";
 import TextInput from "@/features/shared/components/TextInput";
 import { useUpdateUserDetailsMutation } from "@/features/user/api/userApi";
 import { UserType } from "@/utils/types/user.type";
+import { getDefaultAddress } from "@/utils/userData";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ReactElement } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { z } from "zod";
 
 type ModifyDataProps = {
@@ -51,29 +52,13 @@ const schema = z
   );
 
 type ModifyDataType = z.infer<typeof schema>;
-type AddressType = { [key: string]: string } & Omit<
+
+export type AddressType = { [key: string]: string } & Omit<
   Omit<ModifyDataType, "fullname">,
   "phoneNumber"
 >;
 
 const ModifyData = ({ currentUser }: ModifyDataProps): ReactElement => {
-  const getDefaultAddress = (key: string): string => {
-    if (currentUser.address) {
-      const address = currentUser.address.replace(",", "").split(" ");
-
-      const result: AddressType = {
-        zipCode: address[0],
-        city: address[1],
-        street: "".concat(address[2], " ", address[3], " ", address[4]),
-        houseNumber: address[5],
-      };
-
-      return result[key];
-    }
-
-    return "";
-  };
-
   const {
     register,
     handleSubmit,
@@ -83,16 +68,17 @@ const ModifyData = ({ currentUser }: ModifyDataProps): ReactElement => {
     resolver: zodResolver(schema),
     defaultValues: {
       fullname: currentUser.fullname,
-      zipCode: getDefaultAddress("zipCode"),
-      city: getDefaultAddress("city"),
-      street: getDefaultAddress("street"),
-      houseNumber: getDefaultAddress("houseNumber"),
+      zipCode: getDefaultAddress(currentUser, "zipCode"),
+      city: getDefaultAddress(currentUser, "city"),
+      street: getDefaultAddress(currentUser, "street"),
+      houseNumber: getDefaultAddress(currentUser, "houseNumber"),
       phoneNumber: currentUser.phoneNumber ? currentUser.phoneNumber : "",
     },
   });
 
   const [useUpdateUserDetails] = useUpdateUserDetailsMutation();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const onSubmit: SubmitHandler<ModifyDataType> = async (data) => {
     try {
@@ -122,9 +108,14 @@ const ModifyData = ({ currentUser }: ModifyDataProps): ReactElement => {
         };
       }
 
-      const { isSuccess } = await useUpdateUserDetails({ ...result }).unwrap();
-      if (isSuccess) {
-        navigate("/");
+      const { data: updatedData } = await useUpdateUserDetails({ ...result });
+
+      if (updatedData) {
+        if (location.state) {
+          navigate(location.state.redirectTo);
+        } else {
+          navigate("/");
+        }
       }
     } catch (err: any) {
       setError("root", {

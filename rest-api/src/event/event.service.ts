@@ -28,13 +28,13 @@ export class EventService {
     });
 
     const expiredPromotionsIds = expiredPromotions.map(
-      (promotion) => promotion.promotionId,
+      (promotion) => promotion.id,
     );
 
     for (const expiredPromotionId of expiredPromotionsIds) {
       await this.prismaService.promotions.update({
         where: {
-          promotionId: expiredPromotionId,
+          id: expiredPromotionId,
         },
         data: {
           isActive: false,

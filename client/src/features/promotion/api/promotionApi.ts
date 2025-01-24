@@ -21,7 +21,9 @@ const promotionApi = storeApi.injectEndpoints({
         method: "PATCH",
         body: rest,
       }),
-      invalidatesTags: ["Promotion"],
+      invalidatesTags(result, error, arg, meta) {
+        return [{ type: "Promotion", id: arg.id }];
+      },
     }),
   }),
 });

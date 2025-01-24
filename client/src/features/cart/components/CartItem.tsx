@@ -21,7 +21,7 @@ const CartItem = ({ id }: CartItemProps): ReactElement => {
   }
 
   return (
-    <div className="w-full h-12 bg-white shadow-md rounded-xl flex items-center justify-between  mt-2">
+    <div className="w-full h-12 bg-white shadow-md rounded-xl flex items-center justify-between mt-2">
       <div className="w-4/5 flex justify-between items-center">
         <div className="text-sm font-semibold pl-4">{food.name}</div>
         <div className="w-20 bg-baseColor text-center rounded-3xl flex justify-between items-center">
