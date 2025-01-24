@@ -1,5 +1,5 @@
 model Foods {
-    id           Int      @id @default(autoincrement())
+    foodId       Int      @id @default(autoincrement())
     name         String   @unique
     description  String
     price        Int
@@ -12,7 +12,7 @@ model Foods {
     reviews    Reviews[]
     orderItems OrderItems[]
 
-    categories Categories         @relation(fields: [categoryId], references: [id])
+    categories Categories         @relation(fields: [categoryId], references: [categoryId])
     categoryId Int
     promotions Promotions[]
     users      FavoritesOnFoods[]

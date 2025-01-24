@@ -1,14 +1,14 @@
 model Reviews {
-    id         Int      @id @default(autoincrement())
+    reviewId   Int      @id @default(autoincrement())
     rating     Int
     reviewText String?
     reviewDate DateTime
     createdAt  DateTime @default(now())
     updatedAt  DateTime @updatedAt
 
-    user   Users @relation(fields: [userId], references: [id])
+    user   Users @relation(fields: [userId], references: [userId])
     userId Int
-    food   Foods @relation(fields: [foodId], references: [id])
+    food   Foods @relation(fields: [foodId], references: [foodId])
     foodId Int
 
     isEditable Boolean @default(true)

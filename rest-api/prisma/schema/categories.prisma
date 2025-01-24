@@ -1,5 +1,5 @@
 model Categories {
-    id           Int      @id @default(autoincrement())
+    categoryId   Int      @id @default(autoincrement())
     categoryName String   @unique
     createdAt    DateTime @default(now())
     updatedAt    DateTime @updatedAt

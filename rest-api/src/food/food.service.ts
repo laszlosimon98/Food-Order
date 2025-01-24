@@ -70,7 +70,7 @@ export class FoodService {
   async findOne(id: number) {
     return await this.prismaService.foods.findUnique({
       where: {
-        id,
+        foodId: id,
       },
       include: {
         categories: true,
@@ -78,7 +78,7 @@ export class FoodService {
           include: {
             user: {
               select: {
-                id: true,
+                userId: true,
                 fullname: true,
               },
             },
@@ -112,7 +112,7 @@ export class FoodService {
         categories: true,
         promotions: {
           select: {
-            id: true,
+            promotionId: true,
             discountValue: true,
             isActive: true,
           },
@@ -139,11 +139,11 @@ export class FoodService {
     return await this.prismaService.foods.count();
   }
 
-  async getFoodByIds(id: number[]) {
+  async getFoodByIds(ids: number[]) {
     return await this.prismaService.foods.findMany({
       where: {
-        id: {
-          in: id,
+        foodId: {
+          in: ids,
         },
       },
     });
@@ -152,7 +152,7 @@ export class FoodService {
   async update(id: number, updateFoodDto: UpdateFoodDto) {
     await this.prismaService.foods.update({
       where: {
-        id,
+        foodId: id,
       },
       data: updateFoodDto,
       include: {
@@ -171,7 +171,7 @@ export class FoodService {
   async remove(id: number) {
     await this.prismaService.foods.delete({
       where: {
-        id,
+        foodId: id,
       },
       include: {
         categories: true,

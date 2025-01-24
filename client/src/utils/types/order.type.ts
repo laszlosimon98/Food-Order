@@ -1,12 +1,22 @@
 import { OrderItemType } from "@/utils/types/order-item.type";
 
 export type CreateOrderType = {
+  fullname: string;
+  address: string;
+  phoneNumber: string;
+  orderItems: CreateOrderItemType[];
+};
+
+export type CreateOrderItemType = {
   quantity: number;
   foodId: number;
 };
 
 export type OrderType = {
-  id: number;
+  orderId: number;
+  fullname: string;
+  address: string;
+  phoneNumber: string;
   totalPrice: number;
   orderDate: Date;
   deliveryStatus: {

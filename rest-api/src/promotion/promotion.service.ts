@@ -14,7 +14,7 @@ export class PromotionService {
       data: rest,
     });
 
-    await this.update(promotion.id, createPromotionDto);
+    await this.update(promotion.promotionId, createPromotionDto);
     return promotion;
   }
 
@@ -24,7 +24,7 @@ export class PromotionService {
     if (foodIds) {
       return await this.prismaService.promotions.update({
         where: {
-          id,
+          promotionId: id,
         },
         data: {
           ...rest,
@@ -32,7 +32,7 @@ export class PromotionService {
             connect: [
               ...foodIds.map((foodId) => {
                 return {
-                  id,
+                  foodId,
                 };
               }),
             ],
@@ -43,7 +43,7 @@ export class PromotionService {
 
     await this.prismaService.promotions.update({
       where: {
-        id,
+        promotionId: id,
       },
       data: {
         ...rest,

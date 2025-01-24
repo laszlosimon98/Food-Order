@@ -4,7 +4,7 @@ import { FoodEntity } from 'src/food/entities/food.entity';
 
 export class OrderItemEntity implements OrderItems {
   @ApiProperty()
-  id: number;
+  orderItemId: number;
 
   @ApiProperty()
   quantity: number;

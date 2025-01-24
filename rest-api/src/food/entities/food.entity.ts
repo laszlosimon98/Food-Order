@@ -5,7 +5,7 @@ import { PromotionEntity } from 'src/promotion/entities/promotion.entity';
 
 export class FoodEntity implements Foods {
   @ApiProperty()
-  id: number;
+  foodId: number;
 
   @ApiProperty()
   name: string;

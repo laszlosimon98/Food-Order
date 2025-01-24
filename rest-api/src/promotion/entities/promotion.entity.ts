@@ -3,7 +3,7 @@ import { Promotions } from '@prisma/client';
 
 export class PromotionEntity implements Promotions {
   @ApiProperty()
-  id: number;
+  promotionId: number;
 
   @ApiProperty()
   promotionName: string;

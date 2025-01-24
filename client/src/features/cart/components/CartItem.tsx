@@ -11,7 +11,10 @@ type CartItemProps = {
 };
 
 const CartItem = ({ id }: CartItemProps): ReactElement => {
-  const { data: food } = useGetFoodByIdQuery({ id: parseInt(id) });
+  const { data: food } = useGetFoodByIdQuery(
+    { id: parseInt(id) },
+    { skip: id === undefined }
+  );
 
   const { cartItems } = useAppSelector((state) => state.cart.data);
   const dispatch = useAppDispatch();
@@ -35,7 +38,7 @@ const CartItem = ({ id }: CartItemProps): ReactElement => {
             />
           </CartButton>
 
-          <div>{cartItems[parseInt(id)].amount}</div>
+          <div>{cartItems[parseInt(id)].quantity}</div>
 
           <CartButton>
             <FontAwesomeIcon
@@ -49,7 +52,7 @@ const CartItem = ({ id }: CartItemProps): ReactElement => {
         </div>
       </div>
       <div className="w-1/5 text-center text-sm font-semibold">
-        {food.price * cartItems[parseInt(id)].amount} Ft
+        {food.price * cartItems[parseInt(id)].quantity} Ft
       </div>
     </div>
   );

@@ -1,5 +1,5 @@
 model Promotions {
-    id            Int      @id @default(autoincrement())
+    promotionId   Int      @id @default(autoincrement())
     promotionName String
     description   String?
     discountValue Int

@@ -71,7 +71,7 @@ const Foods = (): ReactElement => {
         <div className="flex flex-wrap justify-center items-center">
           {foods &&
             foods.map((food: FoodType) => (
-              <Link key={food.id} to={`/${food.id}`}>
+              <Link key={food.foodId} to={`/${food.foodId}`}>
                 <FoodCard food={food} />
               </Link>
             ))}

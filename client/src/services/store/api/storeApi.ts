@@ -53,7 +53,6 @@ export const storeApi = createApi({
   reducerPath: "api",
   baseQuery: baseQueryWithReauth,
   tagTypes: [
-    "Auth",
     "User",
     "Category",
     "Food",

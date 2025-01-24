@@ -1,5 +1,5 @@
 model DeliveryStatus {
-    id         Int      @id @default(autoincrement())
+    statusId   Int      @id @default(autoincrement())
     statusName String   @unique
     createdAt  DateTime @default(now())
     updatedAt  DateTime @updatedAt

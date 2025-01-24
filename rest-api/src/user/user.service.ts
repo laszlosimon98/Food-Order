@@ -67,7 +67,7 @@ export class UserService {
   async getFavoriteFoods(user: any) {
     return await this.prismaService.users.findMany({
       where: {
-        id: user.id,
+        userId: user.userId,
       },
       include: {
         foods: {
@@ -131,7 +131,7 @@ export class UserService {
 
     await this.prismaService.users.update({
       where: {
-        id,
+        userId: id,
       },
       data: {
         role,
@@ -151,9 +151,9 @@ export class UserService {
     updateUserDetailsDto: UpdateUserDetailsDto,
     user: any,
   ) {
-    return await this.prismaService.users.update({
+    await this.prismaService.users.update({
       where: {
-        id: user.id,
+        userId: user.userId,
       },
       data: updateUserDetailsDto,
       omit: {
@@ -161,6 +161,10 @@ export class UserService {
         refreshToken: true,
       },
     });
+
+    return {
+      isSuccess: true,
+    };
   }
 
   async changePassword(newPasswordDto: NewPasswordDto, user: any) {
@@ -178,7 +182,7 @@ export class UserService {
 
     await this.prismaService.users.update({
       where: {
-        id: user.id,
+        userId: user.userId,
       },
       data: {
         password: await bcrypt.hash(
@@ -196,7 +200,7 @@ export class UserService {
   async deleteUser(id: number, user: any) {
     const userToDelete = await this.prismaService.users.findUnique({
       where: {
-        id,
+        userId: id,
       },
     });
 
@@ -206,7 +210,7 @@ export class UserService {
 
     await this.prismaService.users.delete({
       where: {
-        id,
+        userId: id,
       },
       omit: {
         password: true,

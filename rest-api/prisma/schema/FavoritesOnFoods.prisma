@@ -1,7 +1,7 @@
 model FavoritesOnFoods {
-    user    Users    @relation(fields: [userId], references: [id])
+    user    Users    @relation(fields: [userId], references: [userId])
     userId  Int
-    food    Foods    @relation(fields: [foodId], references: [id])
+    food    Foods    @relation(fields: [foodId], references: [foodId])
     foodId  Int
     addedAt DateTime
 

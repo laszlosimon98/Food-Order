@@ -3,7 +3,7 @@ import { Categories } from '@prisma/client';
 
 export class CategoryEntity implements Categories {
   @ApiProperty()
-  id: number;
+  categoryId: number;
 
   @ApiProperty()
   categoryName: string;

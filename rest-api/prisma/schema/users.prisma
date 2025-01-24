@@ -1,5 +1,5 @@
 model Users {
-    id           Int      @id @default(autoincrement())
+    userId       Int      @id @default(autoincrement())
     fullname     String
     username     String   @unique
     password     String

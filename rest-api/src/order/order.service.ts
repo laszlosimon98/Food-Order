@@ -21,15 +21,15 @@ export class OrderService {
   ) {}
 
   async create(createOrderDto: CreateOrderDto, user: any) {
-    const { orderItems: createOrderItemDto, ...rest } = createOrderDto;
+    const { orderItems: createOrderItemDto, ...datas } = createOrderDto;
 
     const order = await this.prismaService.orders.create({
       data: {
+        ...datas,
         orderDate: new Date(),
         totalOrderPrice: 0,
         deliveryStatusId: 1,
         userId: user.userId,
-        ...rest,
       },
     });
 
@@ -39,7 +39,7 @@ export class OrderService {
     const createOrderItems = orderItems.map((orderItem) => {
       return {
         ...orderItem,
-        id: order.id,
+        orderId: order.orderId,
       };
     });
 
@@ -54,7 +54,7 @@ export class OrderService {
 
     await this.prismaService.orders.update({
       where: {
-        id: order.id,
+        orderId: order.orderId,
       },
       data: {
         totalOrderPrice,
@@ -97,7 +97,7 @@ export class OrderService {
   async findMyOrders(user: any) {
     return await this.prismaService.orders.findMany({
       where: {
-        id: user.orderId,
+        orderId: user.orderId,
       },
       include: {
         deliveryStatus: true,
@@ -128,7 +128,7 @@ export class OrderService {
   async findOne(id: number) {
     return await this.prismaService.orders.findUnique({
       where: {
-        id,
+        orderId: id,
       },
       include: {
         deliveryStatus: true,
@@ -159,7 +159,7 @@ export class OrderService {
   async findOneByIdAndStatus(id: number, statusId: number) {
     return await this.prismaService.orders.findUnique({
       where: {
-        id,
+        orderId: id,
         deliveryStatusId: statusId,
       },
       include: {
@@ -173,17 +173,15 @@ export class OrderService {
   }
 
   async updateStatus(id: number, status: StatusEnum) {
-    const { id: statusId } = await this.prismaService.deliveryStatus.findUnique(
-      {
-        where: {
-          statusName: status,
-        },
+    const { statusId } = await this.prismaService.deliveryStatus.findUnique({
+      where: {
+        statusName: status,
       },
-    );
+    });
 
     await this.prismaService.orders.update({
       where: {
-        id,
+        orderId: id,
       },
       data: {
         deliveryStatusId: statusId,
@@ -198,7 +196,7 @@ export class OrderService {
   async remove(id: number) {
     const order = await this.prismaService.orders.findUnique({
       where: {
-        id,
+        orderId: id,
         deliveryStatusId: 1,
       },
     });
@@ -211,7 +209,7 @@ export class OrderService {
 
     await this.prismaService.orders.delete({
       where: {
-        id,
+        orderId: id,
         deliveryStatusId: 1,
       },
     });

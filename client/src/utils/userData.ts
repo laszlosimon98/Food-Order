@@ -11,8 +11,11 @@ export const getDefaultAddress = (
     const result: AddressType = {
       zipCode: address[0],
       city: address[1],
-      street: "".concat(address[2], " ", address[3], " ", address[4]),
-      houseNumber: address[5],
+      street: address
+        .slice(2, address.length - 1)
+        .join(" ")
+        .trim(),
+      houseNumber: address[address.length - 1],
     };
 
     return result[key];

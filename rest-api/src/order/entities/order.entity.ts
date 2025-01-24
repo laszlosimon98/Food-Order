@@ -4,7 +4,7 @@ import { OrderItemEntity } from 'src/order-item/entities/order-item.entity';
 
 export class OrderEntity implements Orders {
   @ApiProperty()
-  id: number;
+  orderId: number;
 
   @ApiProperty()
   totalOrderPrice: number;

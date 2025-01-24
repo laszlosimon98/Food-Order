@@ -4,7 +4,7 @@ import { FoodEntity } from 'src/food/entities/food.entity';
 
 export class FavoriteFoodEntity implements Users {
   @ApiProperty()
-  id: number;
+  userId: number;
 
   @ApiProperty()
   fullname: string;

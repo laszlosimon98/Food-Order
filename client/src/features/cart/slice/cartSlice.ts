@@ -3,7 +3,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 type CartItemsType = {
   [key: number | string]: {
-    amount: number;
+    quantity: number;
   };
 };
 
@@ -62,14 +62,14 @@ export const cartSlice = createSlice({
       state.data.isCartVisible = false;
     },
     saveItem: (state, action: PayloadAction<FoodType>) => {
-      const { id: key } = action.payload;
+      const { foodId: key } = action.payload;
 
       if (!state.data.cartItems[key]) {
         state.data.cartItems[key] = {
-          amount: 1,
+          quantity: 1,
         };
       } else {
-        state.data.cartItems[key].amount += 1;
+        state.data.cartItems[key].quantity += 1;
       }
 
       state.data.totalItems++;
@@ -78,12 +78,15 @@ export const cartSlice = createSlice({
       saveCartToLocalstorage(state.data);
     },
     removeItem: (state, action: PayloadAction<FoodType>) => {
-      const { id: key } = action.payload;
+      const { foodId: key } = action.payload;
 
-      if (state.data.cartItems[key] && state.data.cartItems[key].amount >= 1) {
-        state.data.cartItems[key].amount -= 1;
+      if (
+        state.data.cartItems[key] &&
+        state.data.cartItems[key].quantity >= 1
+      ) {
+        state.data.cartItems[key].quantity -= 1;
 
-        if (state.data.cartItems[key].amount === 0) {
+        if (state.data.cartItems[key].quantity === 0) {
           delete state.data.cartItems[key];
         }
       }

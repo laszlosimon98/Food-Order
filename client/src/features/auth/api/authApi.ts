@@ -11,9 +11,8 @@ export const authApi = storeApi.injectEndpoints({
         method: "POST",
         body,
       }),
-      // invalidatesTags: ["Auth"],
-      invalidatesTags(result, error, arg, meta) {
-        return [{ type: "Auth", username: arg.username }];
+      invalidatesTags(_result, _error, arg, _meta) {
+        return [{ type: "User", username: arg.username }];
       },
     }),
     login: builder.mutation<LoginResultType, LoginType>({
@@ -22,8 +21,8 @@ export const authApi = storeApi.injectEndpoints({
         method: "POST",
         body,
       }),
-      invalidatesTags(result, error, arg, meta) {
-        return [{ type: "Auth", username: arg.username }];
+      invalidatesTags(_result, _error, arg, _meta) {
+        return [{ type: "User", username: arg.username }];
       },
     }),
     logout: builder.mutation<ResultType, void>({
@@ -31,7 +30,7 @@ export const authApi = storeApi.injectEndpoints({
         url: "auth/logout",
         method: "POST",
       }),
-      invalidatesTags: ["Auth"],
+      invalidatesTags: ["User"],
     }),
     getCurrentUser: builder.query<any, void>({
       query: () => "auth/currentUser",
