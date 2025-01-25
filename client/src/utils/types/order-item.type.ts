@@ -8,6 +8,6 @@ export type UpdateOrderItemType = IdType & {
 export type OrderItemType = {
   orderItemId: number;
   quantity: number;
-  price: number;
-  foods: FoodType & { rating: number };
+  totalPrice: number;
+  foods: FoodType & { rating: number | null };
 };

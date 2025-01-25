@@ -35,7 +35,7 @@ const TextInput = forwardRef<HTMLInputElement, InputProps>(
           id={`${label}`}
           placeholder={`${label}`}
           {...props}
-          className={`border-2 w-full h-10 rounded-xl px-4 text-lg focus:outline-baseColor [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none`}
+          className="border-2 w-full h-10 rounded-xl px-4 text-lg focus:outline-baseColor [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
         />
       </div>
     );

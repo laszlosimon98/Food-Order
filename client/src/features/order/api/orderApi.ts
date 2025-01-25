@@ -28,16 +28,7 @@ const orderApi = storeApi.injectEndpoints({
     getOrderById: builder.query<OrderType, IdType>({
       query: ({ id }) => `order/${id}`,
       providesTags(_result, _error, arg, _meta) {
-        return [{ type: "Order", id: arg.id }];
-      },
-    }),
-    deleteOrder: builder.mutation<any, IdType>({
-      query: ({ id }) => ({
-        url: `order/${id}`,
-        method: "DELETE",
-      }),
-      invalidatesTags(_result, _error, arg, _meta) {
-        return [{ type: "Order", id: arg.id }];
+        return [{ type: "Order", orderId: arg.id }];
       },
     }),
     updateOrderStatus: builder.mutation<any, IdType & OrderStatusType>({
@@ -46,26 +37,44 @@ const orderApi = storeApi.injectEndpoints({
         method: "PATCH",
       }),
       invalidatesTags(_result, _error, arg, _meta) {
-        return [{ type: "Order", id: arg.id }];
+        return [{ type: "Order", orderId: arg.id }];
       },
     }),
-    updateOrderItem: builder.mutation<any, UpdateOrderItemType>({
+    updateOrderItem: builder.mutation<
+      any,
+      UpdateOrderItemType & { orderId: number }
+    >({
       query: ({ id, ...rest }) => ({
         url: `order-item/${id}`,
-        method: "POST",
+        method: "PATCH",
         body: rest,
       }),
       invalidatesTags(_result, _error, arg, _meta) {
-        return [{ type: "Order", id: arg.id }];
+        return [
+          { type: "Order", orderId: arg.orderId },
+          { type: "OrderItem", orderItemId: arg.id },
+        ];
       },
     }),
-    deleteOrderItem: builder.mutation<any, IdType>({
+    deleteOrder: builder.mutation<any, IdType>({
+      query: ({ id }) => ({
+        url: `order/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags(_result, _error, arg, _meta) {
+        return [{ type: "Order", orderId: arg.id }];
+      },
+    }),
+    deleteOrderItem: builder.mutation<any, IdType & { orderId: number }>({
       query: ({ id }) => ({
         url: `order-item/${id}`,
         method: "DELETE",
       }),
       invalidatesTags(_result, _error, arg, _meta) {
-        return [{ type: "Order", id: arg.id }];
+        return [
+          { type: "Order", orderId: arg.orderId },
+          { type: "OrderItem", orderItemId: arg.id },
+        ];
       },
     }),
   }),

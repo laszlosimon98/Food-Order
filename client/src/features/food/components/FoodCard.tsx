@@ -4,6 +4,7 @@ import FoodImage from "@/features/food/components/FoodImage";
 import FoodProperties from "@/features/food/components/FoodProperties";
 import { openFoodOverlay } from "@/features/overlay/slice/overlaySlice";
 import Button from "@/features/shared/components/Button";
+import Card from "@/features/shared/components/Card";
 import { useAppDispatch, useAppSelector } from "@/store/hooks/store.hooks";
 import { FoodType } from "@/utils/types/food.type";
 import { ReactElement } from "react";
@@ -17,10 +18,8 @@ const FoodCard = ({ food }: FoodCardProps): ReactElement => {
   const { isFoodOverlayOpen } = useAppSelector((state) => state.overlay.data);
 
   return (
-    <div
-      className={`w-[23rem] bg-white m-5 py-3 px-2 rounded-3xl shadow-xl cursor-pointer hover:scale-105 transition-all md:w-[28rem] ${
-        isFoodOverlayOpen ? "-z-10" : ""
-      }`}
+    <Card
+      className={`${isFoodOverlayOpen ? "-z-10" : ""}`}
       onClick={(e) => {
         e.stopPropagation();
         dispatch(openFoodOverlay());
@@ -50,7 +49,7 @@ const FoodCard = ({ food }: FoodCardProps): ReactElement => {
           Kosárba
         </Button>
       </div>
-    </div>
+    </Card>
   );
 };
 

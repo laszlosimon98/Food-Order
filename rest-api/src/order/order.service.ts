@@ -119,7 +119,6 @@ export class OrderService {
         },
       },
       omit: {
-        userId: true,
         deliveryStatusId: true,
       },
     });

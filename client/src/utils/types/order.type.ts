@@ -13,17 +13,18 @@ export type CreateOrderItemType = {
 };
 
 export type OrderType = {
+  userId: number;
   orderId: number;
   fullname: string;
   address: string;
   phoneNumber: string;
-  totalPrice: number;
+  totalOrderPrice: number;
   orderDate: Date;
   deliveryStatus: {
     statusId: number;
     statusName: string;
   };
-  orderItems: OrderItemType;
+  orderItems: OrderItemType[];
 };
 
 export type OrderStatusType = {

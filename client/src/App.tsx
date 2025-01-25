@@ -6,6 +6,7 @@ import { Route, Routes } from "react-router-dom";
 import Profile from "@/features/profile/components/Profile";
 import ProtectedRoute from "@/features/shared/components/ProtectedRoute";
 import OrderSummary from "@/features/order/components/OrderSummary";
+import MyOrders from "@/features/order/components/MyOrders";
 
 function App() {
   return (
@@ -29,6 +30,15 @@ function App() {
           element={
             <ProtectedRoute>
               <OrderSummary />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="my-orders"
+          element={
+            <ProtectedRoute>
+              <MyOrders />
             </ProtectedRoute>
           }
         />

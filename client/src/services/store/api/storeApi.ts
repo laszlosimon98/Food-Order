@@ -29,9 +29,9 @@ const baseQueryWithReauth: BaseQueryFn<
   unknown,
   FetchBaseQueryError
 > = async (args, api, extraOptions) => {
-  const accessToken = (api.getState() as RootState).auth.data.accessToken;
+  let queryResult = await baseQuery(args, api, extraOptions);
 
-  if (!accessToken) {
+  if (queryResult.error && queryResult.error.status === 401) {
     const { data } = await baseQuery(
       {
         url: "auth/refresh",
@@ -43,10 +43,11 @@ const baseQueryWithReauth: BaseQueryFn<
 
     if (data) {
       api.dispatch(saveToken({ accessToken: data.accessToken }));
+      queryResult = await baseQuery(args, api, extraOptions);
     }
   }
 
-  return await baseQuery(args, api, extraOptions);
+  return queryResult;
 };
 
 export const storeApi = createApi({
