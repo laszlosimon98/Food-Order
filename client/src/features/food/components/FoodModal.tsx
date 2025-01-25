@@ -2,7 +2,7 @@ import { saveItem } from "@/features/cart/slice/cartSlice";
 import { useGetFoodByIdQuery } from "@/features/food/api/foodApi";
 import FoodHeader from "@/features/food/components/FoodHeader";
 import FoodImage from "@/features/food/components/FoodImage";
-import FoodProperties from "@/features/food/components/FoodProperties";
+import FoodProperties from "@/features/shared/components/Properties";
 import { closeOverlays } from "@/features/overlay/slice/overlaySlice";
 import Button from "@/features/shared/components/Button";
 import { useAppDispatch } from "@/store/hooks/store.hooks";

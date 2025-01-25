@@ -1,7 +1,7 @@
 import { saveItem } from "@/features/cart/slice/cartSlice";
 import FoodHeader from "@/features/food/components/FoodHeader";
 import FoodImage from "@/features/food/components/FoodImage";
-import FoodProperties from "@/features/food/components/FoodProperties";
+import Properties from "@/features/shared/components/Properties";
 import { openFoodOverlay } from "@/features/overlay/slice/overlaySlice";
 import Button from "@/features/shared/components/Button";
 import Card from "@/features/shared/components/Card";
@@ -28,12 +28,12 @@ const FoodCard = ({ food }: FoodCardProps): ReactElement => {
       <FoodHeader>{food.name}</FoodHeader>
       <FoodImage url={food.imageUrl} description={food.description} />
 
-      <FoodProperties property="Ár:" value={`${food.price} Ft`} />
-      <FoodProperties
+      <Properties property="Ár:" value={`${food.price} Ft`} />
+      <Properties
         property="Csípős:"
         value={`${food.isSpice ? "Igen" : "Nem"}`}
       />
-      <FoodProperties
+      <Properties
         property="Vegetáriánus:"
         value={`${food.isVegetarian ? "Igen" : "Nem"}`}
       />
