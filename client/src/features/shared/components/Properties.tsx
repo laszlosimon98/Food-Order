@@ -9,7 +9,7 @@ type PropertiesProps = {
 
 const Properties = ({ property, value }: PropertiesProps): ReactElement => {
   return (
-    <div className="flex justify-between px-8 my-2 items-center">
+    <div className=" flex flex-col justify-start my-2 items-center md:flex-row md:justify-between md:px-8">
       <Property>{property}</Property>
       <Value>{value}</Value>
     </div>

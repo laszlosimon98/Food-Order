@@ -24,7 +24,7 @@ const MyOrders = (): ReactElement => {
 
       <section className="flex justify-center items-center flex-col">
         {myOrders?.map((order) => (
-          <Card className="p-8" key={order.orderId}>
+          <Card className="p-8 md:w-[46rem]" key={order.orderId}>
             <Properties property="Név" value={order.fullname} />
             <Properties property="Cím" value={order.address} />
             <Properties property="Telefonszám" value={order.phoneNumber} />

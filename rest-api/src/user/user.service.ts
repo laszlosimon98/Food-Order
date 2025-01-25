@@ -65,16 +65,17 @@ export class UserService {
   }
 
   async getFavoriteFoods(user: any) {
-    return await this.prismaService.users.findMany({
+    const { foods } = await this.prismaService.users.findUnique({
       where: {
         userId: user.userId,
       },
-      include: {
+      select: {
         foods: {
           include: {
             food: {
               include: {
                 categories: true,
+                promotions: true,
               },
               omit: {
                 categoryId: true,
@@ -87,10 +88,24 @@ export class UserService {
           },
         },
       },
-      omit: {
-        username: true,
-        password: true,
-        refreshToken: true,
+    });
+
+    return foods.map(({ food }) => {
+      return {
+        ...food,
+      };
+    });
+  }
+
+  async getFavoriteFoodById(user: any, id: number) {
+    return await this.prismaService.foods.findUnique({
+      where: {
+        foodId: id,
+        users: {
+          some: {
+            userId: user.userId,
+          },
+        },
       },
     });
   }

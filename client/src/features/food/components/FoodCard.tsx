@@ -21,7 +21,6 @@ const FoodCard = ({ food }: FoodCardProps): ReactElement => {
     <Card
       className={`${isFoodOverlayOpen ? "-z-10" : ""}`}
       onClick={(e) => {
-        e.stopPropagation();
         dispatch(openFoodOverlay());
       }}
     >
@@ -41,6 +40,7 @@ const FoodCard = ({ food }: FoodCardProps): ReactElement => {
         <Button
           variant="primary"
           onClick={(e) => {
+            e.preventDefault();
             e.stopPropagation();
             dispatch(saveItem(food));
           }}

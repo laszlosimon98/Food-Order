@@ -7,6 +7,7 @@ import Profile from "@/features/profile/components/Profile";
 import ProtectedRoute from "@/features/shared/components/ProtectedRoute";
 import OrderSummary from "@/features/order/components/OrderSummary";
 import MyOrders from "@/features/order/components/MyOrders";
+import FavoriteFood from "@/features/food/components/FavoriteFood";
 
 function App() {
   return (
@@ -39,6 +40,15 @@ function App() {
           element={
             <ProtectedRoute>
               <MyOrders />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="favorite-foods"
+          element={
+            <ProtectedRoute>
+              <FavoriteFood />
             </ProtectedRoute>
           }
         />

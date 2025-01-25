@@ -94,11 +94,22 @@ export class FoodController {
   }
 
   @ApiBearerAuth()
-  @ApiOkResponse({ type: FavoriteFoodEntity })
+  @ApiOkResponse({ type: FoodEntity, isArray: true })
   @Roles(RoleEnum.User)
   @Get('favoriteFood')
   async getFavoriteFoods(@Req() req: Request) {
     return await this.userService.getFavoriteFoods(req.user);
+  }
+
+  @ApiBearerAuth()
+  @ApiOkResponse({ type: FoodEntity })
+  @Roles(RoleEnum.User)
+  @Get('favoriteFood/:id')
+  async getFavoriteFoodById(
+    @Param('id', ParseIntPipe) id: number,
+    @Req() req: Request,
+  ) {
+    return await this.userService.getFavoriteFoodById(req.user, id);
   }
 
   @Public()

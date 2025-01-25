@@ -4,7 +4,6 @@ import { HTMLAttributes, ReactElement } from "react";
 
 type ButtonProps = HTMLAttributes<HTMLButtonElement> &
   VariantProps<typeof buttonVariants> & {
-    type?: "button" | "submit";
     variant?: "primary" | "secondary";
     size?: "default" | "sm" | "icon";
     disabled?: boolean;
@@ -14,15 +13,13 @@ const Button = ({
   className,
   variant,
   size,
-  type,
   disabled = false,
   ...props
 }: ButtonProps): ReactElement => {
   return (
     <button
-      type={type ? type : "button"}
-      disabled={disabled}
       {...props}
+      disabled={disabled}
       className={cn(buttonVariants({ variant, size }), className)}
     />
   );
