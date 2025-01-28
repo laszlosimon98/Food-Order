@@ -3,6 +3,7 @@ import Loading from "@/features/shared/components/Loading";
 import Redirect from "@/features/shared/components/Redirect";
 import { UserRoles } from "@/utils/types/user.type";
 import { PropsWithChildren, ReactElement } from "react";
+import { useLocation } from "react-router-dom";
 
 type ProtectedRouteProps = PropsWithChildren & {
   allowedRoles?: UserRoles[];
@@ -13,6 +14,7 @@ const ProtectedRoute = ({
   allowedRoles,
 }: ProtectedRouteProps): ReactElement => {
   const { data: currentUser, isLoading } = useGetCurrentUserQuery();
+  const location = useLocation();
 
   if (isLoading) {
     return <Loading />;
@@ -23,6 +25,7 @@ const ProtectedRoute = ({
       <Redirect
         message="Az oldal megtekintéséhez be kell jelentkezni!"
         route="/login"
+        redirectTo={location.pathname}
         buttonText="Bejelentkezés"
       />
     );

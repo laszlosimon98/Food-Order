@@ -8,6 +8,7 @@ import ProtectedRoute from "@/features/shared/components/ProtectedRoute";
 import OrderSummary from "@/features/order/components/OrderSummary";
 import MyOrders from "@/features/order/components/MyOrders";
 import FavoriteFood from "@/features/food/components/FavoriteFood";
+import AllOrder from "@/features/order/components/AllOrder";
 
 function App() {
   return (
@@ -38,7 +39,7 @@ function App() {
         <Route
           path="my-orders"
           element={
-            <ProtectedRoute>
+            <ProtectedRoute allowedRoles={["user"]}>
               <MyOrders />
             </ProtectedRoute>
           }
@@ -49,6 +50,15 @@ function App() {
           element={
             <ProtectedRoute>
               <FavoriteFood />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="orders"
+          element={
+            <ProtectedRoute allowedRoles={["employee"]}>
+              <AllOrder />
             </ProtectedRoute>
           }
         />

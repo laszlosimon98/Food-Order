@@ -36,7 +36,7 @@ const Navigation = ({
   }
 
   return (
-    <nav className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 md:static md:translate-x-0 md:translate-y-0">
+    <nav className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 md:static md:translate-x-0 md:translate-y-0 z-50">
       <ul
         className={`flex flex-col gap-8 text-3xl font-semibold italic text-baseColor justify-center items-center ${
           !isMenuOverlayOpen ? "hidden" : ""

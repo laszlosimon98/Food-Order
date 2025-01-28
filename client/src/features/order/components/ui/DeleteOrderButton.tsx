@@ -5,21 +5,27 @@ import Loading from "@/features/shared/components/Loading";
 import { OrderType } from "@/utils/types/order.type";
 import { Dispatch, ReactElement, SetStateAction } from "react";
 
-type OrderOptionButtonsProps = {
+type DeleteOrderButtonProps = {
   order: OrderType;
-  isQuantityEdit: boolean;
-  setIsQuantityEdit: Dispatch<SetStateAction<boolean>>;
+  setError: Dispatch<SetStateAction<string | undefined>>;
 };
 
-const OrderOptionButtons = ({
+const DeleteOrderButton = ({
   order,
-  isQuantityEdit,
-  setIsQuantityEdit,
-}: OrderOptionButtonsProps): ReactElement => {
+  setError,
+}: DeleteOrderButtonProps): ReactElement => {
   const [useDeleteOrder] = useDeleteOrderMutation();
 
   const { data: currentUser, isLoading: isCurrentUserLoading } =
     useGetCurrentUserQuery();
+
+  const handleDelete = async () => {
+    const result = await useDeleteOrder({ id: order.orderId });
+
+    if (result.error) {
+      setError(result.error.data.message);
+    }
+  };
 
   if (isCurrentUserLoading) {
     return <Loading />;
@@ -27,21 +33,13 @@ const OrderOptionButtons = ({
 
   return (
     <div className="flex justify-center pt-3">
-      {currentUser.userId === order.userId &&
-        (!isQuantityEdit ? (
-          <Button
-            variant="secondary"
-            onClick={() => useDeleteOrder({ id: order.orderId })}
-          >
-            Rendelés Törlés
-          </Button>
-        ) : (
-          <Button variant="secondary" onClick={() => setIsQuantityEdit(false)}>
-            Mégse
-          </Button>
-        ))}
+      {currentUser.userId === order.userId && (
+        <Button variant="secondary" onClick={handleDelete}>
+          Rendelés Törlés
+        </Button>
+      )}
     </div>
   );
 };
 
-export default OrderOptionButtons;
+export default DeleteOrderButton;

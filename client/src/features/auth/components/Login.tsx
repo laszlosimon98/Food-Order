@@ -8,7 +8,7 @@ import { useAppDispatch } from "@/store/hooks/store.hooks";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ReactElement } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { z } from "zod";
 
 const schema = z.object({
@@ -31,6 +31,7 @@ const Login = (): ReactElement => {
   const navigate = useNavigate();
   const [useLogin] = useLoginMutation();
   const dispatch = useAppDispatch();
+  const location = useLocation();
 
   const onSubmit: SubmitHandler<LoginType> = async (data) => {
     try {
@@ -38,7 +39,11 @@ const Login = (): ReactElement => {
       dispatch(saveToken(accessToken));
 
       if (accessToken) {
-        navigate("/");
+        if (location.state) {
+          navigate(location.state.redirectTo);
+        } else {
+          navigate("/");
+        }
       }
     } catch (err: any) {
       setError("root", {
@@ -62,7 +67,7 @@ const Login = (): ReactElement => {
       {errors.password && <ErrorText>{errors.password.message}</ErrorText>}
 
       <div className="flex justify-center items-center ">
-        <Button variant="primary" size="default" className="mt-5" type="submit">
+        <Button variant="primary" size="default" className="mt-5">
           Bejelentkezés
         </Button>
       </div>

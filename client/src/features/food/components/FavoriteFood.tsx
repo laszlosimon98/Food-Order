@@ -2,6 +2,7 @@ import { useGetFavoriteFoodsQuery } from "@/features/food/api/foodApi";
 import FoodCard from "@/features/food/components/FoodCard";
 import FoodModal from "@/features/food/components/FoodModal";
 import Loading from "@/features/shared/components/Loading";
+import PageTitle from "@/features/shared/components/PageTitle";
 import { useAppSelector } from "@/store/hooks/store.hooks";
 import { FoodType } from "@/utils/types/food.type";
 import { ReactElement } from "react";
@@ -17,6 +18,7 @@ const FavoriteFood = (): ReactElement => {
 
   return (
     <>
+      <PageTitle>Kedvenc ételeim</PageTitle>
       {isFoodOverlayOpen ? (
         <FoodModal />
       ) : (

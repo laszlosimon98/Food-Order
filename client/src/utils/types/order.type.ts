@@ -27,10 +27,17 @@ export type OrderType = {
   orderItems: OrderItemType[];
 };
 
+export const OrderStatus = [
+  "Rendelés leadva",
+  "Feldolgozás alatt",
+  "Szállítás alatt",
+  "Teljesítve",
+] as const;
+
 export type OrderStatusType = {
-  status:
-    | "Rendelés leadva"
-    | "Feldolgozás alatt"
-    | "Szállítás alatt"
-    | "Teljesítve";
+  status: (typeof OrderStatus)[number];
 };
+
+// export type OrderStatusType = {
+//   status:
+// };

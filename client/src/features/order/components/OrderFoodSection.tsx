@@ -1,5 +1,4 @@
-import OrderInput from "@/features/order/components/OrderInput";
-import Properties from "@/features/shared/components/Properties";
+import OrderInput from "@/features/order/components/ui/OrderInput";
 import { OrderItemType } from "@/utils/types/order-item.type";
 import { ChangeEvent, Dispatch, ReactElement, SetStateAction } from "react";
 

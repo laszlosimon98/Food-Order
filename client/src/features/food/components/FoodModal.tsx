@@ -13,8 +13,8 @@ import Button from "@/features/shared/components/Button";
 import { useAppDispatch } from "@/store/hooks/store.hooks";
 import { ReactElement } from "react";
 import { useParams } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHeart, faRemove } from "@fortawesome/free-solid-svg-icons";
+import { useGetCurrentUserQuery } from "@/features/auth/api/authApi";
+import FavoriteButtonIcons from "@/features/food/components/FavoriteButtonIcons";
 
 const FoodModal = (): ReactElement => {
   const { foodId } = useParams();
@@ -23,15 +23,12 @@ const FoodModal = (): ReactElement => {
     id: parseInt(foodId as string),
   });
 
-  const { data: favoriteFood, isLoading: isFavoriteFoodLoading } =
-    useGetFavoriteFoodByIdQuery({ id: parseInt(foodId as string) });
-
-  const [useAddFavoriteFood] = useAddFavoriteFoodMutation();
-  const [useDeleteFavoriteFood] = useDeleteFavoriteFoodMutation();
+  const { isLoading: isCurrentUserLoading, isError: isUserAuthenticated } =
+    useGetCurrentUserQuery();
 
   const dispatch = useAppDispatch();
 
-  if (isLoading || isFavoriteFoodLoading) {
+  if (isLoading || isCurrentUserLoading) {
     return <div>Loading...</div>;
   }
 
@@ -41,24 +38,8 @@ const FoodModal = (): ReactElement => {
 
   return (
     <div className="bg-white w-[50%] min-h-[32rem] h-fit absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-3xl">
-      {!favoriteFood ? (
-        <Button
-          className="absolute top-5 right-5"
-          onClick={() =>
-            useAddFavoriteFood({ foodId: parseInt(foodId as string) })
-          }
-        >
-          <FontAwesomeIcon icon={faHeart} />
-        </Button>
-      ) : (
-        <Button
-          className="absolute top-5 right-5"
-          onClick={() =>
-            useDeleteFavoriteFood({ id: parseInt(foodId as string) })
-          }
-        >
-          <FontAwesomeIcon icon={faRemove} />
-        </Button>
+      {!isUserAuthenticated && (
+        <FavoriteButtonIcons foodId={parseInt(foodId as string)} />
       )}
 
       <FoodHeader className="mt-5 text-3xl">{food.name}</FoodHeader>

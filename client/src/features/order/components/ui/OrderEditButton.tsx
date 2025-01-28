@@ -12,6 +12,7 @@ type OrderEditButtonProps = {
   newQuantity: number;
   order: OrderType;
   setIsQuantityEdit: Dispatch<SetStateAction<boolean>>;
+  setError: Dispatch<SetStateAction<string | undefined>>;
 };
 
 const OrderEditButton = ({
@@ -20,8 +21,21 @@ const OrderEditButton = ({
   newQuantity,
   order,
   setIsQuantityEdit,
+  setError,
 }: OrderEditButtonProps): ReactElement => {
   const [useUpdateOrderItem] = useUpdateOrderItemMutation();
+
+  const handleEdit = async () => {
+    const result = await useUpdateOrderItem({
+      id: item.orderItemId,
+      quantity: newQuantity,
+      orderId: order.orderId,
+    });
+
+    if (result.error) {
+      setError(result.error.data.message);
+    }
+  };
 
   return (
     <Button
@@ -31,11 +45,7 @@ const OrderEditButton = ({
         if (!isQuantityEdit) {
           setIsQuantityEdit(true);
         } else {
-          useUpdateOrderItem({
-            id: item.orderItemId,
-            quantity: newQuantity,
-            orderId: order.orderId,
-          });
+          handleEdit();
           setIsQuantityEdit(false);
         }
       }}

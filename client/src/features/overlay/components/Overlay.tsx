@@ -10,7 +10,7 @@ const Overlay = (): ReactElement => {
 
   return (
     <div
-      className="absolute top-0 left-0 bg-black bg-opacity-80 inset-0"
+      className="absolute top-0 left-0 bg-black bg-opacity-80 inset-0 z-50"
       onClick={() => {
         dispatch(closeOverlays());
         if (location.state) {
