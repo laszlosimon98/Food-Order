@@ -6,17 +6,17 @@ import { faClose } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Dispatch, ReactElement, SetStateAction } from "react";
 
-type OrderDeleteButtonProps = {
+type DeleteOrderItemButtonProps = {
   item: OrderItemType;
   order: OrderType;
   setError: Dispatch<SetStateAction<string | undefined>>;
 };
 
-const OrderDeleteButton = ({
+const DeleteOrderItemButton = ({
   item,
   order,
   setError,
-}: OrderDeleteButtonProps): ReactElement => {
+}: DeleteOrderItemButtonProps): ReactElement => {
   const [useDeleteOrderItem] = useDeleteOrderItemMutation();
 
   const handleDelete = async () => {
@@ -37,4 +37,4 @@ const OrderDeleteButton = ({
   );
 };
 
-export default OrderDeleteButton;
+export default DeleteOrderItemButton;

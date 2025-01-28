@@ -6,7 +6,7 @@ import { faEdit } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Dispatch, ReactElement, SetStateAction } from "react";
 
-type OrderEditButtonProps = {
+type EditOrderItemButtonProps = {
   item: OrderItemType;
   isQuantityEdit: boolean;
   newQuantity: number;
@@ -15,14 +15,14 @@ type OrderEditButtonProps = {
   setError: Dispatch<SetStateAction<string | undefined>>;
 };
 
-const OrderEditButton = ({
+const EditOrderItemButton = ({
   item,
   isQuantityEdit,
   newQuantity,
   order,
   setIsQuantityEdit,
   setError,
-}: OrderEditButtonProps): ReactElement => {
+}: EditOrderItemButtonProps): ReactElement => {
   const [useUpdateOrderItem] = useUpdateOrderItemMutation();
 
   const handleEdit = async () => {
@@ -55,4 +55,4 @@ const OrderEditButton = ({
   );
 };
 
-export default OrderEditButton;
+export default EditOrderItemButton;

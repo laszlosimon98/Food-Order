@@ -1,11 +1,11 @@
 import OrderFoodSection from "@/features/order/components/OrderFoodSection";
 import OrderFoodSectionContainer from "@/features/order/components/OrderFoodSectionContainer";
 import OrderButtonsContainer from "@/features/order/components/ui/OrderButtonsContainer";
-import OrderDeleteButton from "@/features/order/components/ui/OrderDeleteButton";
-import OrderEditButton from "@/features/order/components/ui/OrderEditButton";
 import { OrderItemType } from "@/utils/types/order-item.type";
 import { OrderType } from "@/utils/types/order.type";
 import { Dispatch, ReactElement, SetStateAction, useState } from "react";
+import EditOrderItemButton from "@/features/order/components/ui/EditOrderItemButton";
+import DeleteOrderItemButton from "@/features/order/components/ui/DeleteOrderItemButton";
 
 type OrderItemProps = {
   item: OrderItemType;
@@ -26,7 +26,7 @@ const OrderItem = ({ item, order, setError }: OrderItemProps): ReactElement => {
       />
 
       <OrderButtonsContainer>
-        <OrderEditButton
+        <EditOrderItemButton
           item={item}
           newQuantity={newQuantity}
           isQuantityEdit={isQuantityEdit}
@@ -36,7 +36,11 @@ const OrderItem = ({ item, order, setError }: OrderItemProps): ReactElement => {
         />
 
         {!isQuantityEdit && (
-          <OrderDeleteButton item={item} order={order} setError={setError} />
+          <DeleteOrderItemButton
+            item={item}
+            order={order}
+            setError={setError}
+          />
         )}
       </OrderButtonsContainer>
     </OrderFoodSectionContainer>
