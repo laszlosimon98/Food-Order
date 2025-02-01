@@ -1,4 +1,3 @@
-import { useGetCurrentUserQuery } from "@/features/auth/api/authApi";
 import { clearCart } from "@/features/cart/slice/cartSlice";
 import { useGetFoodsByIdsQuery } from "@/features/food/api/foodApi";
 import { useAddOrderMutation } from "@/features/order/api/orderApi";
@@ -11,6 +10,8 @@ import { Link, useNavigate } from "react-router-dom";
 
 const OrderSummary = (): ReactElement => {
   const { cartItems } = useAppSelector((state) => state.cart.data);
+  const currentUser = useAppSelector((state) => state.auth.data.currentUser);
+
   const dispatch = useAppDispatch();
 
   const ids: string[] = Object.keys(cartItems);
@@ -18,13 +19,10 @@ const OrderSummary = (): ReactElement => {
   const { data: foods, isLoading: isFoodsLoading } = useGetFoodsByIdsQuery({
     id: ids,
   });
-  const { data: currentUser, isLoading: isCurrentUserLoading } =
-    useGetCurrentUserQuery();
-
   const [useAddOrder] = useAddOrderMutation();
   const navigate = useNavigate();
 
-  if (isFoodsLoading || isCurrentUserLoading) {
+  if (isFoodsLoading) {
     return <Loading />;
   }
 
@@ -42,9 +40,9 @@ const OrderSummary = (): ReactElement => {
     });
 
     const result: CreateOrderType = {
-      fullname: currentUser.fullname,
-      address: currentUser.address,
-      phoneNumber: currentUser.phoneNumber,
+      fullname: currentUser!.fullname,
+      address: currentUser!.address as string,
+      phoneNumber: currentUser!.phoneNumber as string,
       orderItems: items,
     };
 
@@ -59,8 +57,8 @@ const OrderSummary = (): ReactElement => {
   return (
     <>
       <h1>Adatok</h1>
-      <div>{currentUser.address}</div>
-      <div>{currentUser.phoneNumber}</div>
+      <div>{currentUser!.address}</div>
+      <div>{currentUser!.phoneNumber}</div>
 
       <Link to={"/profile"} state={{ redirectTo: "/order-summary" }}>
         <Button>Adatok frissítése</Button>

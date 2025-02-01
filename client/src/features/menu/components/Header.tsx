@@ -10,7 +10,7 @@ const Header = ({ children }: HeaderProps): ReactElement => {
 
   return (
     <header
-      className="top-0 h-20 w-full flex flex-row justify-between bg-background items-center px-10 z-10"
+      className="top-0 h-20 w-full flex flex-row justify-between bg-background items-center px-10 z-20"
       onClick={() => {
         if (isCartVisible) {
           dispatch(closeCart());

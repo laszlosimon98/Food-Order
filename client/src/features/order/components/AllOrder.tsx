@@ -7,6 +7,7 @@ import Card from "@/features/shared/components/Card";
 import Loading from "@/features/shared/components/Loading";
 import PageTitle from "@/features/shared/components/PageTitle";
 import Properties from "@/features/shared/components/Properties";
+import { convertDate } from "@/utils/convertDate";
 import { OrderStatus } from "@/utils/types/order.type";
 import { ReactElement, useState } from "react";
 
@@ -53,6 +54,10 @@ const AllOrder = ({}: AllOrderProps): ReactElement => {
             >
               <Properties property="Név" value={order.fullname} />
               <Properties property="Cím" value={order.address} />
+              <Properties
+                property="Dátum"
+                value={`${convertDate(order.orderDate)}`}
+              />
               <Properties property="Telefonszám" value={order.phoneNumber} />
               <Properties property="Ár" value={`${order.totalOrderPrice} Ft`} />
               <Properties

@@ -8,7 +8,7 @@ model Reviews {
 
     user   Users @relation(fields: [userId], references: [userId])
     userId Int
-    food   Foods @relation(fields: [foodId], references: [foodId])
+    food   Foods @relation(fields: [foodId], references: [foodId], onDelete: Cascade)
     foodId Int
 
     isEditable Boolean @default(true)

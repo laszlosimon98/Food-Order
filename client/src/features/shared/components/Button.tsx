@@ -4,7 +4,7 @@ import { HTMLAttributes, ReactElement } from "react";
 
 type ButtonProps = HTMLAttributes<HTMLButtonElement> &
   VariantProps<typeof buttonVariants> & {
-    variant?: "primary" | "secondary";
+    variant?: "primary" | "secondary" | "danger";
     size?: "default" | "sm" | "icon";
     disabled?: boolean;
   };
@@ -32,10 +32,11 @@ const buttonVariants = cva(
       variant: {
         primary: "bg-baseColor",
         secondary: "bg-white text-baseColor border border-baseColor",
+        danger: "bg-red-500 ",
       },
       size: {
-        default: "h-10 px-4",
-        sm: "h-9 px-2",
+        default: "h-10 min-w-28 w-fit px-4",
+        sm: "h-8 min-w-20 w-fit px-4",
         icon: "h-10 w-10 ",
       },
     },

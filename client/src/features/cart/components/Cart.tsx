@@ -2,6 +2,7 @@ import CartItemContainer from "@/features/cart/components/CartItemContainer";
 import CartTotal from "@/features/cart/components/CartTotal";
 import { clearCart } from "@/features/cart/slice/cartSlice";
 import Button from "@/features/shared/components/Button";
+import DropdownContainer from "@/features/shared/components/DropdownContainer";
 import { useAppDispatch, useAppSelector } from "@/store/hooks/store.hooks";
 import { PropsWithChildren, ReactElement } from "react";
 import { Link } from "react-router-dom";
@@ -14,7 +15,7 @@ const Cart = ({ children }: CartProps): ReactElement => {
   const dispatch = useAppDispatch();
 
   return (
-    <div className="bg-white absolute w-cartWidth top-[4.5rem] right-5 rounded-3xl shadow-xl z-30">
+    <DropdownContainer className="w-cartWidth top-[4.5rem] right-5">
       <div className="w-full h-[24rem]">
         <h1 className="text-center mt-3 text-3xl font-bold italic">Kosár</h1>
 
@@ -39,7 +40,7 @@ const Cart = ({ children }: CartProps): ReactElement => {
           </Link>
         </div>
       </div>
-    </div>
+    </DropdownContainer>
   );
 };
 

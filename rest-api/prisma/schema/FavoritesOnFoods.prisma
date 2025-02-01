@@ -1,7 +1,7 @@
 model FavoritesOnFoods {
-    user    Users    @relation(fields: [userId], references: [userId])
+    user    Users    @relation(fields: [userId], references: [userId], onDelete: Cascade)
     userId  Int
-    food    Foods    @relation(fields: [foodId], references: [foodId])
+    food    Foods    @relation(fields: [foodId], references: [foodId], onDelete: Cascade)
     foodId  Int
     addedAt DateTime
 

@@ -1,3 +1,5 @@
+import Button from "@/features/shared/components/Button";
+import { cn } from "@/utils/cn";
 import {
   FontAwesomeIcon,
   FontAwesomeIconProps,
@@ -6,15 +8,19 @@ import { PropsWithChildren, ReactElement } from "react";
 
 type IconProps = FontAwesomeIconProps & PropsWithChildren;
 
-const Icon = ({ children, ...props }: IconProps): ReactElement => {
+const Icon = ({ children, className, ...props }: IconProps): ReactElement => {
   return (
-    <div className="relative">
-      <FontAwesomeIcon
-        {...props}
-        className="cursor-pointer hover:scale-110 transition-all"
-      />
+    <Button
+      size="icon"
+      variant="secondary"
+      className={cn(
+        "relative border-none bg-inherit transition-all",
+        className
+      )}
+    >
+      <FontAwesomeIcon {...props} />
       {children}
-    </div>
+    </Button>
   );
 };
 

@@ -36,11 +36,11 @@ const foodApi = storeApi.injectEndpoints({
     }),
     getFavoriteFoods: builder.query<FoodType[], void>({
       query: () => "food/favoriteFood",
-      providesTags: ["Food", "FavoriteFood"],
+      providesTags: ["Food"],
     }),
     getFavoriteFoodById: builder.query<FoodType[], IdType>({
       query: ({ id }) => `food/favoriteFood/${id}`,
-      providesTags: ["Food", "FavoriteFood"],
+      providesTags: ["Food"],
     }),
     getTopTenOrder: builder.query<FoodType[], void>({
       query: () => "food/topTenOrder",
@@ -72,7 +72,7 @@ const foodApi = storeApi.injectEndpoints({
         method: "DELETE",
       }),
       invalidatesTags(_result, _error, arg, _meta) {
-        return [{ type: "Food", id: arg.id }];
+        return [{ type: "Food", foodId: arg.id }];
       },
     }),
     addFavoriteFood: builder.mutation<any, FavoriteFoodType>({
@@ -81,14 +81,29 @@ const foodApi = storeApi.injectEndpoints({
         method: "POST",
         body,
       }),
-      invalidatesTags: ["Food", "FavoriteFood"],
+      invalidatesTags: ["Food"],
     }),
     deleteFavoriteFood: builder.mutation<any, IdType>({
       query: ({ id }) => ({
         url: `favorite-food/${id}`,
         method: "DELETE",
       }),
-      invalidatesTags: ["Food", "FavoriteFood"],
+      invalidatesTags: ["Food"],
+    }),
+    uploadFile: builder.mutation<any, { file: File } & IdType>({
+      query: ({ id, file }) => {
+        const formData = new FormData();
+        formData.append("file", file);
+
+        return {
+          url: `file-upload/${id}`,
+          method: "POST",
+          body: formData,
+        };
+      },
+      invalidatesTags(result, error, arg, meta) {
+        return [{ type: "Food", foodId: arg.id }];
+      },
     }),
   }),
 });
@@ -106,4 +121,5 @@ export const {
   useDeleteFoodMutation,
   useAddFavoriteFoodMutation,
   useDeleteFavoriteFoodMutation,
+  useUploadFileMutation,
 } = foodApi;

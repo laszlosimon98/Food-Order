@@ -8,6 +8,9 @@ import Card from "@/features/shared/components/Card";
 import { useAppDispatch, useAppSelector } from "@/store/hooks/store.hooks";
 import { FoodType } from "@/utils/types/food.type";
 import { ReactElement } from "react";
+import { hasPermission, RolesEnum } from "@/utils/roles";
+import { useDeleteFoodMutation } from "@/features/food/api/foodApi";
+import FavoriteButtonIcons from "@/features/food/components/FavoriteButtonIcons";
 
 type FoodCardProps = {
   food: FoodType;
@@ -15,13 +18,22 @@ type FoodCardProps = {
 
 const FoodCard = ({ food }: FoodCardProps): ReactElement => {
   const dispatch = useAppDispatch();
-  const { isFoodOverlayOpen } = useAppSelector((state) => state.overlay.data);
+  const currentUser = useAppSelector((state) => state.auth.data.currentUser);
+
+  const [useDeleteFood] = useDeleteFoodMutation();
+
+  const handleDelete = async (id: number) => {
+    await useDeleteFood({ id });
+  };
 
   return (
     <Card
-      className={`${isFoodOverlayOpen ? "-z-10" : ""}`}
-      onClick={(e) => {
-        dispatch(openFoodOverlay());
+      onClick={() => {
+        if (
+          !hasPermission([RolesEnum.ADMIN, RolesEnum.EMPLOYEE], currentUser)
+        ) {
+          dispatch(openFoodOverlay());
+        }
       }}
     >
       <FoodHeader>{food.name}</FoodHeader>
@@ -36,18 +48,33 @@ const FoodCard = ({ food }: FoodCardProps): ReactElement => {
         property="Vegetáriánus:"
         value={`${food.isVegetarian ? "Igen" : "Nem"}`}
       />
-      <div className="flex justify-center mx-5 mb-3 ">
-        <Button
-          variant="primary"
-          onClick={(e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            dispatch(saveItem(food));
-          }}
-          className="mt-5"
-        >
-          Kosárba
-        </Button>
+      <div className="flex justify-center gap-10 mx-5 mb-3 mt-5 ">
+        {hasPermission([RolesEnum.ADMIN], currentUser) ? (
+          <>
+            <Button variant="secondary">Módosítás</Button>
+            <Button
+              variant="danger"
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                handleDelete(food.foodId);
+              }}
+            >
+              Törlés
+            </Button>
+          </>
+        ) : (
+          <Button
+            variant="primary"
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              dispatch(saveItem(food));
+            }}
+          >
+            Kosárba
+          </Button>
+        )}
       </div>
     </Card>
   );

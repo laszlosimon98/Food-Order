@@ -5,12 +5,13 @@ type AuthState = {
   data: {
     accessToken: string | null;
     isAuthenticated: boolean;
-    currentUser: UserType | undefined;
+    currentUser?: UserType;
   };
 };
 
 type PayloadType = {
   accessToken: string | null;
+  currentUser: UserType;
 };
 
 const initialState: AuthState = {
@@ -26,9 +27,12 @@ export const authSlice = createSlice({
   initialState,
   reducers: {
     saveToken: (state, action: PayloadAction<PayloadType>) => {
-      const { accessToken } = action.payload;
+      const { accessToken, currentUser } = action.payload;
+
       state.data.accessToken = accessToken;
       state.data.isAuthenticated = true;
+
+      state.data.currentUser = { ...currentUser };
     },
     removeToken: (state) => {
       state.data.accessToken = null;

@@ -19,7 +19,7 @@ const Layout = ({ children }: LayoutProps): ReactElement => {
 
       <Menu />
       <div
-        className="w-full min-h-screen bg-background"
+        className="w-full min-h-calcScreen bg-background"
         onClick={() => dispatch(closeCart())}
       >
         {children}

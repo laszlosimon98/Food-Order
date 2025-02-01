@@ -1,24 +1,18 @@
-import { useGetCurrentUserQuery } from "@/features/auth/api/authApi";
-import Loading from "@/features/shared/components/Loading";
 import Redirect from "@/features/shared/components/Redirect";
+import { useAppSelector } from "@/store/hooks/store.hooks";
 import { UserRoles } from "@/utils/types/user.type";
 import { PropsWithChildren, ReactElement } from "react";
-import { useLocation } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 
 type ProtectedRouteProps = PropsWithChildren & {
   allowedRoles?: UserRoles[];
 };
 
 const ProtectedRoute = ({
-  children,
   allowedRoles,
 }: ProtectedRouteProps): ReactElement => {
-  const { data: currentUser, isLoading } = useGetCurrentUserQuery();
+  const currentUser = useAppSelector((state) => state.auth.data.currentUser);
   const location = useLocation();
-
-  if (isLoading) {
-    return <Loading />;
-  }
 
   if (currentUser === undefined) {
     return (
@@ -45,7 +39,7 @@ const ProtectedRoute = ({
     );
   }
 
-  return <>{children}</>;
+  return <Outlet />;
 };
 
 export default ProtectedRoute;

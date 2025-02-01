@@ -19,7 +19,7 @@ export type OrderType = {
   address: string;
   phoneNumber: string;
   totalOrderPrice: number;
-  orderDate: Date;
+  orderDate: string;
   deliveryStatus: {
     statusId: number;
     statusName: string;

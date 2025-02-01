@@ -20,6 +20,7 @@ const Pagination = ({ pageButtonCount }: PaginationProps): ReactElement => {
     <div className="w-full mt-2 pb-6 flex justify-center items-center">
       <Button
         variant="secondary"
+        size="icon"
         onClick={() => {
           if ((page as number) > 1) {
             dispatch(setPage((page as number) - 1));
@@ -48,6 +49,7 @@ const Pagination = ({ pageButtonCount }: PaginationProps): ReactElement => {
       <Button
         variant="secondary"
         className="ml-2"
+        size="icon"
         onClick={() => {
           if ((page as number) < pageButtonCount) {
             dispatch(setPage((page as number) + 1));

@@ -20,7 +20,7 @@ const Menu = (): ReactElement => {
     <Header>
       <MenuTitle />
 
-      <div className="flex gap-8 flex-row-reverse md:flex-row">
+      <div className="flex gap-6 flex-row-reverse md:flex-row">
         <SmallDeviceIcons />
 
         <Navigation

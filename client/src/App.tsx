@@ -15,57 +15,25 @@ function App() {
     <Layout>
       <Routes>
         <Route index element={<Home />} />
-
         <Route path=":foodId" element={<Home />} />
-
-        <Route
-          path="profile"
-          element={
-            <ProtectedRoute>
-              <Profile />
-            </ProtectedRoute>
-          }
-        />
-
-        <Route
-          path="order-summary"
-          element={
-            <ProtectedRoute>
-              <OrderSummary />
-            </ProtectedRoute>
-          }
-        />
-
-        <Route
-          path="my-orders"
-          element={
-            <ProtectedRoute allowedRoles={["user"]}>
-              <MyOrders />
-            </ProtectedRoute>
-          }
-        />
-
-        <Route
-          path="favorite-foods"
-          element={
-            <ProtectedRoute>
-              <FavoriteFood />
-            </ProtectedRoute>
-          }
-        />
-
-        <Route
-          path="orders"
-          element={
-            <ProtectedRoute allowedRoles={["employee"]}>
-              <AllOrder />
-            </ProtectedRoute>
-          }
-        />
 
         <Route path="register" element={<Register />} />
         <Route path="login" element={<Login />} />
         <Route path="*" element={<Home />} />
+
+        <Route element={<ProtectedRoute />}>
+          <Route path="profile" element={<Profile />} />
+        </Route>
+
+        <Route element={<ProtectedRoute allowedRoles={["user"]} />}>
+          <Route path="my-orders" element={<MyOrders />} />
+          <Route path="order-summary" element={<OrderSummary />} />
+          <Route path="favorite-foods" element={<FavoriteFood />} />
+        </Route>
+
+        <Route element={<ProtectedRoute allowedRoles={["employee"]} />}>
+          <Route path="orders" element={<AllOrder />} />
+        </Route>
       </Routes>
     </Layout>
   );

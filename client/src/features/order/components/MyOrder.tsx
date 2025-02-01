@@ -1,6 +1,7 @@
 import OrderItems from "@/features/order/components/OrderItems";
 import Card from "@/features/shared/components/Card";
 import Properties from "@/features/shared/components/Properties";
+import { convertDate } from "@/utils/convertDate";
 import { OrderType } from "@/utils/types/order.type";
 import { ReactElement } from "react";
 
@@ -13,6 +14,7 @@ const MyOrder = ({ order }: MyOrderProps): ReactElement => {
     <Card className="p-8 md:w-[46rem]" key={order.orderId}>
       <Properties property="Név" value={order.fullname} />
       <Properties property="Cím" value={order.address} />
+      <Properties property="Dátum" value={`${convertDate(order.orderDate)}`} />
       <Properties property="Telefonszám" value={order.phoneNumber} />
       <Properties property="Ár" value={`${order.totalOrderPrice} Ft`} />
       <Properties

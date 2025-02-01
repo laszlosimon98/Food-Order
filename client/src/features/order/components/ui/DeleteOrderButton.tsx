@@ -1,7 +1,6 @@
-import { useGetCurrentUserQuery } from "@/features/auth/api/authApi";
 import { useDeleteOrderMutation } from "@/features/order/api/orderApi";
 import Button from "@/features/shared/components/Button";
-import Loading from "@/features/shared/components/Loading";
+import { useAppSelector } from "@/store/hooks/store.hooks";
 import { OrderType } from "@/utils/types/order.type";
 import { Dispatch, ReactElement, SetStateAction } from "react";
 
@@ -15,9 +14,7 @@ const DeleteOrderButton = ({
   setError,
 }: DeleteOrderButtonProps): ReactElement => {
   const [useDeleteOrder] = useDeleteOrderMutation();
-
-  const { data: currentUser, isLoading: isCurrentUserLoading } =
-    useGetCurrentUserQuery();
+  const currentUser = useAppSelector((state) => state.auth.data.currentUser);
 
   const handleDelete = async () => {
     const result = await useDeleteOrder({ id: order.orderId });
@@ -27,13 +24,9 @@ const DeleteOrderButton = ({
     }
   };
 
-  if (isCurrentUserLoading) {
-    return <Loading />;
-  }
-
   return (
     <div className="flex justify-center pt-3">
-      {currentUser.userId === order.userId && (
+      {currentUser && currentUser.userId === order.userId && (
         <Button variant="secondary" onClick={handleDelete}>
           Rendelés Törlés
         </Button>

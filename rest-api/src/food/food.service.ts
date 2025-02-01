@@ -84,7 +84,6 @@ export class FoodService {
             },
           },
           omit: {
-            userId: true,
             foodId: true,
           },
         },

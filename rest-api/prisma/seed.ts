@@ -57,9 +57,9 @@ const createFoods = async () => {
       'Sajtos Pizza',
       'Magyaros Pizza',
     ],
-    2: ['Hús leves', 'Zöldség leves', 'Borsó Leves'],
+    2: ['Húsleves', 'Zöldségleves', 'Borsóleves'],
     3: ['Kóla', 'Sprite', 'Fanta'],
-    4: ['Hasáb burgonya', 'Héjas Krumpli', 'Rizs'],
+    4: ['Hasábburgonya', 'Rizs'],
     5: ['Kirántott Csirkemell', 'Kirántott Csirkecomb', 'Steak', 'Sült kacsa'],
   };
 

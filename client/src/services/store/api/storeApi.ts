@@ -1,5 +1,7 @@
+import { authApi } from "@/features/auth/api/authApi";
 import { saveToken } from "@/features/auth/slice/authSlice";
 import { RootState } from "@/store/store";
+import { UserType } from "@/utils/types/user.type";
 import {
   BaseQueryFn,
   createApi,
@@ -42,8 +44,28 @@ const baseQueryWithReauth: BaseQueryFn<
     );
 
     if (data) {
-      api.dispatch(saveToken({ accessToken: data.accessToken }));
-      queryResult = await baseQuery(args, api, extraOptions);
+      const currentUser = await baseQuery(
+        {
+          url: "auth/currentUser",
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${data.accessToken}`,
+            "Content-Type": "application/json",
+          },
+        },
+        api,
+        extraOptions
+      );
+
+      if (currentUser.data) {
+        api.dispatch(
+          saveToken({
+            accessToken: data.accessToken,
+            currentUser: currentUser.data as UserType,
+          })
+        );
+        queryResult = await baseQuery(args, api, extraOptions);
+      }
     }
   }
 
@@ -59,10 +81,8 @@ export const storeApi = createApi({
     "Food",
     "Promotion",
     "Review",
-    "FavoriteFood",
     "Order",
     "OrderItem",
-    "FileUpload",
   ],
   endpoints: () => ({}),
 });
