@@ -3,6 +3,7 @@ import DropdownContainer from "@/features/shared/components/DropdownContainer";
 import Icon from "@/features/shared/components/Icon";
 import { useAppSelector } from "@/store/hooks/store.hooks";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Dispatch, ReactElement, SetStateAction } from "react";
 
 type UserIconProps = {
@@ -27,9 +28,11 @@ const UserIcon = ({
     >
       {isDropdownVisible && (
         <DropdownContainer className="min-w-52 right-0 top-10 min-h-fit py-4 flex flex-col items-center gap-3 text-black">
-          <h2 className="text-normal p-2 font-semibold">
-            Felhasználó: <p>{currentUser?.fullname}</p>
-          </h2>
+          <div className="flex gap-8 items-center">
+            <FontAwesomeIcon icon={faUser} />
+            <p>{currentUser?.fullname}</p>
+          </div>
+
           <ListElement link="/profile">Profilom</ListElement>
           <ListElement link="/" onClick={logout}>
             Kijelentkezés

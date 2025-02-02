@@ -10,7 +10,9 @@ const reviewApi = storeApi.injectEndpoints({
         method: "POST",
         body,
       }),
-      invalidatesTags: ["Review"],
+      invalidatesTags(result, error, arg, meta) {
+        return [{ type: "Food", foodId: arg.foodId }];
+      },
     }),
     updateReview: builder.mutation<any, UpdateReviewType>({
       query: ({ id, ...rest }) => ({
@@ -19,25 +21,34 @@ const reviewApi = storeApi.injectEndpoints({
         body: rest,
       }),
       invalidatesTags(_result, _error, arg, _meta) {
-        return [{ type: "Review", id: arg.id }];
+        return [
+          { type: "Review", id: arg.id },
+          { type: "Food", foodId: arg.foodId },
+        ];
       },
     }),
-    deleteReview: builder.mutation<any, IdType>({
+    deleteReview: builder.mutation<any, IdType & { foodId: number }>({
       query: ({ id }) => ({
         url: `review/${id}`,
         method: "DELETE",
       }),
       invalidatesTags(_result, _error, arg, _meta) {
-        return [{ type: "Review", id: arg.id }];
+        return [
+          { type: "Review", id: arg.id },
+          { type: "Food", foodId: arg.foodId },
+        ];
       },
     }),
-    deleteReviewComment: builder.mutation<any, IdType>({
+    deleteReviewComment: builder.mutation<any, IdType & { foodId: number }>({
       query: ({ id }) => ({
         url: `review/comment/${id}`,
         method: "DELETE",
       }),
       invalidatesTags(_result, _error, arg, _meta) {
-        return [{ type: "Review", id: arg.id }];
+        return [
+          { type: "Review", id: arg.id },
+          { type: "Food", foodId: arg.foodId },
+        ];
       },
     }),
   }),

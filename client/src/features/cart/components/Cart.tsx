@@ -15,8 +15,8 @@ const Cart = ({ children }: CartProps): ReactElement => {
   const dispatch = useAppDispatch();
 
   return (
-    <DropdownContainer className="w-cartWidth top-[4.5rem] right-5">
-      <div className="w-full h-[24rem]">
+    <DropdownContainer className="w-cartWidth top-14 right-0">
+      <div className="w-full h-[24rem] mb-4 px-2">
         <h1 className="text-center mt-3 text-3xl font-bold italic">Kosár</h1>
 
         <CartItemContainer>{children}</CartItemContainer>

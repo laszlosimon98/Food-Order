@@ -14,7 +14,7 @@ const Icon = ({ children, className, ...props }: IconProps): ReactElement => {
       size="icon"
       variant="secondary"
       className={cn(
-        "relative border-none bg-inherit transition-all",
+        "relative border-none bg-inherit transition-all text-inherit",
         className
       )}
     >

@@ -2,7 +2,7 @@ import { useRegisterMutation } from "@/features/auth/api/authApi";
 import Button from "@/features/shared/components/Button";
 import ErrorText from "@/features/shared/components/form/ErrorText";
 import FormContainer from "@/features/shared/components/form/FormContainer";
-import TextInput from "@/features/shared/components/TextInput";
+import TextInput from "@/features/shared/components/form/TextInput";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ReactElement } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
@@ -94,7 +94,7 @@ const Register = (): ReactElement => {
       )}
 
       <div className="flex justify-center items-center ">
-        <Button variant="primary" size="default" className="mt-5" type="submit">
+        <Button variant="primary" size="default" className="mt-5">
           Regisztrálás
         </Button>
       </div>

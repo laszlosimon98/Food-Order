@@ -3,10 +3,13 @@ import {
   useLogoutMutation,
 } from "@/features/auth/api/authApi";
 import { removeToken } from "@/features/auth/slice/authSlice";
+import Cart from "@/features/cart/components/Cart";
+import CartItem from "@/features/cart/components/CartItem";
 import ListElement from "@/features/menu/components/ListElement";
 import AdminRoutes from "@/features/menu/components/routes/AdminRoutes";
 import EmployeeRoutes from "@/features/menu/components/routes/EmployeeRoutes";
 import UserRoutes from "@/features/menu/components/routes/UserRoutes";
+import ShoppingCart from "@/features/menu/components/ShoppingCart";
 import UserIcon from "@/features/menu/components/UserIcon";
 import Loading from "@/features/shared/components/Loading";
 import { useAppSelector, useAppDispatch } from "@/store/hooks/store.hooks";
@@ -22,10 +25,13 @@ const Navigation = ({
   isMenuOverlayOpen,
   closeMenu,
 }: NavigationPropsType): ReactElement => {
-  const { data: currentUser, isLoading } = useGetCurrentUserQuery();
+  const { isLoading } = useGetCurrentUserQuery();
   const [isDropdownVisible, setIsDropdownVisible] = useState<boolean>(false);
 
   const { isAuthenticated } = useAppSelector((state) => state.auth.data);
+  const { isCartVisible } = useAppSelector((state) => state.cart.data);
+  const { cartItems } = useAppSelector((state) => state.cart.data);
+
   const [useLogout] = useLogoutMutation();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -66,11 +72,29 @@ const Navigation = ({
             <EmployeeRoutes />
             <AdminRoutes />
 
-            <UserIcon
-              isDropdownVisible={isDropdownVisible}
-              setIsDropdownVisible={setIsDropdownVisible}
-              logout={logout}
-            />
+            <section className="flex gap-4 items-center">
+              <UserIcon
+                isDropdownVisible={isDropdownVisible}
+                setIsDropdownVisible={setIsDropdownVisible}
+                logout={logout}
+              />
+
+              <ShoppingCart>
+                {isCartVisible && (
+                  <Cart>
+                    {Object.keys(cartItems).length > 0 ? (
+                      Object.keys(cartItems).map((id) => {
+                        return <CartItem key={id} id={id} />;
+                      })
+                    ) : (
+                      <div className="h-full flex justify-center items-center">
+                        A kosár üres
+                      </div>
+                    )}
+                  </Cart>
+                )}
+              </ShoppingCart>
+            </section>
 
             <div className="inline-flex flex-col justify-center items-center gap-8 md:hidden">
               <ListElement link="/profile">Profilom</ListElement>

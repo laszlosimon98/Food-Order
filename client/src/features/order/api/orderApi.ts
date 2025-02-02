@@ -23,7 +23,7 @@ const orderApi = storeApi.injectEndpoints({
     }),
     getMyOrders: builder.query<OrderType[], void>({
       query: () => "order/myOrders",
-      providesTags: ["Order"],
+      providesTags: ["Order", "User"],
     }),
     getOrderById: builder.query<OrderType, IdType>({
       query: ({ id }) => `order/${id}`,

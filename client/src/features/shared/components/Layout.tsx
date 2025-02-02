@@ -7,15 +7,13 @@ import { PropsWithChildren, ReactElement } from "react";
 type LayoutProps = {} & PropsWithChildren;
 
 const Layout = ({ children }: LayoutProps): ReactElement => {
-  const { isMenuOverlayOpen, isFoodOverlayOpen } = useAppSelector(
-    (state) => state.overlay.data
-  );
+  const { isMenuOverlayOpen } = useAppSelector((state) => state.overlay.data);
 
   const dispatch = useAppDispatch();
 
   return (
     <>
-      {(isMenuOverlayOpen || isFoodOverlayOpen) && <Overlay />}
+      {isMenuOverlayOpen && <Overlay />}
 
       <Menu />
       <div

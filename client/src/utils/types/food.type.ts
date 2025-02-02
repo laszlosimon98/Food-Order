@@ -1,6 +1,7 @@
 import { CategoryType } from "@/utils/types/category.type";
 import { PromotionType } from "@/utils/types/promotion.type";
 import { IdType } from "@/utils/types/query.type";
+import { ReviewType } from "@/utils/types/review.type";
 
 export type CreateFoodType = {
   name: string;
@@ -17,6 +18,7 @@ export type FoodType = {
 } & CreateFoodType & {
     categories: CategoryType;
     promotions: PromotionType[];
+    reviews: ReviewType[];
   };
 
 export type UpdateFoodType = IdType & Partial<CreateFoodType>;

@@ -11,10 +11,8 @@ import { ReactElement } from "react";
 
 const Menu = (): ReactElement => {
   const { isMenuOverlayOpen } = useAppSelector((state) => state.overlay.data);
-  const { isCartVisible } = useAppSelector((state) => state.cart.data);
 
   const dispatch = useAppDispatch();
-  const { cartItems } = useAppSelector((state) => state.cart.data);
 
   return (
     <Header>
@@ -27,22 +25,6 @@ const Menu = (): ReactElement => {
           isMenuOverlayOpen={isMenuOverlayOpen}
           closeMenu={() => dispatch(closeOverlays())}
         />
-
-        <ShoppingCart />
-
-        {isCartVisible && (
-          <Cart>
-            {Object.keys(cartItems).length > 0 ? (
-              Object.keys(cartItems).map((id) => {
-                return <CartItem key={id} id={id} />;
-              })
-            ) : (
-              <div className="h-full flex justify-center items-center">
-                A kosár üres
-              </div>
-            )}
-          </Cart>
-        )}
       </div>
     </Header>
   );

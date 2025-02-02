@@ -9,13 +9,19 @@ import OrderSummary from "@/features/order/components/OrderSummary";
 import MyOrders from "@/features/order/components/MyOrders";
 import FavoriteFood from "@/features/food/components/FavoriteFood";
 import AllOrder from "@/features/order/components/AllOrder";
+import FoodDetail from "@/features/food/components/FoodDetail";
+import AddReview from "@/features/review/components/AddReview";
 
 function App() {
   return (
     <Layout>
       <Routes>
         <Route index element={<Home />} />
-        <Route path=":foodId" element={<Home />} />
+
+        <Route path="foods">
+          <Route index element={<Home />} />
+          <Route path=":foodId" element={<FoodDetail />} />
+        </Route>
 
         <Route path="register" element={<Register />} />
         <Route path="login" element={<Login />} />
@@ -29,6 +35,9 @@ function App() {
           <Route path="my-orders" element={<MyOrders />} />
           <Route path="order-summary" element={<OrderSummary />} />
           <Route path="favorite-foods" element={<FavoriteFood />} />
+          <Route path="reviews">
+            <Route path="addreview/:foodId" element={<AddReview />} />
+          </Route>
         </Route>
 
         <Route element={<ProtectedRoute allowedRoles={["employee"]} />}>

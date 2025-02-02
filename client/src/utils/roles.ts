@@ -11,24 +11,15 @@ export const hasPermission = <T extends { userId: number }>(
   currentUser?: UserType,
   action?: T
 ): boolean => {
-  if (roles && currentUser && roles.some((role) => role === currentUser.role)) {
-    return true;
+  if (
+    (roles && !currentUser) ||
+    (roles &&
+      currentUser &&
+      (roles.every((role) => role !== currentUser.role) ||
+        (action && action.userId !== currentUser.userId)))
+  ) {
+    return false;
   }
 
-  return false;
-  // if (
-  //   (roles && !currentUser) ||
-  //   (roles &&
-  //     currentUser &&
-  //     (roles.every((role) => role !== currentUser.role) ||
-  //       (action && action.userId !== currentUser.userId)))
-  // ) {
-  // ROLES = ADMIN
-  // CURRENTUSER = USER
-
-  //   // true && true && ()
-  //   return false;
-  // }
-
-  // return true;
+  return true;
 };

@@ -30,6 +30,7 @@ const CartItem = ({ id }: CartItemProps): ReactElement => {
         <div className="w-20 bg-baseColor text-center rounded-3xl flex justify-between items-center">
           <CartButton>
             <FontAwesomeIcon
+              size="sm"
               icon={faMinus}
               onClick={(e) => {
                 e.stopPropagation();
@@ -42,6 +43,7 @@ const CartItem = ({ id }: CartItemProps): ReactElement => {
 
           <CartButton>
             <FontAwesomeIcon
+              size="sm"
               icon={faPlus}
               onClick={(e) => {
                 e.stopPropagation();

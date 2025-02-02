@@ -11,7 +11,7 @@ type AuthState = {
 
 type PayloadType = {
   accessToken: string | null;
-  currentUser: UserType;
+  currentUser?: UserType;
 };
 
 const initialState: AuthState = {
@@ -32,7 +32,7 @@ export const authSlice = createSlice({
       state.data.accessToken = accessToken;
       state.data.isAuthenticated = true;
 
-      state.data.currentUser = { ...currentUser };
+      if (currentUser) state.data.currentUser = { ...currentUser };
     },
     removeToken: (state) => {
       state.data.accessToken = null;

@@ -1,7 +1,7 @@
 import Button from "@/features/shared/components/Button";
 import ErrorText from "@/features/shared/components/form/ErrorText";
 import FormContainer from "@/features/shared/components/form/FormContainer";
-import TextInput from "@/features/shared/components/TextInput";
+import TextInput from "@/features/shared/components/form/TextInput";
 import { useUpdateUserDetailsMutation } from "@/features/user/api/userApi";
 import { UserType } from "@/utils/types/user.type";
 import { getDefaultAddress } from "@/utils/userData";
@@ -165,7 +165,7 @@ const ModifyData = ({ currentUser }: ModifyDataProps): ReactElement => {
       </div>
 
       <div className="flex justify-center items-center ">
-        <Button variant="primary" size="default" className="mt-5" type="submit">
+        <Button variant="primary" size="default" className="mt-5">
           Adataim módosítása
         </Button>
       </div>

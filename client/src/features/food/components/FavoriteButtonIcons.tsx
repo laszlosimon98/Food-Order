@@ -29,16 +29,11 @@ const FavoriteButtonIcons = ({
   return (
     <>
       {!favoriteFood ? (
-        <Button
-          className="absolute top-5 right-5 z-20"
-          onClick={() => useAddFavoriteFood({ foodId })}
-          size="icon"
-        >
+        <Button onClick={() => useAddFavoriteFood({ foodId })} size="icon">
           <FontAwesomeIcon icon={faHeart} />
         </Button>
       ) : (
         <Button
-          className="absolute top-5 right-5 z-20"
           onClick={() => useDeleteFavoriteFood({ id: foodId })}
           size="icon"
         >

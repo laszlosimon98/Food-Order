@@ -1,4 +1,3 @@
-import { authApi } from "@/features/auth/api/authApi";
 import { saveToken } from "@/features/auth/slice/authSlice";
 import { RootState } from "@/store/store";
 import { UserType } from "@/utils/types/user.type";

@@ -30,7 +30,7 @@ export const authApi = storeApi.injectEndpoints({
         url: "auth/logout",
         method: "POST",
       }),
-      invalidatesTags: ["User"],
+      invalidatesTags: ["User", "Order"],
     }),
     getCurrentUser: builder.query<any, void>({
       query: () => "auth/currentUser",

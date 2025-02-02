@@ -2,7 +2,6 @@ import { saveItem } from "@/features/cart/slice/cartSlice";
 import FoodHeader from "@/features/food/components/FoodHeader";
 import FoodImage from "@/features/food/components/FoodImage";
 import Properties from "@/features/shared/components/Properties";
-import { openFoodOverlay } from "@/features/overlay/slice/overlaySlice";
 import Button from "@/features/shared/components/Button";
 import Card from "@/features/shared/components/Card";
 import { useAppDispatch, useAppSelector } from "@/store/hooks/store.hooks";
@@ -26,15 +25,7 @@ const FoodCard = ({ food }: FoodCardProps): ReactElement => {
   };
 
   return (
-    <Card
-      onClick={() => {
-        if (
-          !hasPermission([RolesEnum.ADMIN, RolesEnum.EMPLOYEE], currentUser)
-        ) {
-          dispatch(openFoodOverlay());
-        }
-      }}
-    >
+    <Card>
       <FoodHeader>{food.name}</FoodHeader>
       <FoodImage url={food.imageUrl} description={food.description} />
 

@@ -6,7 +6,7 @@ import { ReactElement } from "react";
 const AdminRoutes = (): ReactElement => {
   return (
     <RoutesContainer roles={[RolesEnum.ADMIN]}>
-      <ListElement link="/users">Felhasználók</ListElement>
+      <ListElement link="/dashboard">Dashboard</ListElement>
     </RoutesContainer>
   );
 };

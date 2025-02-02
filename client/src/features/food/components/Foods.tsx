@@ -7,7 +7,7 @@ import {
   useGetFoodsQuery,
 } from "@/features/food/api/foodApi";
 import FoodCard from "@/features/food/components/FoodCard";
-import FoodModal from "@/features/food/components/FoodModal";
+import FoodModal from "@/features/food/components/FoodDetail";
 import Loading from "@/features/shared/components/Loading";
 import { useAppSelector } from "@/store/hooks/store.hooks";
 import { FoodType } from "@/utils/types/food.type";
@@ -47,8 +47,6 @@ const Foods = (): ReactElement => {
   const { data: foodCount, isLoading: isFoodCountLoading } =
     useGetFoodCountQuery();
 
-  const { isFoodOverlayOpen } = useAppSelector((state) => state.overlay.data);
-
   if (isFoodsLoading || isFoodCountLoading) {
     return <Loading />;
   }
@@ -65,18 +63,14 @@ const Foods = (): ReactElement => {
         <Limit />
       </div>
 
-      {isFoodOverlayOpen ? (
-        <FoodModal />
-      ) : (
-        <div className="flex flex-wrap justify-center items-center">
-          {foods &&
-            foods.map((food: FoodType) => (
-              <Link key={food.foodId} to={`/${food.foodId}`}>
-                <FoodCard food={food} />
-              </Link>
-            ))}
-        </div>
-      )}
+      <div className="flex flex-wrap justify-center items-center">
+        {foods &&
+          foods.map((food: FoodType) => (
+            <Link key={food.foodId} to={`/foods/${food.foodId}`}>
+              <FoodCard food={food} />
+            </Link>
+          ))}
+      </div>
       <Pagination pageButtonCount={pageButtonCount} />
     </>
   );
