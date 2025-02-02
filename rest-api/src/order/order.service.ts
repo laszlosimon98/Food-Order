@@ -97,7 +97,7 @@ export class OrderService {
   async findMyOrders(user: any) {
     return await this.prismaService.orders.findMany({
       where: {
-        orderId: user.orderId,
+        userId: user.userId,
       },
       include: {
         deliveryStatus: true,
