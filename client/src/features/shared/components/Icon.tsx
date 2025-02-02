@@ -4,21 +4,29 @@ import {
   FontAwesomeIcon,
   FontAwesomeIconProps,
 } from "@fortawesome/react-fontawesome";
-import { PropsWithChildren, ReactElement } from "react";
+import { HTMLAttributes, PropsWithChildren, ReactElement } from "react";
 
-type IconProps = FontAwesomeIconProps & PropsWithChildren;
+type IconProps = FontAwesomeIconProps &
+  HTMLAttributes<HTMLButtonElement> &
+  PropsWithChildren;
 
-const Icon = ({ children, className, ...props }: IconProps): ReactElement => {
+const Icon = ({
+  children,
+  className,
+  onClick,
+  ...iconProps
+}: IconProps): ReactElement => {
   return (
     <Button
       size="icon"
       variant="secondary"
+      onClick={onClick}
       className={cn(
         "relative border-none bg-inherit transition-all text-inherit",
         className
       )}
     >
-      <FontAwesomeIcon {...props} />
+      <FontAwesomeIcon {...iconProps} />
       {children}
     </Button>
   );

@@ -7,7 +7,9 @@ export const convertDate = (dateTime: string) => {
   const hours = date.getHours();
   const minutes = date.getMinutes();
 
-  return `${year}.${month.toString().length === 1 ? "0" + month : month}.${
-    day.toString().length === 1 ? "0" + day : day
-  } ${hours}:${minutes}`;
+  return `${year}.${month < 10 ? "0" + month : month}.${
+    day < 10 ? "0" + day : day
+  } ${hours < 10 ? "0" + hours : hours}:${
+    minutes < 10 ? "0" + minutes : minutes
+  }`;
 };

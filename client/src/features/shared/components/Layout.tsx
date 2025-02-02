@@ -2,13 +2,11 @@ import { closeCart } from "@/features/cart/slice/cartSlice";
 import Menu from "@/features/menu/components/Menu";
 import Overlay from "@/features/overlay/components/Overlay";
 import { useAppDispatch, useAppSelector } from "@/store/hooks/store.hooks";
-import { PropsWithChildren, ReactElement } from "react";
+import { ReactElement } from "react";
+import { Outlet } from "react-router-dom";
 
-type LayoutProps = {} & PropsWithChildren;
-
-const Layout = ({ children }: LayoutProps): ReactElement => {
+const Layout = (): ReactElement => {
   const { isMenuOverlayOpen } = useAppSelector((state) => state.overlay.data);
-
   const dispatch = useAppDispatch();
 
   return (
@@ -20,7 +18,7 @@ const Layout = ({ children }: LayoutProps): ReactElement => {
         className="w-full min-h-calcScreen bg-background"
         onClick={() => dispatch(closeCart())}
       >
-        {children}
+        <Outlet />
       </div>
     </>
   );

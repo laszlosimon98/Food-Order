@@ -1,7 +1,4 @@
-import {
-  useGetCurrentUserQuery,
-  useLogoutMutation,
-} from "@/features/auth/api/authApi";
+import { useLogoutMutation } from "@/features/auth/api/authApi";
 import { removeToken } from "@/features/auth/slice/authSlice";
 import Cart from "@/features/cart/components/Cart";
 import CartItem from "@/features/cart/components/CartItem";
@@ -11,7 +8,6 @@ import EmployeeRoutes from "@/features/menu/components/routes/EmployeeRoutes";
 import UserRoutes from "@/features/menu/components/routes/UserRoutes";
 import ShoppingCart from "@/features/menu/components/ShoppingCart";
 import UserIcon from "@/features/menu/components/UserIcon";
-import Loading from "@/features/shared/components/Loading";
 import { useAppSelector, useAppDispatch } from "@/store/hooks/store.hooks";
 import { ReactElement, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -25,7 +21,6 @@ const Navigation = ({
   isMenuOverlayOpen,
   closeMenu,
 }: NavigationPropsType): ReactElement => {
-  const { isLoading } = useGetCurrentUserQuery();
   const [isDropdownVisible, setIsDropdownVisible] = useState<boolean>(false);
 
   const { isAuthenticated } = useAppSelector((state) => state.auth.data);
@@ -41,10 +36,6 @@ const Navigation = ({
     dispatch(removeToken());
     navigate("/");
   };
-
-  if (isLoading) {
-    return <Loading />;
-  }
 
   return (
     <nav className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 md:static md:translate-x-0 md:translate-y-0 z-20">
