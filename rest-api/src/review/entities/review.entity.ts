@@ -12,9 +12,6 @@ export class ReviewEntity implements Reviews {
   reviewText: string;
 
   @ApiProperty()
-  reviewDate: Date;
-
-  @ApiProperty()
   userId: number;
 
   @ApiProperty()

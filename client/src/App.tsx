@@ -10,7 +10,7 @@ import MyOrders from "@/features/order/components/MyOrders";
 import FavoriteFood from "@/features/food/components/FavoriteFood";
 import AllOrder from "@/features/order/components/AllOrder";
 import FoodDetail from "@/features/food/components/FoodDetail";
-import AddReview from "@/features/review/components/AddReview";
+import ReviewForm from "@/features/review/components/ReviewForm";
 
 function App() {
   return (
@@ -35,8 +35,10 @@ function App() {
           <Route path="my-orders" element={<MyOrders />} />
           <Route path="order-summary" element={<OrderSummary />} />
           <Route path="favorite-foods" element={<FavoriteFood />} />
+
           <Route path="reviews">
-            <Route path="addreview/:foodId" element={<AddReview />} />
+            <Route path=":reviewId/food/:foodId" element={<ReviewForm />} />
+            <Route path="addreview/:foodId" element={<ReviewForm />} />
           </Route>
         </Route>
 

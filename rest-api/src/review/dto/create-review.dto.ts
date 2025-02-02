@@ -12,10 +12,6 @@ export class CreateReviewDto {
   @ApiProperty({ default: 'Értékelés Leírása' })
   reviewText: string;
 
-  @IsDateString()
-  @ApiProperty()
-  reviewDate: Date;
-
   @IsNumber()
   @ApiProperty()
   foodId: number;

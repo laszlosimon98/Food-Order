@@ -1,6 +1,10 @@
 import { storeApi } from "@/store/api/storeApi";
 import { IdType } from "@/utils/types/query.type";
-import { CreateReviewType, UpdateReviewType } from "@/utils/types/review.type";
+import {
+  CreateReviewType,
+  ReviewType,
+  UpdateReviewType,
+} from "@/utils/types/review.type";
 
 const reviewApi = storeApi.injectEndpoints({
   endpoints: (builder) => ({
@@ -10,8 +14,17 @@ const reviewApi = storeApi.injectEndpoints({
         method: "POST",
         body,
       }),
-      invalidatesTags(result, error, arg, meta) {
+      invalidatesTags(_result, _error, arg, _meta) {
         return [{ type: "Food", foodId: arg.foodId }];
+      },
+    }),
+    getReviewById: builder.query<ReviewType, IdType & { foodId: number }>({
+      query: ({ id }) => `review/${id}`,
+      providesTags(_result, _error, arg, _meta) {
+        return [
+          { type: "Food", foodId: arg.foodId },
+          { type: "Review", reviewId: arg.id },
+        ];
       },
     }),
     updateReview: builder.mutation<any, UpdateReviewType>({
@@ -22,7 +35,7 @@ const reviewApi = storeApi.injectEndpoints({
       }),
       invalidatesTags(_result, _error, arg, _meta) {
         return [
-          { type: "Review", id: arg.id },
+          { type: "Review", reviewId: arg.id },
           { type: "Food", foodId: arg.foodId },
         ];
       },
@@ -34,7 +47,7 @@ const reviewApi = storeApi.injectEndpoints({
       }),
       invalidatesTags(_result, _error, arg, _meta) {
         return [
-          { type: "Review", id: arg.id },
+          { type: "Review", reviewId: arg.id },
           { type: "Food", foodId: arg.foodId },
         ];
       },
@@ -46,7 +59,7 @@ const reviewApi = storeApi.injectEndpoints({
       }),
       invalidatesTags(_result, _error, arg, _meta) {
         return [
-          { type: "Review", id: arg.id },
+          { type: "Review", reviewId: arg.id },
           { type: "Food", foodId: arg.foodId },
         ];
       },
@@ -56,6 +69,7 @@ const reviewApi = storeApi.injectEndpoints({
 
 export const {
   useAddReviewMutation,
+  useGetReviewByIdQuery,
   useUpdateReviewMutation,
   useDeleteReviewCommentMutation,
   useDeleteReviewMutation,

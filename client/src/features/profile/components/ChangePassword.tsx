@@ -115,7 +115,7 @@ const ChangePassword = ({
           Mégse
         </Button>
 
-        <Button variant="primary" size="default" className="mt-5" type="submit">
+        <Button variant="primary" size="default" className="mt-5">
           Jelszó változtatás
         </Button>
       </div>

@@ -83,9 +83,6 @@ export class FoodService {
               },
             },
           },
-          omit: {
-            foodId: true,
-          },
         },
         promotions: true,
       },

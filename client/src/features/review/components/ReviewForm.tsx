@@ -1,12 +1,17 @@
-import { useAddReviewMutation } from "@/features/review/api/reviewApi";
+import {
+  useAddReviewMutation,
+  useGetReviewByIdQuery,
+  useUpdateReviewMutation,
+} from "@/features/review/api/reviewApi";
 import Button from "@/features/shared/components/Button";
 import ErrorText from "@/features/shared/components/form/ErrorText";
 import FormContainer from "@/features/shared/components/form/FormContainer";
 import TextArea from "@/features/shared/components/form/TextArea";
 import TextInput from "@/features/shared/components/form/TextInput";
-import { CreateReviewType } from "@/utils/types/review.type";
+import Loading from "@/features/shared/components/Loading";
+import { CreateReviewType, UpdateReviewType } from "@/utils/types/review.type";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ReactElement } from "react";
+import { ReactElement, useEffect } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useNavigate, useParams } from "react-router-dom";
 import { z } from "zod";
@@ -22,35 +27,65 @@ const schema = z.object({
 
 type ReviewDataType = z.infer<typeof schema>;
 
-const AddReview = (): ReactElement => {
-  const { foodId } = useParams();
+const ReviewForm = (): ReactElement => {
+  const { foodId, reviewId } = useParams();
+
+  const { data: review, isLoading } = useGetReviewByIdQuery({
+    id: parseInt(reviewId as string),
+    foodId: parseInt(foodId as string),
+  });
+
   const [useAddReview] = useAddReviewMutation();
+  const [useUpdateReview] = useUpdateReviewMutation();
+
   const navigate = useNavigate();
 
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm<ReviewDataType>({
     resolver: zodResolver(schema),
+    defaultValues: {
+      rating: review?.rating,
+      description: review?.reviewText,
+    },
   });
+
+  useEffect(() => {
+    if (review && !isLoading) {
+      setValue("rating", review.rating);
+      setValue("description", review.reviewText);
+    }
+  }, [review, isLoading]);
 
   const onSubmit: SubmitHandler<ReviewDataType> = async (data) => {
     const { rating, description } = data;
 
-    const sendData: CreateReviewType = {
+    const sendData: UpdateReviewType = {
+      id: parseInt(reviewId as string),
       rating: rating,
-      reviewDate: new Date(),
       foodId: parseInt(foodId as string),
       reviewText: description,
     };
 
-    const { isSuccess } = await useAddReview(sendData).unwrap();
+    let result;
+    if (!reviewId) {
+      const { id, ...rest } = sendData;
+      result = await useAddReview(rest as CreateReviewType);
+    } else {
+      result = await useUpdateReview(sendData);
+    }
 
-    if (isSuccess) {
+    if (result.data.isSuccess) {
       navigate(`/foods/${foodId}`);
     }
   };
+
+  if (isLoading) {
+    return <Loading />;
+  }
 
   return (
     <FormContainer title="Értékelés" onSubmit={handleSubmit(onSubmit)}>
@@ -70,11 +105,11 @@ const AddReview = (): ReactElement => {
 
       <div className="flex justify-center items-center ">
         <Button variant="primary" size="default" className="mt-5">
-          Értékel
+          {reviewId ? "Módosít" : "Értékel"}
         </Button>
       </div>
     </FormContainer>
   );
 };
 
-export default AddReview;
+export default ReviewForm;

@@ -38,6 +38,14 @@ export class ReviewController {
   @ApiBearerAuth()
   @ApiOkResponse({ type: ReviewEntity })
   @Roles(RoleEnum.User)
+  @Get(':id')
+  findOne(@Param('id', ParseIntPipe) id: number, @Req() req: Request) {
+    return this.reviewService.findOne(id, req.user);
+  }
+
+  @ApiBearerAuth()
+  @ApiOkResponse({ type: ReviewEntity })
+  @Roles(RoleEnum.User)
   @Patch(':id')
   update(
     @Param('id', ParseIntPipe) id: number,

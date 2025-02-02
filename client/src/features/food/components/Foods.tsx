@@ -7,7 +7,6 @@ import {
   useGetFoodsQuery,
 } from "@/features/food/api/foodApi";
 import FoodCard from "@/features/food/components/FoodCard";
-import FoodModal from "@/features/food/components/FoodDetail";
 import Loading from "@/features/shared/components/Loading";
 import { useAppSelector } from "@/store/hooks/store.hooks";
 import { FoodType } from "@/utils/types/food.type";

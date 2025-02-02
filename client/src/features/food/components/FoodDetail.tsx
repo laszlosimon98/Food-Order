@@ -6,16 +6,13 @@ import FoodProperties from "@/features/shared/components/Properties";
 import Button from "@/features/shared/components/Button";
 import { useAppDispatch, useAppSelector } from "@/store/hooks/store.hooks";
 import { ReactElement } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import FavoriteButtonIcons from "@/features/food/components/FavoriteButtonIcons";
 import { hasPermission, RolesEnum } from "@/utils/roles";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faStar } from "@fortawesome/free-solid-svg-icons";
 import Reviews from "@/features/review/components/Reviews";
 
 const FoodDetail = (): ReactElement => {
   const { foodId } = useParams();
-  const navigate = useNavigate();
 
   const currentUser = useAppSelector((state) => state.auth.data.currentUser);
 
@@ -81,11 +78,8 @@ const FoodDetail = (): ReactElement => {
 
           {hasPermission([RolesEnum.USER], currentUser) && (
             <>
-              <Button
-                variant="secondary"
-                onClick={() => navigate(`/reviews/addreview/${food.foodId}`)}
-              >
-                Értékelés
+              <Button variant="secondary">
+                <Link to={`/reviews/addreview/${food.foodId}`}>Értékelés</Link>
               </Button>
               <FavoriteButtonIcons foodId={parseInt(foodId as string)} />
             </>

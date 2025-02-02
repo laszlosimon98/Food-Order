@@ -40,16 +40,17 @@ export class ReviewService {
     };
   }
 
-  async findOne(id: number) {
+  async findOne(id: number, user: any) {
     return await this.prismaService.reviews.findUnique({
       where: {
         reviewId: id,
+        userId: user.userId,
       },
     });
   }
 
   async update(id: number, updateReviewDto: UpdateReviewDto, user: any) {
-    const review = await this.findOne(id);
+    const review = await this.findOne(id, user);
 
     if (review.userId !== user.userId) {
       throw new UnauthorizedException('Bejelentkezés szükséges!');
@@ -79,6 +80,7 @@ export class ReviewService {
       data: {
         reviewText:
           'A moderátor törölte a kommentet, helytelen nyelvezett használata miatt!',
+        isEditable: false,
       },
     });
 
@@ -88,7 +90,7 @@ export class ReviewService {
   }
 
   async remove(id: number, user: any) {
-    const review = await this.findOne(id);
+    const review = await this.findOne(id, user);
 
     if (review.userId !== user.userId) {
       throw new UnauthorizedException('Bejelentkezés szükséges!');

@@ -34,10 +34,6 @@ export class PrismaService extends PrismaClient implements OnModuleInit {
           createdAt: true,
           updatedAt: true,
         },
-        reviews: {
-          createdAt: true,
-          updatedAt: true,
-        },
       },
     });
   }
