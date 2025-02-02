@@ -4,11 +4,12 @@ import {
 } from "@/features/auth/api/authApi";
 import { removeToken } from "@/features/auth/slice/authSlice";
 import ListElement from "@/features/menu/components/ListElement";
-import DropdownContainer from "@/features/shared/components/DropdownContainer";
-import Icon from "@/features/shared/components/Icon";
+import AdminRoutes from "@/features/menu/components/routes/AdminRoutes";
+import EmployeeRoutes from "@/features/menu/components/routes/EmployeeRoutes";
+import UserRoutes from "@/features/menu/components/routes/UserRoutes";
+import UserIcon from "@/features/menu/components/UserIcon";
 import Loading from "@/features/shared/components/Loading";
 import { useAppSelector, useAppDispatch } from "@/store/hooks/store.hooks";
-import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { ReactElement, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -52,50 +53,24 @@ const Navigation = ({
       >
         <ListElement link="/">Főoldal</ListElement>
 
-        {!isAuthenticated ? (
+        {!isAuthenticated && (
           <>
             <ListElement link="/login">Bejelentkezés</ListElement>
             <ListElement link="/register">Regisztráció</ListElement>
           </>
-        ) : (
+        )}
+
+        {isAuthenticated && (
           <>
-            {currentUser && currentUser.role === "user" && (
-              <>
-                <ListElement link="/my-orders">Rendeléseim</ListElement>
-                <ListElement link="/favorite-foods">Kedvenceim</ListElement>
-              </>
-            )}
+            <UserRoutes />
+            <EmployeeRoutes />
+            <AdminRoutes />
 
-            {currentUser && currentUser.role === "employee" && (
-              <>
-                <ListElement link="/orders">Rendelések</ListElement>
-              </>
-            )}
-
-            {currentUser && currentUser.role === "admin" && (
-              <>
-                <ListElement link="/users">Felhasználók</ListElement>
-              </>
-            )}
-
-            <Icon
-              icon={faUser}
-              size="lg"
-              className="hidden md:block relative"
-              onClick={() => setIsDropdownVisible(!isDropdownVisible)}
-            >
-              {isDropdownVisible && (
-                <DropdownContainer className="min-w-52 right-0 top-10 min-h-fit py-4 flex flex-col items-center gap-3 text-black">
-                  <h2 className="text-normal p-2 font-semibold">
-                    Felhasználó: <p>{currentUser.fullname}</p>
-                  </h2>
-                  <ListElement link="/profile">Profilom</ListElement>
-                  <ListElement link="/" onClick={logout}>
-                    Kijelentkezés
-                  </ListElement>
-                </DropdownContainer>
-              )}
-            </Icon>
+            <UserIcon
+              isDropdownVisible={isDropdownVisible}
+              setIsDropdownVisible={setIsDropdownVisible}
+              logout={logout}
+            />
 
             <div className="inline-flex flex-col justify-center items-center gap-8 md:hidden">
               <ListElement link="/profile">Profilom</ListElement>

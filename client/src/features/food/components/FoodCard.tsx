@@ -10,7 +10,6 @@ import { FoodType } from "@/utils/types/food.type";
 import { ReactElement } from "react";
 import { hasPermission, RolesEnum } from "@/utils/roles";
 import { useDeleteFoodMutation } from "@/features/food/api/foodApi";
-import FavoriteButtonIcons from "@/features/food/components/FavoriteButtonIcons";
 
 type FoodCardProps = {
   food: FoodType;

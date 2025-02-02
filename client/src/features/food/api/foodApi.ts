@@ -101,7 +101,7 @@ const foodApi = storeApi.injectEndpoints({
           body: formData,
         };
       },
-      invalidatesTags(result, error, arg, meta) {
+      invalidatesTags(_result, _error, arg, _meta) {
         return [{ type: "Food", foodId: arg.id }];
       },
     }),
