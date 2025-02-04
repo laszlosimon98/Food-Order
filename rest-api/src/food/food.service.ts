@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { ConflictException, Injectable } from '@nestjs/common';
 import { CreateFoodDto } from './dto/create-food.dto';
 import { UpdateFoodDto } from './dto/update-food.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
@@ -9,9 +9,15 @@ export class FoodService {
   constructor(private readonly prismaService: PrismaService) {}
 
   async create(createFoodDto: CreateFoodDto) {
-    await this.prismaService.foods.create({
-      data: createFoodDto,
-    });
+    try {
+      await this.prismaService.foods.create({
+        data: createFoodDto,
+      });
+    } catch (error) {
+      throw new ConflictException('Az étel már létezik!', {
+        cause: error,
+      });
+    }
 
     return {
       isSuccess: true,
@@ -146,18 +152,24 @@ export class FoodService {
   }
 
   async update(id: number, updateFoodDto: UpdateFoodDto) {
-    await this.prismaService.foods.update({
-      where: {
-        foodId: id,
-      },
-      data: updateFoodDto,
-      include: {
-        categories: true,
-      },
-      omit: {
-        categoryId: true,
-      },
-    });
+    try {
+      await this.prismaService.foods.update({
+        where: {
+          foodId: id,
+        },
+        data: updateFoodDto,
+        include: {
+          categories: true,
+        },
+        omit: {
+          categoryId: true,
+        },
+      });
+    } catch (error) {
+      throw new ConflictException('Az étel nem létezik!', {
+        cause: error,
+      });
+    }
 
     return {
       isSuccess: true,
@@ -165,17 +177,23 @@ export class FoodService {
   }
 
   async remove(id: number) {
-    await this.prismaService.foods.delete({
-      where: {
-        foodId: id,
-      },
-      include: {
-        categories: true,
-      },
-      omit: {
-        categoryId: true,
-      },
-    });
+    try {
+      await this.prismaService.foods.delete({
+        where: {
+          foodId: id,
+        },
+        include: {
+          categories: true,
+        },
+        omit: {
+          categoryId: true,
+        },
+      });
+    } catch (error) {
+      throw new ConflictException('Az étel nem létezik!', {
+        cause: error,
+      });
+    }
 
     return {
       isSuccess: true,

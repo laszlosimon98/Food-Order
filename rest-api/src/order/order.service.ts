@@ -1,4 +1,5 @@
 import {
+  BadRequestException,
   forwardRef,
   Inject,
   Injectable,
@@ -22,6 +23,11 @@ export class OrderService {
 
   async create(createOrderDto: CreateOrderDto, user: any) {
     const { orderItems: createOrderItemDto, ...datas } = createOrderDto;
+    const { address, phoneNumber } = datas;
+
+    if (!address || !phoneNumber) {
+      throw new BadRequestException('A telefonszám és cím megadása kötelező!');
+    }
 
     const order = await this.prismaService.orders.create({
       data: {

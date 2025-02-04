@@ -1,5 +1,4 @@
 import { storeApi } from "@/store/api/storeApi";
-import { transformError } from "@/store/utils";
 import {
   CategoryType,
   CreateCategoryType,
@@ -18,7 +17,6 @@ const categoryApi = storeApi.injectEndpoints({
       invalidatesTags(_result, _error, arg, _meta) {
         return [{ type: "Category", categoryName: arg.categoryName }];
       },
-      transformErrorResponse: transformError,
     }),
     getCategories: builder.query<CategoryType[], void>({
       query: () => "category",

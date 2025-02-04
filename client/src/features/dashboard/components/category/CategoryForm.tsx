@@ -40,7 +40,7 @@ const CategoryForm = (): ReactElement => {
       }
     } catch (err: any) {
       setError("root", {
-        message: err.message,
+        message: err.data.message,
       });
     }
   };

@@ -5,7 +5,7 @@ import Button from "@/features/shared/components/Button";
 import Loading from "@/features/shared/components/Loading";
 import { useAppDispatch, useAppSelector } from "@/store/hooks/store.hooks";
 import { CreateOrderItemType, CreateOrderType } from "@/utils/types/order.type";
-import { ReactElement } from "react";
+import { ReactElement, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 const OrderSummary = (): ReactElement => {
@@ -21,6 +21,7 @@ const OrderSummary = (): ReactElement => {
   });
   const [useAddOrder] = useAddOrderMutation();
   const navigate = useNavigate();
+  const [error, setError] = useState<string | null>(null);
 
   if (isFoodsLoading) {
     return <Loading />;
@@ -46,17 +47,22 @@ const OrderSummary = (): ReactElement => {
       orderItems: items,
     };
 
-    const { isSuccess } = await useAddOrder(result).unwrap();
+    try {
+      const { isSuccess } = await useAddOrder(result).unwrap();
 
-    if (isSuccess) {
-      dispatch(clearCart());
-      navigate("/");
+      if (isSuccess) {
+        dispatch(clearCart());
+        navigate("/");
+      }
+    } catch (err: any) {
+      setError(err.data.message);
     }
   };
 
   return (
     <>
       <h1>Adatok</h1>
+      {error && <p className="text-red-500">{error}</p>}
       <div>{currentUser!.address}</div>
       <div>{currentUser!.phoneNumber}</div>
 
