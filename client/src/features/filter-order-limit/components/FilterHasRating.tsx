@@ -1,4 +1,4 @@
-import { setRating } from "@/features/fitler-order-limit/slice/filterOrderLimitSlice";
+import { setRating } from "@/features/filter-order-limit/slice/filterOrderLimitSlice";
 import { useAppDispatch } from "@/store/hooks/store.hooks";
 import { ReactElement } from "react";
 

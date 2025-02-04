@@ -1,4 +1,5 @@
-import { setLimit } from "@/features/fitler-order-limit/slice/filterOrderLimitSlice";
+import { setLimit } from "@/features/filter-order-limit/slice/filterOrderLimitSlice";
+import Select from "@/features/shared/components/Select";
 import { useAppDispatch } from "@/store/hooks/store.hooks";
 import { ChangeEvent, ReactElement } from "react";
 
@@ -19,13 +20,13 @@ const Limit = (): ReactElement => {
   return (
     <div>
       <h2>Limit</h2>
-      <select onChange={handleSelect}>
+      <Select onChange={handleSelect}>
         <option value=""></option>
         <option value="5">5</option>
         <option value="10">10</option>
         <option value="25">25</option>
         <option value="50">50</option>
-      </select>
+      </Select>
     </div>
   );
 };

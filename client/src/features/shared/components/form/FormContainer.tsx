@@ -22,7 +22,7 @@ const FormContainer = ({
       )}
     >
       <form onSubmit={onSubmit}>
-        <div className=" w-formContainer shadow-2xl rounded-3xl p-5 bg-white">
+        <div className=" w-formContainer shadow-2xl rounded-3xl p-5 bg-white flex flex-col gap-3 justify-center items-center">
           <FormHeader title={title} />
 
           {children}

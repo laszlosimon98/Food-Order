@@ -1,4 +1,4 @@
-import { setMinvalue } from "@/features/fitler-order-limit/slice/filterOrderLimitSlice";
+import { setMinvalue } from "@/features/filter-order-limit/slice/filterOrderLimitSlice";
 import { useAppDispatch, useAppSelector } from "@/store/hooks/store.hooks";
 import { ReactElement } from "react";
 

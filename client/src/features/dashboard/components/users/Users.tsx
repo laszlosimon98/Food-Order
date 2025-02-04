@@ -1,5 +1,5 @@
 import UserCard from "@/features/dashboard/components/users/User";
-import FilterRoles from "@/features/fitler-order-limit/components/FilterRoles";
+import FilterRoles from "@/features/filter-order-limit/components/FilterRoles";
 import Loading from "@/features/shared/components/Loading";
 import { useGetUsersQuery } from "@/features/user/api/userApi";
 import { useAppSelector } from "@/store/hooks/store.hooks";
@@ -14,10 +14,16 @@ const Users = (): ReactElement => {
   }
 
   return (
-    <div className="w-1/2">
+    <div className="w-full ">
       <h1 className="text-2xl font-bold text-center">Felhasználók</h1>
-      <FilterRoles />
-      {users && users.map((user) => <UserCard key={user.userId} user={user} />)}
+      <div className="ml-10">
+        <FilterRoles />
+      </div>
+
+      <div className="w-1/2 mx-auto">
+        {users &&
+          users.map((user) => <UserCard key={user.userId} user={user} />)}
+      </div>
     </div>
   );
 };

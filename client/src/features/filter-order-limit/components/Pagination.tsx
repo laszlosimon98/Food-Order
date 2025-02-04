@@ -1,4 +1,4 @@
-import { setPage } from "@/features/fitler-order-limit/slice/filterOrderLimitSlice";
+import { setPage } from "@/features/filter-order-limit/slice/filterOrderLimitSlice";
 import Button from "@/features/shared/components/Button";
 import { useAppDispatch, useAppSelector } from "@/store/hooks/store.hooks";
 import {

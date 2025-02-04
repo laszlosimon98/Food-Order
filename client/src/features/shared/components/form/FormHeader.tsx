@@ -9,7 +9,7 @@ const FormHeader = ({ title, className }: FormHeaderProps): ReactElement => {
   return (
     <h1
       className={cn(
-        "text-center text-3xl font-bold py-2 italic underline text-baseColor",
+        "text-center text-3xl font-bold italic underline text-baseColor",
         className
       )}
     >

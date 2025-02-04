@@ -93,11 +93,9 @@ const Register = (): ReactElement => {
         <ErrorText>{errors.passwordAgain.message}</ErrorText>
       )}
 
-      <div className="flex justify-center items-center ">
-        <Button variant="primary" size="default" className="mt-5">
-          Regisztrálás
-        </Button>
-      </div>
+      <Button variant="primary" size="default">
+        Regisztrálás
+      </Button>
     </FormContainer>
   );
 };

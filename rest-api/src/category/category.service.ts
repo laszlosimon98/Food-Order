@@ -1,4 +1,10 @@
-import { Injectable } from '@nestjs/common';
+import {
+  ConflictException,
+  HttpException,
+  HttpStatus,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { CreateCategoryDto } from './dto/create-category.dto';
 import { UpdateCategoryDto } from './dto/update-category.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
@@ -8,9 +14,15 @@ export class CategoryService {
   constructor(private readonly prismaService: PrismaService) {}
 
   async create(createCategoryDto: CreateCategoryDto) {
-    await this.prismaService.categories.create({
-      data: createCategoryDto,
-    });
+    try {
+      await this.prismaService.categories.create({
+        data: createCategoryDto,
+      });
+    } catch (error) {
+      throw new ConflictException('A kategória már létezik!', {
+        cause: error,
+      });
+    }
 
     return {
       isSuccess: true,
@@ -34,12 +46,18 @@ export class CategoryService {
   }
 
   async update(id: number, updateCategoryDto: UpdateCategoryDto) {
-    await this.prismaService.categories.update({
-      where: {
-        categoryId: id,
-      },
-      data: updateCategoryDto,
-    });
+    try {
+      await this.prismaService.categories.update({
+        where: {
+          categoryId: id,
+        },
+        data: updateCategoryDto,
+      });
+    } catch (error) {
+      throw new NotFoundException('A kategória nem létezik!', {
+        cause: error,
+      });
+    }
 
     return {
       isSuccess: true,
@@ -47,11 +65,17 @@ export class CategoryService {
   }
 
   async remove(id: number) {
-    await this.prismaService.categories.delete({
-      where: {
-        categoryId: id,
-      },
-    });
+    try {
+      await this.prismaService.categories.delete({
+        where: {
+          categoryId: id,
+        },
+      });
+    } catch (error) {
+      throw new NotFoundException('A kategória nem létezik!', {
+        cause: error,
+      });
+    }
 
     return {
       isSuccess: true,

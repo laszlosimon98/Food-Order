@@ -66,11 +66,9 @@ const Login = (): ReactElement => {
       <TextInput {...register("password")} label="Jelszó" type="password" />
       {errors.password && <ErrorText>{errors.password.message}</ErrorText>}
 
-      <div className="flex justify-center items-center ">
-        <Button variant="primary" size="default" className="mt-5">
-          Bejelentkezés
-        </Button>
-      </div>
+      <Button variant="primary" size="default">
+        Bejelentkezés
+      </Button>
     </FormContainer>
   );
 };

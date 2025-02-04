@@ -1,7 +1,7 @@
-import FilterContainer from "@/features/fitler-order-limit/components/FIlterContainer";
-import Limit from "@/features/fitler-order-limit/components/Limit";
-import OrderItems from "@/features/fitler-order-limit/components/OrderItems";
-import Pagination from "@/features/fitler-order-limit/components/Pagination";
+import FilterContainer from "@/features/filter-order-limit/components/FIlterContainer";
+import Limit from "@/features/filter-order-limit/components/Limit";
+import OrderItems from "@/features/filter-order-limit/components/OrderItems";
+import Pagination from "@/features/filter-order-limit/components/Pagination";
 import {
   useGetFoodCountQuery,
   useGetFoodsQuery,

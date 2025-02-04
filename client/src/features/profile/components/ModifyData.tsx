@@ -164,11 +164,9 @@ const ModifyData = ({ currentUser }: ModifyDataProps): ReactElement => {
         )}
       </div>
 
-      <div className="flex justify-center items-center ">
-        <Button variant="primary" size="default" className="mt-5">
-          Adataim módosítása
-        </Button>
-      </div>
+      <Button variant="primary" size="default">
+        Adataim módosítása
+      </Button>
     </FormContainer>
   );
 };

@@ -20,13 +20,13 @@ const TextInput = forwardRef<HTMLInputElement, InputProps>(
     return (
       <div
         className={cn(
-          "flex flex-col justify-center items-center pb-2 w-inputWidth mx-auto",
+          "flex flex-col justify-center items-center w-inputWidth mx-auto",
           className
         )}
       >
         <label
           htmlFor={`${label}`}
-          className="py-2 pl-3 self-start text-xl font-semibold text-baseColor"
+          className="py-1 pl-3 self-start text-xl font-semibold text-baseColor"
         >
           {label}
         </label>

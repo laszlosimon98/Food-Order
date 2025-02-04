@@ -14,11 +14,11 @@ import ReviewForm from "@/features/review/components/ReviewForm";
 import Dashboard from "@/features/dashboard/components/Dashboard";
 import DashboardLayout from "@/features/dashboard/components/DashboardLayout";
 import { RolesEnum } from "@/utils/roles";
-import CreateCategory from "@/features/dashboard/components/category/CreateCategory";
 import CreateFood from "@/features/dashboard/components/food/CreateFood";
 import CheckUser from "@/features/shared/components/CheckUser";
 import CreatePromotion from "@/features/dashboard/components/promotion/CreatePromotion";
 import Users from "@/features/dashboard/components/users/Users";
+import CategoryForm from "@/features/dashboard/components/category/CategoryForm";
 
 function App() {
   return (
@@ -63,7 +63,7 @@ function App() {
           <Route path="dashboard" element={<DashboardLayout />}>
             <Route element={<Dashboard />}>
               <Route path="create-food" element={<CreateFood />} />
-              <Route path="create-category" element={<CreateCategory />} />
+              <Route path="create-category" element={<CategoryForm />} />
               <Route path="create-promotion" element={<CreatePromotion />} />
               <Route path="users" element={<Users />} />
             </Route>
