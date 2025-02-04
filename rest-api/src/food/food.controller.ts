@@ -33,7 +33,6 @@ import { OptionalNumberPipe } from 'src/pipes/optional-number/optional-number.pi
 import { OrderPipe } from 'src/pipes/order/order.pipe';
 import { OrderType } from 'src/types/order.type';
 import { PositivePipe } from 'src/pipes/positive/positive.pipe';
-import { FavoriteFoodEntity } from 'src/favorite-food/entities/favorite-food.entity';
 import { NumberArrayPipe } from 'src/pipes/number-array/number-array.pipe';
 
 @Controller('food')

@@ -8,7 +8,7 @@ import { PrismaService } from 'src/prisma/prisma.service';
 import * as bcrypt from 'bcrypt';
 import { RegisterDto } from 'src/auth/dto/register.dto';
 import { ConfigService } from '@nestjs/config';
-import { UserRolesEnum } from 'src/enums/roles';
+import { RoleEnum, UserRolesEnum } from 'src/enums/roles';
 import { UpdateUserDetailsDto } from './dto/update-user-details.dto';
 import { NewPasswordDto } from 'src/auth/dto/newPassword.dto';
 
@@ -44,8 +44,11 @@ export class UserService {
     };
   }
 
-  async getAllUsers() {
+  async getAllUsers(role?: RoleEnum) {
     return await this.prismaService.users.findMany({
+      where: {
+        role,
+      },
       omit: {
         password: true,
         refreshToken: true,

@@ -25,9 +25,15 @@ export class UserController {
   @ApiBearerAuth()
   @ApiOkResponse({ type: UserEntity, isArray: true })
   @Roles(RoleEnum.Admin)
+  @ApiQuery({
+    name: 'role',
+    enum: RoleEnum,
+    enumName: 'role',
+    required: false,
+  })
   @Get()
-  async getUsers() {
-    return await this.userService.getAllUsers();
+  async getUsers(@Query('role') role: RoleEnum) {
+    return await this.userService.getAllUsers(role);
   }
 
   @ApiBearerAuth()
