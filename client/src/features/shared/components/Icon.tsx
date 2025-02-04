@@ -1,34 +1,28 @@
-import Button from "@/features/shared/components/Button";
 import { cn } from "@/utils/cn";
 import {
-  FontAwesomeIcon,
   FontAwesomeIconProps,
+  FontAwesomeIcon,
 } from "@fortawesome/react-fontawesome";
-import { HTMLAttributes, PropsWithChildren, ReactElement } from "react";
+import { PropsWithChildren, ReactElement } from "react";
 
-type IconProps = FontAwesomeIconProps &
-  HTMLAttributes<HTMLButtonElement> &
-  PropsWithChildren;
+type IconProps = FontAwesomeIconProps & PropsWithChildren;
 
 const Icon = ({
   children,
   className,
-  onClick,
   ...iconProps
 }: IconProps): ReactElement => {
   return (
-    <Button
-      size="icon"
-      variant="secondary"
-      onClick={onClick}
-      className={cn(
-        "relative border-none bg-inherit transition-all text-inherit",
-        className
-      )}
-    >
-      <FontAwesomeIcon {...iconProps} />
+    <>
+      <FontAwesomeIcon
+        className={cn(
+          "relative border-none bg-inherit transition-all text-inherit",
+          className
+        )}
+        {...iconProps}
+      />
       {children}
-    </Button>
+    </>
   );
 };
 

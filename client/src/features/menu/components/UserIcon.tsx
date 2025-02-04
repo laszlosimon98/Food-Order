@@ -23,11 +23,11 @@ const UserIcon = ({
     <Icon
       icon={faUser}
       size="lg"
-      className="hidden md:block relative"
+      className="hidden md:block"
       onClick={() => setIsDropdownVisible(!isDropdownVisible)}
     >
       {isDropdownVisible && (
-        <DropdownContainer className="min-w-52 right-0 top-10 min-h-fit py-4 flex flex-col items-center gap-3 text-black">
+        <DropdownContainer className="absolute min-w-52 right-14 top-10 min-h-fit py-4 flex flex-col items-center gap-3 text-black">
           <div className="flex gap-8 items-center">
             <FontAwesomeIcon icon={faUser} />
             <p>{currentUser?.fullname}</p>

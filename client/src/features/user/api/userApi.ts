@@ -1,4 +1,5 @@
 import { storeApi } from "@/store/api/storeApi";
+import { RolesEnum } from "@/utils/roles";
 import { IdType } from "utils/types/query.type";
 import {
   PasswordChangeType,
@@ -9,8 +10,11 @@ import {
 
 const userApi = storeApi.injectEndpoints({
   endpoints: (builder) => ({
-    getUsers: builder.query<UserType[], void>({
-      query: () => "user",
+    getUsers: builder.query<UserType[], { role?: RolesEnum }>({
+      query: (params) => ({
+        url: "user",
+        params,
+      }),
       providesTags: ["User"],
     }),
     updateUserDetails: builder.mutation<any, UserDetailsType>({
@@ -29,14 +33,14 @@ const userApi = storeApi.injectEndpoints({
       }),
       invalidatesTags: ["User"],
     }),
-    updateUser: builder.mutation<any, UpdateRoles>({
-      query: ({ id, ...rest }) => ({
+    updateUserRole: builder.mutation<any, UpdateRoles>({
+      query: ({ id, role }) => ({
         url: `user/${id}`,
         method: "PATCH",
-        body: rest,
+        params: { role },
       }),
-      invalidatesTags(result, error, arg, meta) {
-        return [{ type: "User", id: arg.id }];
+      invalidatesTags(_result, _error, arg, _meta) {
+        return [{ type: "User", userId: arg.id }];
       },
     }),
     deleteUser: builder.mutation<any, IdType>({
@@ -44,8 +48,8 @@ const userApi = storeApi.injectEndpoints({
         url: `user/${id}`,
         method: "DELETE",
       }),
-      invalidatesTags(result, error, arg, meta) {
-        return [{ type: "User", id: arg.id }];
+      invalidatesTags(_result, _error, arg, _meta) {
+        return [{ type: "User", userId: arg.id }];
       },
     }),
   }),
@@ -56,5 +60,5 @@ export const {
   useDeleteUserMutation,
   useGetUsersQuery,
   useUpdateUserDetailsMutation,
-  useUpdateUserMutation,
+  useUpdateUserRoleMutation,
 } = userApi;

@@ -1,11 +1,19 @@
-import Property from "@/features/shared/components/Property";
-import Value from "@/features/shared/components/Value";
 import { cn } from "@/utils/cn";
-import { HTMLAttributes, ReactElement } from "react";
+import { HTMLAttributes, PropsWithChildren, ReactElement } from "react";
 
 type PropertiesProps = HTMLAttributes<HTMLDivElement> & {
   property: string;
   value: string;
+};
+type PropertyProps = PropsWithChildren & {};
+type ValueProps = PropsWithChildren & {};
+
+const Property = ({ children }: PropertyProps): ReactElement => {
+  return <div className="text-xl">{children}</div>;
+};
+
+const Value = ({ children }: ValueProps): ReactElement => {
+  return <div className="text-xl font-semibold">{children}</div>;
 };
 
 const Properties = ({

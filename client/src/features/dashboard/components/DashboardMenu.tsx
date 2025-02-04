@@ -10,6 +10,7 @@ const DashBoardMenu = (): ReactElement => {
           <ListElement link="create-food">Étel hozzáadás</ListElement>
           <ListElement link="create-category">Kategória létrehozás</ListElement>
           <ListElement link="create-promotion">Akció létrehozás</ListElement>
+          <ListElement link="users">Felhasználók</ListElement>
           <ListElement link="/">Kilépés</ListElement>
         </ul>
       </nav>

@@ -18,6 +18,7 @@ import CreateCategory from "@/features/dashboard/components/category/CreateCateg
 import CreateFood from "@/features/dashboard/components/food/CreateFood";
 import CheckUser from "@/features/shared/components/CheckUser";
 import CreatePromotion from "@/features/dashboard/components/promotion/CreatePromotion";
+import Users from "@/features/dashboard/components/users/Users";
 
 function App() {
   return (
@@ -64,6 +65,7 @@ function App() {
               <Route path="create-food" element={<CreateFood />} />
               <Route path="create-category" element={<CreateCategory />} />
               <Route path="create-promotion" element={<CreatePromotion />} />
+              <Route path="users" element={<Users />} />
             </Route>
           </Route>
         </Route>

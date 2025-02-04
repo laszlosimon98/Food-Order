@@ -147,16 +147,22 @@ export class UserService {
       throw new ConflictException();
     }
 
+    const changeUser = await this.prismaService.users.findUnique({
+      where: {
+        userId: id,
+      },
+    });
+
+    if (changeUser.role === RoleEnum.Admin) {
+      throw new BadRequestException();
+    }
+
     await this.prismaService.users.update({
       where: {
         userId: id,
       },
       data: {
         role,
-      },
-      omit: {
-        password: true,
-        refreshToken: true,
       },
     });
 

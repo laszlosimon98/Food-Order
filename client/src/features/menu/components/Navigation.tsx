@@ -63,29 +63,11 @@ const Navigation = ({
             <EmployeeRoutes />
             <AdminRoutes />
 
-            <section className="flex gap-4 items-center">
-              <UserIcon
-                isDropdownVisible={isDropdownVisible}
-                setIsDropdownVisible={setIsDropdownVisible}
-                logout={logout}
-              />
-
-              <ShoppingCart>
-                {isCartVisible && (
-                  <Cart>
-                    {Object.keys(cartItems).length > 0 ? (
-                      Object.keys(cartItems).map((id) => {
-                        return <CartItem key={id} id={id} />;
-                      })
-                    ) : (
-                      <div className="h-full flex justify-center items-center">
-                        A kosár üres
-                      </div>
-                    )}
-                  </Cart>
-                )}
-              </ShoppingCart>
-            </section>
+            <UserIcon
+              isDropdownVisible={isDropdownVisible}
+              setIsDropdownVisible={setIsDropdownVisible}
+              logout={logout}
+            />
 
             <div className="inline-flex flex-col justify-center items-center gap-8 md:hidden">
               <ListElement link="/profile">Profilom</ListElement>
@@ -96,6 +78,22 @@ const Navigation = ({
             </div>
           </>
         )}
+
+        <ShoppingCart>
+          {isCartVisible && (
+            <Cart>
+              {Object.keys(cartItems).length > 0 ? (
+                Object.keys(cartItems).map((id) => {
+                  return <CartItem key={id} id={id} />;
+                })
+              ) : (
+                <div className="h-full flex justify-center items-center">
+                  A kosár üres
+                </div>
+              )}
+            </Cart>
+          )}
+        </ShoppingCart>
       </ul>
     </nav>
   );

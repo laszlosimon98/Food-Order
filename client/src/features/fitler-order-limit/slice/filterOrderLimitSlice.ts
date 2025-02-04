@@ -1,4 +1,6 @@
+import { RolesEnum } from "@/utils/roles";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { act } from "react";
 
 type FilterOrderLimitState = {
   data: {
@@ -13,6 +15,7 @@ type FilterOrderLimitState = {
     orderByRating?: "asc" | "desc";
     page?: number;
     limit?: number;
+    role?: RolesEnum;
   };
 };
 
@@ -83,6 +86,16 @@ const filterOrderLimitSlice = createSlice({
     setPage: (state, action: PayloadAction<number | undefined>) => {
       state.data.page = action.payload;
     },
+    setRole: (state, action: PayloadAction<string | undefined>) => {
+      state.data.role = undefined;
+
+      if (action.payload) {
+        const index = Object.keys(RolesEnum).indexOf(
+          action.payload.toUpperCase()
+        );
+        state.data.role = Object.values(RolesEnum)[index];
+      }
+    },
   },
 });
 
@@ -99,5 +112,6 @@ export const {
   setOrderToDefault,
   setLimit,
   setPage,
+  setRole,
 } = filterOrderLimitSlice.actions;
 export default filterOrderLimitSlice.reducer;
