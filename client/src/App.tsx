@@ -14,12 +14,12 @@ import ReviewForm from "@/features/review/components/ReviewForm";
 import Dashboard from "@/features/dashboard/components/Dashboard";
 import DashboardLayout from "@/features/dashboard/components/DashboardLayout";
 import { RolesEnum } from "@/utils/roles";
-import CreateFood from "@/features/dashboard/components/food/CreateFood";
 import CheckUser from "@/features/shared/components/CheckUser";
-import CreatePromotion from "@/features/dashboard/components/promotion/CreatePromotion";
-import Users from "@/features/dashboard/components/users/Users";
-import CategoryForm from "@/features/dashboard/components/category/CategoryForm";
-import Categories from "@/features/dashboard/components/category/Categories";
+import DashboardCategories from "@/features/dashboard/components/category/DashboardCategories";
+import DashboardCategoryForm from "@/features/dashboard/components/category/DashboardCategoryForm";
+import DashboardFoodForm from "@/features/dashboard/components/food/DashboardFoodForm";
+import DashboardFoods from "@/features/dashboard/components/food/DashboardFoods";
+import DashboardUsers from "@/features/dashboard/components/users/DashboardUsers";
 
 function App() {
   return (
@@ -64,12 +64,21 @@ function App() {
           <Route path="dashboard" element={<DashboardLayout />}>
             <Route element={<Dashboard />}>
               <Route path="categories">
-                <Route index element={<Categories />} />
-                <Route path="create" element={<CategoryForm />} />
-                <Route path="modify/:categoryId" element={<CategoryForm />} />
+                <Route index element={<DashboardCategories />} />
+                <Route path="create" element={<DashboardCategoryForm />} />
+                <Route
+                  path="modify/:categoryId"
+                  element={<DashboardCategoryForm />}
+                />
               </Route>
 
-              <Route path="users" element={<Users />} />
+              <Route path="foods">
+                <Route index element={<DashboardFoods />} />
+                <Route path="create" element={<DashboardFoodForm />} />
+                <Route path="modify/:foodId" element={<DashboardFoodForm />} />
+              </Route>
+
+              <Route path="users" element={<DashboardUsers />} />
             </Route>
           </Route>
         </Route>

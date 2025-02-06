@@ -1,11 +1,11 @@
-import UserCard from "@/features/dashboard/components/users/User";
+import UserCard from "@/features/dashboard/components/users/DashboardUser";
 import FilterRoles from "@/features/filter-order-limit/components/FilterRoles";
 import Loading from "@/features/shared/components/Loading";
 import { useGetUsersQuery } from "@/features/user/api/userApi";
 import { useAppSelector } from "@/store/hooks/store.hooks";
 import { ReactElement } from "react";
 
-const Users = (): ReactElement => {
+const DashboardUsers = (): ReactElement => {
   const role = useAppSelector((state) => state.filter.data.role);
   const { data: users, isLoading } = useGetUsersQuery({ role });
 
@@ -28,4 +28,4 @@ const Users = (): ReactElement => {
   );
 };
 
-export default Users;
+export default DashboardUsers;

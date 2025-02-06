@@ -8,7 +8,6 @@ import { useAppDispatch, useAppSelector } from "@/store/hooks/store.hooks";
 import { FoodType } from "@/utils/types/food.type";
 import { ReactElement } from "react";
 import { hasPermission, RolesEnum } from "@/utils/roles";
-import { useDeleteFoodMutation } from "@/features/food/api/foodApi";
 
 type FoodCardProps = {
   food: FoodType;
@@ -17,12 +16,6 @@ type FoodCardProps = {
 const FoodCard = ({ food }: FoodCardProps): ReactElement => {
   const dispatch = useAppDispatch();
   const currentUser = useAppSelector((state) => state.auth.data.currentUser);
-
-  const [useDeleteFood] = useDeleteFoodMutation();
-
-  const handleDelete = async (id: number) => {
-    await useDeleteFood({ id });
-  };
 
   return (
     <Card>
@@ -39,21 +32,7 @@ const FoodCard = ({ food }: FoodCardProps): ReactElement => {
         value={`${food.isVegetarian ? "Igen" : "Nem"}`}
       />
       <div className="flex justify-center gap-10 mx-5 mb-3 mt-5 ">
-        {hasPermission([RolesEnum.ADMIN], currentUser) ? (
-          <>
-            <Button variant="secondary">Módosítás</Button>
-            <Button
-              variant="danger"
-              onClick={(e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                handleDelete(food.foodId);
-              }}
-            >
-              Törlés
-            </Button>
-          </>
-        ) : (
+        {hasPermission([RolesEnum.USER], currentUser) && (
           <Button
             variant="primary"
             onClick={(e) => {

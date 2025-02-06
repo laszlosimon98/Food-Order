@@ -5,7 +5,7 @@ import { ReviewType } from "@/utils/types/review.type";
 
 export type CreateFoodType = {
   name: string;
-  description: string;
+  description?: string;
   price: number;
   imageUrl: string | null;
   isSpice: boolean;

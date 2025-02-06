@@ -5,11 +5,13 @@ import { CategoryType } from "@/utils/types/category.type";
 import { ReactElement, useState } from "react";
 import { useLocation } from "react-router-dom";
 
-type CategoryProps = {
+type DashboardCategoryProps = {
   category: CategoryType;
 };
 
-const Category = ({ category }: CategoryProps): ReactElement => {
+const DashboardCategory = ({
+  category,
+}: DashboardCategoryProps): ReactElement => {
   const location = useLocation();
 
   const [useDeleteCategory] = useDeleteCategoryMutation();
@@ -48,4 +50,4 @@ const Category = ({ category }: CategoryProps): ReactElement => {
   );
 };
 
-export default Category;
+export default DashboardCategory;

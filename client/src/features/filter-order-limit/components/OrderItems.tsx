@@ -30,8 +30,7 @@ const OrderItems = (): ReactElement => {
 
   return (
     <div>
-      <h2>Rendezés</h2>
-      <Select onChange={handleSelect}>
+      <Select label="Rendezés" onChange={handleSelect}>
         <option value=""></option>
         <option value="price asc">Ár szerint növekvő</option>
         <option value="price desc">Ár szerint csökkenő</option>

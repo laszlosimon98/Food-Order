@@ -8,7 +8,7 @@ import { RolesEnum } from "@/utils/roles";
 import { UserType } from "@/utils/types/user.type";
 import { ChangeEvent, ReactElement, useState } from "react";
 
-type UserProps = {
+type DashboardUserProps = {
   user: UserType;
 };
 
@@ -18,7 +18,7 @@ export const translateRole = (role: RolesEnum) => {
   if (role === RolesEnum.USER) return "Felhasználó";
 };
 
-const UserCard = ({ user }: UserProps): ReactElement => {
+const DashboardUserCard = ({ user }: DashboardUserProps): ReactElement => {
   const [isRoleChanging, setIsRoleChanging] = useState<boolean>(false);
   const [newRole, setNewRole] = useState<RolesEnum>(RolesEnum.USER);
 
@@ -95,4 +95,4 @@ const UserCard = ({ user }: UserProps): ReactElement => {
   );
 };
 
-export default UserCard;
+export default DashboardUserCard;

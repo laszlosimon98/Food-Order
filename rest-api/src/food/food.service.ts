@@ -10,7 +10,7 @@ export class FoodService {
 
   async create(createFoodDto: CreateFoodDto) {
     try {
-      await this.prismaService.foods.create({
+      return await this.prismaService.foods.create({
         data: createFoodDto,
       });
     } catch (error) {
@@ -18,10 +18,6 @@ export class FoodService {
         cause: error,
       });
     }
-
-    return {
-      isSuccess: true,
-    };
   }
 
   async findAll(
@@ -92,9 +88,6 @@ export class FoodService {
         },
         promotions: true,
       },
-      omit: {
-        categoryId: true,
-      },
     });
   }
 
@@ -153,7 +146,7 @@ export class FoodService {
 
   async update(id: number, updateFoodDto: UpdateFoodDto) {
     try {
-      await this.prismaService.foods.update({
+      return await this.prismaService.foods.update({
         where: {
           foodId: id,
         },
@@ -170,10 +163,6 @@ export class FoodService {
         cause: error,
       });
     }
-
-    return {
-      isSuccess: true,
-    };
   }
 
   async remove(id: number) {

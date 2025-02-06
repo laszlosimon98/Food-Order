@@ -21,7 +21,7 @@ const schema = z.object({
 
 type DataType = z.infer<typeof schema>;
 
-const CategoryForm = (): ReactElement => {
+const DashboardCategoryForm = (): ReactElement => {
   const { categoryId } = useParams();
 
   const { data: category, isLoading } = useGetCategoryByIdQuery(
@@ -93,7 +93,7 @@ const CategoryForm = (): ReactElement => {
         </ErrorText>
       )}
 
-      <TextInput {...register("categoryName")} label="Kategória név" />
+      <TextInput {...register("categoryName")} label="Név" />
       {errors.categoryName && (
         <ErrorText>{errors.categoryName.message}</ErrorText>
       )}
@@ -108,4 +108,4 @@ const CategoryForm = (): ReactElement => {
   );
 };
 
-export default CategoryForm;
+export default DashboardCategoryForm;

@@ -19,8 +19,7 @@ const Limit = (): ReactElement => {
 
   return (
     <div>
-      <h2>Limit</h2>
-      <Select onChange={handleSelect}>
+      <Select label="Limit" onChange={handleSelect}>
         <option value=""></option>
         <option value="5">5</option>
         <option value="10">10</option>

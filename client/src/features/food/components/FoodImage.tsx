@@ -3,7 +3,7 @@ import { HTMLAttributes, ReactElement } from "react";
 
 type FoodImageProps = HTMLAttributes<HTMLDivElement> & {
   url: string | null;
-  description: string;
+  description?: string;
   width?: number;
 };
 

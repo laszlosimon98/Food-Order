@@ -1,4 +1,4 @@
-import { translateRole } from "@/features/dashboard/components/users/User";
+import { translateRole } from "@/features/dashboard/components/users/DashboardUser";
 import { setRole } from "@/features/filter-order-limit/slice/filterOrderLimitSlice";
 import Select from "@/features/shared/components/Select";
 import { useAppDispatch } from "@/store/hooks/store.hooks";
@@ -10,8 +10,8 @@ const FilterRoles = (): ReactElement => {
 
   return (
     <div className="flex gap-5 items-center">
-      <h4 className="font-semibold">Szerepkörök</h4>
       <Select
+        label="Szerepkörök"
         onChange={(e) =>
           dispatch(setRole((e.target as HTMLSelectElement).value))
         }

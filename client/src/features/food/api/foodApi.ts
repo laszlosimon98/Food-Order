@@ -10,7 +10,7 @@ import { ResultType, IdType } from "@/utils/types/query.type";
 
 const foodApi = storeApi.injectEndpoints({
   endpoints: (builder) => ({
-    addFood: builder.mutation<ResultType, CreateFoodType>({
+    createFood: builder.mutation<ResultType, CreateFoodType>({
       query: (body) => ({
         url: "food",
         method: "POST",
@@ -53,7 +53,7 @@ const foodApi = storeApi.injectEndpoints({
     getFoodById: builder.query<FoodType, IdType>({
       query: ({ id }) => `food/${id}`,
       providesTags(_result, _error, arg, _meta) {
-        return [{ type: "Food", id: arg.id }];
+        return [{ type: "Food", foodId: arg.id }];
       },
     }),
     updateFood: builder.mutation<any, UpdateFoodType>({
@@ -63,7 +63,7 @@ const foodApi = storeApi.injectEndpoints({
         body,
       }),
       invalidatesTags(_result, _error, arg, _meta) {
-        return [{ type: "Food", id: arg.id }];
+        return [{ type: "Food", foodId: arg.id }];
       },
     }),
     deleteFood: builder.mutation<any, IdType>({
@@ -88,7 +88,9 @@ const foodApi = storeApi.injectEndpoints({
         url: `favorite-food/${id}`,
         method: "DELETE",
       }),
-      invalidatesTags: ["Food"],
+      invalidatesTags(result, error, arg, meta) {
+        return [{ type: "Food", foodId: arg.id }];
+      },
     }),
     uploadFile: builder.mutation<any, { file: File } & IdType>({
       query: ({ id, file }) => {
@@ -116,7 +118,7 @@ export const {
   useGetTopTenOrderQuery,
   useGetFoodCountQuery,
   useGetFoodsByIdsQuery,
-  useAddFoodMutation,
+  useCreateFoodMutation,
   useUpdateFoodMutation,
   useDeleteFoodMutation,
   useAddFavoriteFoodMutation,

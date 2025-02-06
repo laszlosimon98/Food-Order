@@ -1,13 +1,13 @@
 import { useGetCategoriesQuery } from "@/features/category/api/categoryApi";
-import Category from "@/features/dashboard/components/category/Category";
+import Category from "@/features/dashboard/components/category/DashboardCategory";
 import Loading from "@/features/shared/components/Loading";
 import RedirectButton from "@/features/shared/components/RedirectButton";
 import { ReactElement } from "react";
 import { useLocation } from "react-router-dom";
 
-type CategoriesProps = {};
+type DashboardCategoriesProps = {};
 
-const Categories = ({}: CategoriesProps): ReactElement => {
+const DashboardCategories = ({}: DashboardCategoriesProps): ReactElement => {
   const location = useLocation();
   const { data: categories, isLoading } = useGetCategoriesQuery();
 
@@ -35,4 +35,4 @@ const Categories = ({}: CategoriesProps): ReactElement => {
   );
 };
 
-export default Categories;
+export default DashboardCategories;
