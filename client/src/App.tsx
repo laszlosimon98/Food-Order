@@ -19,6 +19,7 @@ import CheckUser from "@/features/shared/components/CheckUser";
 import CreatePromotion from "@/features/dashboard/components/promotion/CreatePromotion";
 import Users from "@/features/dashboard/components/users/Users";
 import CategoryForm from "@/features/dashboard/components/category/CategoryForm";
+import Categories from "@/features/dashboard/components/category/Categories";
 
 function App() {
   return (
@@ -62,9 +63,12 @@ function App() {
         <Route element={<ProtectedRoute allowedRoles={[RolesEnum.ADMIN]} />}>
           <Route path="dashboard" element={<DashboardLayout />}>
             <Route element={<Dashboard />}>
-              <Route path="create-food" element={<CreateFood />} />
-              <Route path="create-category" element={<CategoryForm />} />
-              <Route path="create-promotion" element={<CreatePromotion />} />
+              <Route path="categories">
+                <Route index element={<Categories />} />
+                <Route path="create" element={<CategoryForm />} />
+                <Route path="modify/:categoryId" element={<CategoryForm />} />
+              </Route>
+
               <Route path="users" element={<Users />} />
             </Route>
           </Route>

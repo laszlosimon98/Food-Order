@@ -10,7 +10,7 @@ const DropdownContainer = ({
 }: DropdownContainerProps): ReactElement => {
   return (
     <div
-      className={cn("bg-white absolute  rounded-3xl shadow-xl z-10", className)}
+      className={cn("bg-white absolute rounded-3xl shadow-xl z-10", className)}
     >
       {children}
     </div>

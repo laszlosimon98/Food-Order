@@ -1,4 +1,5 @@
 import {
+  BadRequestException,
   ConflictException,
   HttpException,
   HttpStatus,
@@ -72,6 +73,11 @@ export class CategoryService {
         },
       });
     } catch (error) {
+      if (error.meta.field_name === 'foreign key') {
+        throw new BadRequestException(
+          'A kategória nem törölhető! A kategóriához tartozik étel!',
+        );
+      }
       throw new NotFoundException('A kategória nem létezik!', {
         cause: error,
       });

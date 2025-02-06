@@ -24,7 +24,7 @@ const Properties = ({
   return (
     <div
       className={cn(
-        "flex justify-between px-3 my-2 gap-1 md:gap-0 md:items-center md:justify-between",
+        "w-full flex justify-between px-3 my-2 gap-1 md:gap-0 md:items-center md:justify-between",
         className
       )}
     >

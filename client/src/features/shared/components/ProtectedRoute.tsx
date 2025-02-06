@@ -1,11 +1,11 @@
 import Redirect from "@/features/shared/components/Redirect";
 import { useAppSelector } from "@/store/hooks/store.hooks";
-import { UserRoles } from "@/utils/types/user.type";
+import { RolesEnum } from "@/utils/roles";
 import { PropsWithChildren, ReactElement } from "react";
 import { Outlet, useLocation } from "react-router-dom";
 
 type ProtectedRouteProps = PropsWithChildren & {
-  allowedRoles?: UserRoles[];
+  allowedRoles?: RolesEnum[];
 };
 
 const ProtectedRoute = ({

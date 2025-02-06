@@ -1,6 +1,5 @@
-import Button from "@/features/shared/components/Button";
+import RedirectButton from "@/features/shared/components/RedirectButton";
 import { ReactElement } from "react";
-import { Link } from "react-router-dom";
 
 type RedirectProps = {
   message: string;
@@ -18,9 +17,11 @@ const Redirect = ({
   return (
     <div className="w-full h-calcScreen flex justify-center items-center flex-col gap-10">
       <h1 className="text-3xl font-semibold italic">{message}</h1>
-      <Link to={route} state={{ redirectTo }}>
-        <Button variant="secondary">{buttonText}</Button>
-      </Link>
+      <RedirectButton
+        buttonText={buttonText}
+        route={route}
+        redirectTo={redirectTo}
+      />
     </div>
   );
 };
