@@ -8,13 +8,14 @@ import {
 } from "@/features/food/api/foodApi";
 import Button from "@/features/shared/components/Button";
 import FileUploader from "@/features/shared/components/fileupload/FileUploader";
+import InputCheckbox from "@/features/shared/components/form/InputCheckbox";
+import InputText from "@/features/shared/components/form/InputText";
 import ErrorText from "@/features/shared/components/form/ErrorText";
 import FormContainer from "@/features/shared/components/form/FormContainer";
+import Select from "@/features/shared/components/form/Select";
 import TextArea from "@/features/shared/components/form/TextArea";
-import TextInput from "@/features/shared/components/form/TextInput";
 import Loading from "@/features/shared/components/Loading";
 import RedirectButton from "@/features/shared/components/RedirectButton";
-import Select from "@/features/shared/components/Select";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ReactElement, useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
@@ -115,7 +116,7 @@ const DashboardFoodForm = (): ReactElement => {
 
   return (
     <FormContainer
-      title={`${food ? "Étel módosítás" : "Étel létrehozás"}`}
+      title={`${food ? "Étel módosítás" : "Új Étel"}`}
       onSubmit={handleSubmit(handleAction)}
     >
       {errors.root && (
@@ -124,7 +125,7 @@ const DashboardFoodForm = (): ReactElement => {
         </ErrorText>
       )}
 
-      <TextInput {...register("name")} label="Név" />
+      <InputText {...register("name")} label="Név" />
       {errors.name && <ErrorText>{errors.name.message}</ErrorText>}
 
       <TextArea {...register("description")} label="Leírás" />
@@ -132,21 +133,12 @@ const DashboardFoodForm = (): ReactElement => {
         <ErrorText>{errors.description.message}</ErrorText>
       )}
 
-      <TextInput {...register("price")} label="Ár" type="number" />
+      <InputText {...register("price")} label="Ár" type="number" />
       {errors.price && <ErrorText>{errors.price.message}</ErrorText>}
 
-      <div className="flex justify-between w-32">
-        <label htmlFor="isSpice">Erős</label>
-        <input {...register("isSpice")} type="checkbox" id="isSpice" />
-      </div>
-
-      <div className="flex justify-between w-32">
-        <label htmlFor="isVegetarian">Vegetáriánus</label>
-        <input
-          {...register("isVegetarian")}
-          type="checkbox"
-          id="isVegetarian"
-        />
+      <div className="flex flex-col items-center justify-center">
+        <InputCheckbox {...register("isSpice")} label="Erős" />
+        <InputCheckbox {...register("isVegetarian")} label="Vegetáriánus" />
       </div>
 
       <Select {...register("categoryId")} label="Kategória">

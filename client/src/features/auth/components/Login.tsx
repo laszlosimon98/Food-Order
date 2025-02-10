@@ -3,7 +3,7 @@ import { saveToken } from "@/features/auth/slice/authSlice";
 import Button from "@/features/shared/components/Button";
 import ErrorText from "@/features/shared/components/form/ErrorText";
 import FormContainer from "@/features/shared/components/form/FormContainer";
-import TextInput from "@/features/shared/components/form/TextInput";
+import InputText from "@/features/shared/components/form/InputText";
 import { useAppDispatch } from "@/store/hooks/store.hooks";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ReactElement } from "react";
@@ -60,10 +60,10 @@ const Login = (): ReactElement => {
         </ErrorText>
       )}
 
-      <TextInput {...register("username")} label="Felhasználó név" />
+      <InputText {...register("username")} label="Felhasználó név" />
       {errors.username && <ErrorText>{errors.username.message}</ErrorText>}
 
-      <TextInput {...register("password")} label="Jelszó" type="password" />
+      <InputText {...register("password")} label="Jelszó" type="password" />
       {errors.password && <ErrorText>{errors.password.message}</ErrorText>}
 
       <Button variant="primary" size="default">

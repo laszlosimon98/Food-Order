@@ -2,7 +2,7 @@ import { IdType } from "@/utils/types/query.type";
 
 export type CreatePromotionType = {
   promotionName: string;
-  description: string;
+  description?: string;
   discountValue: number;
   startDate: Date;
   endDate: Date;
@@ -12,7 +12,7 @@ export type CreatePromotionType = {
 
 export type PromotionType = {
   promotionId: number;
-} & Partial<CreatePromotionType> & {
+} & CreatePromotionType & {
     isActive: boolean;
   };
 

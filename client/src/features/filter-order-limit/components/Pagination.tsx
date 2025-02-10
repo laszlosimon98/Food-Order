@@ -29,23 +29,24 @@ const Pagination = ({ pageButtonCount }: PaginationProps): ReactElement => {
       >
         <FontAwesomeIcon icon={faArrowAltCircleLeft} />
       </Button>
-      {Array(pageButtonCount)
-        .fill("")
-        .map((_count, index) => (
-          <Button
-            key={index + 1}
-            variant={`${
-              index + 1 === page || (!page && index + 1 === 1)
-                ? "primary"
-                : "secondary"
-            }`}
-            size="icon"
-            className="ml-2"
-            onClick={() => dispatch(setPage(index + 1))}
-          >
-            {index + 1}
-          </Button>
-        ))}
+      {pageButtonCount > 0 &&
+        Array(pageButtonCount)
+          .fill("")
+          .map((_count, index) => (
+            <Button
+              key={index + 1}
+              variant={`${
+                index + 1 === page || (!page && index + 1 === 1)
+                  ? "primary"
+                  : "secondary"
+              }`}
+              size="icon"
+              className="ml-2"
+              onClick={() => dispatch(setPage(index + 1))}
+            >
+              {index + 1}
+            </Button>
+          ))}
       <Button
         variant="secondary"
         className="ml-2"

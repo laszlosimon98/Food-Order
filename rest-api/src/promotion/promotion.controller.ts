@@ -34,6 +34,22 @@ export class PromotionController {
 
   @ApiBearerAuth()
   @Roles(RoleEnum.Admin)
+  @ApiOkResponse({ type: PromotionEntity, isArray: true })
+  @Get()
+  async findAll() {
+    return this.promotionService.findAll();
+  }
+
+  @ApiBearerAuth()
+  @Roles(RoleEnum.Admin)
+  @ApiOkResponse({ type: PromotionEntity })
+  @Get(':id')
+  async findOne(@Param('id', ParseIntPipe) id: number) {
+    return this.promotionService.findOne(id);
+  }
+
+  @ApiBearerAuth()
+  @Roles(RoleEnum.Admin)
   @ApiOkResponse({ type: PromotionEntity })
   @Patch(':id')
   update(
@@ -41,5 +57,13 @@ export class PromotionController {
     @Body() updatePromotionDto: UpdatePromotionDto,
   ) {
     return this.promotionService.update(id, updatePromotionDto);
+  }
+
+  @ApiBearerAuth()
+  @Roles(RoleEnum.Admin)
+  @ApiOkResponse({ type: PromotionEntity })
+  @Delete(':id')
+  delete(@Param('id', ParseIntPipe) id: number) {
+    return this.promotionService.delete(id);
   }
 }

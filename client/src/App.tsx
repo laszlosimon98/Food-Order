@@ -20,6 +20,9 @@ import DashboardCategoryForm from "@/features/dashboard/components/category/Dash
 import DashboardFoodForm from "@/features/dashboard/components/food/DashboardFoodForm";
 import DashboardFoods from "@/features/dashboard/components/food/DashboardFoods";
 import DashboardUsers from "@/features/dashboard/components/users/DashboardUsers";
+import DashboardPromotionForm from "@/features/dashboard/components/promotion/DashboardPromotionForm";
+import DashboardPromotions from "@/features/dashboard/components/promotion/DashboardPromotions";
+import DashboardPromotionFoods from "@/features/dashboard/components/promotion/DashboardPromotionFoods";
 
 function App() {
   return (
@@ -76,6 +79,18 @@ function App() {
                 <Route index element={<DashboardFoods />} />
                 <Route path="create" element={<DashboardFoodForm />} />
                 <Route path="modify/:foodId" element={<DashboardFoodForm />} />
+              </Route>
+
+              <Route path="promotions">
+                <Route index element={<DashboardPromotions />} />
+                <Route path="create">
+                  <Route index element={<DashboardPromotionForm />} />
+                  <Route path="foods" element={<DashboardPromotionFoods />} />
+                </Route>
+                <Route
+                  path="modify/:promotionId"
+                  element={<DashboardPromotionForm />}
+                />
               </Route>
 
               <Route path="users" element={<DashboardUsers />} />

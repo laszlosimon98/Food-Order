@@ -40,4 +40,6 @@ export class FoodEntity implements Foods {
 
   @ApiProperty({ type: PromotionEntity, isArray: true })
   promotions: PromotionEntity[];
+
+  discountPrice: number;
 }

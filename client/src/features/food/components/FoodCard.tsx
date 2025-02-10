@@ -16,13 +16,20 @@ type FoodCardProps = {
 const FoodCard = ({ food }: FoodCardProps): ReactElement => {
   const dispatch = useAppDispatch();
   const currentUser = useAppSelector((state) => state.auth.data.currentUser);
+  const hasActivePromotion = food.promotions.find(
+    (promotion) => promotion.isActive
+  );
 
   return (
     <Card>
       <FoodHeader>{food.name}</FoodHeader>
       <FoodImage url={food.imageUrl} description={food.description} />
 
-      <Properties property="Ár:" value={`${food.price} Ft`} />
+      <Properties
+        property="Ár:"
+        value={`${food.price} Ft`}
+        discount={hasActivePromotion && food.discountPrice}
+      />
       <Properties
         property="Csípős:"
         value={`${food.isSpice ? "Igen" : "Nem"}`}

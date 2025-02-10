@@ -2,7 +2,7 @@ import { useGetCategoriesQuery } from "@/features/category/api/categoryApi";
 import Categories from "@/features/category/components/Categories";
 import { setCategoryId } from "@/features/filter-order-limit/slice/filterOrderLimitSlice";
 import Loading from "@/features/shared/components/Loading";
-import Select from "@/features/shared/components/Select";
+import Select from "@/features/shared/components/form/Select";
 import { useAppDispatch } from "@/store/hooks/store.hooks";
 import { ReactElement } from "react";
 

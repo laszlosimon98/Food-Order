@@ -20,7 +20,10 @@ const foodApi = storeApi.injectEndpoints({
         return [{ type: "Food", name: arg.name }];
       },
     }),
-    getFoods: builder.query<FoodType[], FoodQueryParamsTypes>({
+    getFoods: builder.query<
+      { count: number; foods: FoodType[] },
+      FoodQueryParamsTypes
+    >({
       query: (params) => ({
         url: "food",
         params,
@@ -44,10 +47,6 @@ const foodApi = storeApi.injectEndpoints({
     }),
     getTopTenOrder: builder.query<FoodType[], void>({
       query: () => "food/topTenOrder",
-      providesTags: ["Food"],
-    }),
-    getFoodCount: builder.query<number, void>({
-      query: () => "food/foodCount",
       providesTags: ["Food"],
     }),
     getFoodById: builder.query<FoodType, IdType>({
@@ -88,7 +87,7 @@ const foodApi = storeApi.injectEndpoints({
         url: `favorite-food/${id}`,
         method: "DELETE",
       }),
-      invalidatesTags(result, error, arg, meta) {
+      invalidatesTags(_result, _error, arg, _meta) {
         return [{ type: "Food", foodId: arg.id }];
       },
     }),
@@ -116,7 +115,6 @@ export const {
   useGetFavoriteFoodsQuery,
   useGetFavoriteFoodByIdQuery,
   useGetTopTenOrderQuery,
-  useGetFoodCountQuery,
   useGetFoodsByIdsQuery,
   useCreateFoodMutation,
   useUpdateFoodMutation,

@@ -1,5 +1,5 @@
 import { useGetCategoriesQuery } from "@/features/category/api/categoryApi";
-import Category from "@/features/dashboard/components/category/DashboardCategory";
+import DashboardCategory from "@/features/dashboard/components/category/DashboardCategory";
 import Loading from "@/features/shared/components/Loading";
 import RedirectButton from "@/features/shared/components/RedirectButton";
 import { ReactElement } from "react";
@@ -29,7 +29,7 @@ const DashboardCategories = ({}: DashboardCategoriesProps): ReactElement => {
 
       {categories &&
         categories.map((category) => (
-          <Category key={category.categoryId} category={category} />
+          <DashboardCategory key={category.categoryId} category={category} />
         ))}
     </div>
   );

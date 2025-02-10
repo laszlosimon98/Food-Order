@@ -33,26 +33,32 @@ export class FoodService {
     page?: number,
     limit?: number,
   ) {
-    return await this.prismaService.foods.findMany({
-      where: {
-        promotions: isOnPromotion
-          ? {
-              some: {
-                isActive: isOnPromotion,
-              },
-            }
-          : undefined,
-        price: {
-          gte: minValue ? minValue : undefined,
-          lte: maxValue ? maxValue : undefined,
-        },
-        isSpice,
-        isVegetarian,
-        categoryId: categoryId ? categoryId : undefined,
-        rating: {
-          not: hasRating ? null : undefined,
-        },
+    const filter = {
+      promotions: isOnPromotion
+        ? {
+            some: {
+              isActive: isOnPromotion,
+            },
+          }
+        : undefined,
+      price: {
+        gte: minValue ? minValue : undefined,
+        lte: maxValue ? maxValue : undefined,
       },
+      isSpice,
+      isVegetarian,
+      categoryId: categoryId ? categoryId : undefined,
+      rating: {
+        not: hasRating ? null : undefined,
+      },
+    };
+
+    const count = await this.prismaService.foods.count({
+      where: filter,
+    });
+
+    const foods = await this.prismaService.foods.findMany({
+      where: filter,
       orderBy: {
         price: orderByPrice,
         rating: orderByRating,
@@ -67,6 +73,11 @@ export class FoodService {
       skip: page ? limit * (page - 1) : 0,
       take: limit ? limit : undefined,
     });
+
+    return {
+      count,
+      foods,
+    };
   }
 
   async findOne(id: number) {
@@ -130,10 +141,6 @@ export class FoodService {
     });
   }
 
-  async getFoodCount() {
-    return await this.prismaService.foods.count();
-  }
-
   async getFoodByIds(ids: number[]) {
     return await this.prismaService.foods.findMany({
       where: {
@@ -162,6 +169,21 @@ export class FoodService {
       throw new ConflictException('Az étel nem létezik!', {
         cause: error,
       });
+    }
+  }
+
+  async updateDiscountPrice(ids: number[], discount: number) {
+    const foods = await this.prismaService.foods.findMany({
+      where: {
+        foodId: {
+          in: ids,
+        },
+      },
+    });
+
+    for (const food of foods) {
+      const discountPrice = food.price - (food.price * discount) / 100;
+      await this.update(food.foodId, { discountPrice });
     }
   }
 

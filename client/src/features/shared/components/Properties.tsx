@@ -4,7 +4,9 @@ import { HTMLAttributes, PropsWithChildren, ReactElement } from "react";
 type PropertiesProps = HTMLAttributes<HTMLDivElement> & {
   property: string;
   value: string;
+  discount?: number;
 };
+
 type PropertyProps = PropsWithChildren & {};
 type ValueProps = PropsWithChildren & {};
 
@@ -19,6 +21,7 @@ const Value = ({ children }: ValueProps): ReactElement => {
 const Properties = ({
   property,
   value,
+  discount,
   className,
 }: PropertiesProps): ReactElement => {
   return (
@@ -29,7 +32,10 @@ const Properties = ({
       )}
     >
       <Property>{property}</Property>
-      <Value>{value}</Value>
+      <Value>
+        <p className={`${discount ? "line-through" : ""}`}> {value} </p>
+        {discount && <p className="text-red-500"> {discount} Ft </p>}
+      </Value>
     </div>
   );
 };

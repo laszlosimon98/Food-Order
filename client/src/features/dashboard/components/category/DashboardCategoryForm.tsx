@@ -6,7 +6,7 @@ import {
 import Button from "@/features/shared/components/Button";
 import ErrorText from "@/features/shared/components/form/ErrorText";
 import FormContainer from "@/features/shared/components/form/FormContainer";
-import TextInput from "@/features/shared/components/form/TextInput";
+import InputText from "@/features/shared/components/form/InputText";
 import Loading from "@/features/shared/components/Loading";
 import RedirectButton from "@/features/shared/components/RedirectButton";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -84,7 +84,7 @@ const DashboardCategoryForm = (): ReactElement => {
 
   return (
     <FormContainer
-      title={`${category ? "Kategória módosítás" : "Kategória létrehozás"}`}
+      title={`${category ? "Kategória módosítás" : "Új Kategória"}`}
       onSubmit={handleSubmit(handleAction)}
     >
       {errors.root && (
@@ -93,7 +93,7 @@ const DashboardCategoryForm = (): ReactElement => {
         </ErrorText>
       )}
 
-      <TextInput {...register("categoryName")} label="Név" />
+      <InputText {...register("categoryName")} label="Név" />
       {errors.categoryName && (
         <ErrorText>{errors.categoryName.message}</ErrorText>
       )}

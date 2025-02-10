@@ -12,9 +12,10 @@ model Foods {
     reviews    Reviews[]
     orderItems OrderItems[]
 
-    categories Categories         @relation(fields: [categoryId], references: [categoryId])
-    categoryId Int
-    promotions Promotions[]
-    users      FavoritesOnFoods[]
-    rating     Float?
+    categories    Categories         @relation(fields: [categoryId], references: [categoryId])
+    categoryId    Int
+    promotions    Promotions[]
+    users         FavoritesOnFoods[]
+    rating        Float?
+    discountPrice Int?
 }

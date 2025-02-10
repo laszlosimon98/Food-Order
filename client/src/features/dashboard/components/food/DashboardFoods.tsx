@@ -1,4 +1,4 @@
-import Food from "@/features/dashboard/components/food/DashboardFood";
+import DashboardFood from "@/features/dashboard/components/food/DashboardFood";
 import FilterCategory from "@/features/filter-order-limit/components/FilterCategory";
 import { useGetFoodsQuery } from "@/features/food/api/foodApi";
 import Loading from "@/features/shared/components/Loading";
@@ -32,7 +32,8 @@ const DashboardFoods = ({}: DashboardFoodsProps): ReactElement => {
         />
       </div>
 
-      {foods && foods.map((food) => <Food key={food.foodId} food={food} />)}
+      {foods &&
+        foods.map((food) => <DashboardFood key={food.foodId} food={food} />)}
     </div>
   );
 };

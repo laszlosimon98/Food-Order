@@ -11,6 +11,7 @@ type CartProps = PropsWithChildren & {};
 
 const Cart = ({ children }: CartProps): ReactElement => {
   const cartItems = useAppSelector((state) => state.cart.data.cartItems);
+  const currentUser = useAppSelector((state) => state.auth.data.currentUser);
 
   const dispatch = useAppDispatch();
 
@@ -24,15 +25,20 @@ const Cart = ({ children }: CartProps): ReactElement => {
         <CartTotal />
 
         <div className="flex justify-around items-end mt-3">
-          <Link to={"/order-summary"}>
-            <Button
-              variant="primary"
-              disabled={Object.keys(cartItems).length === 0}
-            >
-              Tovább
-            </Button>
-          </Link>
-
+          {currentUser ? (
+            <Link to={"/order-summary"}>
+              <Button
+                variant="primary"
+                disabled={Object.keys(cartItems).length === 0}
+              >
+                Tovább
+              </Button>
+            </Link>
+          ) : (
+            <p className="text-sm font-semibold text-center pb-2">
+              Bejelentkezés szükséges!
+            </p>
+          )}
           <Link to={"/"}>
             <Button variant="secondary" onClick={() => dispatch(clearCart())}>
               Kosár törlése

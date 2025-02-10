@@ -1,5 +1,5 @@
 import { setLimit } from "@/features/filter-order-limit/slice/filterOrderLimitSlice";
-import Select from "@/features/shared/components/Select";
+import Select from "@/features/shared/components/form/Select";
 import { useAppDispatch } from "@/store/hooks/store.hooks";
 import { ChangeEvent, ReactElement } from "react";
 

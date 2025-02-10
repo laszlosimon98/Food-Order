@@ -33,6 +33,9 @@ export class CreateFoodDto {
   @IsOptional()
   rating: number;
 
+  @IsOptional()
+  discountPrice: number;
+
   @IsNumber()
   @ApiProperty()
   categoryId: number;

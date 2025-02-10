@@ -119,12 +119,6 @@ export class FoodController {
   }
 
   @Public()
-  @Get('/foodCount')
-  async getFoodCount() {
-    return await this.foodService.getFoodCount();
-  }
-
-  @Public()
   @ApiOkResponse({ type: FoodEntity, isArray: true })
   @Get('getFoodByIds')
   async getFoodByIds(

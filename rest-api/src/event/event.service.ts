@@ -15,7 +15,8 @@ import { PrismaService } from 'src/prisma/prisma.service';
 export class EventService {
   constructor(private readonly prismaService: PrismaService) {}
 
-  @Cron(CronExpression.EVERY_HOUR)
+  // @Cron(CronExpression.EVERY_HOUR)
+  @Cron(CronExpression.EVERY_MINUTE)
   // @Cron("0 8 * * *") Minden nap 8:00-kor
   async handlePromotionCron() {
     const expiredPromotions = await this.prismaService.promotions.findMany({

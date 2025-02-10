@@ -2,10 +2,7 @@ import FilterContainer from "@/features/filter-order-limit/components/FIlterCont
 import Limit from "@/features/filter-order-limit/components/Limit";
 import OrderItems from "@/features/filter-order-limit/components/OrderItems";
 import Pagination from "@/features/filter-order-limit/components/Pagination";
-import {
-  useGetFoodCountQuery,
-  useGetFoodsQuery,
-} from "@/features/food/api/foodApi";
+import { useGetFoodsQuery } from "@/features/food/api/foodApi";
 import FoodCard from "@/features/food/components/FoodCard";
 import Loading from "@/features/shared/components/Loading";
 import { useAppSelector } from "@/store/hooks/store.hooks";
@@ -29,7 +26,7 @@ const Foods = (): ReactElement => {
     page,
   } = useAppSelector((state) => state.filter.data);
 
-  const { data: foods, isLoading: isFoodsLoading } = useGetFoodsQuery({
+  const { data, isLoading: isFoodsLoading } = useGetFoodsQuery({
     categoryId,
     isSpice,
     isVegetarian,
@@ -43,16 +40,15 @@ const Foods = (): ReactElement => {
     page,
   });
 
-  const { data: foodCount, isLoading: isFoodCountLoading } =
-    useGetFoodCountQuery();
-
-  if (isFoodsLoading || isFoodCountLoading) {
-    return <Loading />;
-  }
+  const { count: foodCount, foods } = data ?? {};
 
   const pageButtonCount = Math.ceil(
     (foodCount as number) / (limit ? limit : (foodCount as number))
   );
+
+  if (isFoodsLoading) {
+    return <Loading />;
+  }
 
   return (
     <>

@@ -1,6 +1,6 @@
 import { translateRole } from "@/features/dashboard/components/users/DashboardUser";
 import { setRole } from "@/features/filter-order-limit/slice/filterOrderLimitSlice";
-import Select from "@/features/shared/components/Select";
+import Select from "@/features/shared/components/form/Select";
 import { useAppDispatch } from "@/store/hooks/store.hooks";
 import { RolesEnum } from "@/utils/roles";
 import { ReactElement } from "react";

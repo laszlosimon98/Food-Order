@@ -19,6 +19,7 @@ export type FoodType = {
     categories: CategoryType;
     promotions: PromotionType[];
     reviews: ReviewType[];
+    discountPrice?: number;
   };
 
 export type UpdateFoodType = IdType & Partial<CreateFoodType>;
