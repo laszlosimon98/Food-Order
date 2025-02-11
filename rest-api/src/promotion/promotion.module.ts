@@ -7,6 +7,7 @@ import { FoodModule } from 'src/food/food.module';
 @Module({
   controllers: [PromotionController],
   providers: [PromotionService],
+  exports: [PromotionService],
   imports: [PrismaModule, FoodModule],
 })
 export class PromotionModule {}

@@ -13,7 +13,8 @@ const DashboardFoods = ({}: DashboardFoodsProps): ReactElement => {
   const location = useLocation();
   const categoryId = useAppSelector((state) => state.filter.data.categoryId);
 
-  const { data: foods, isLoading } = useGetFoodsQuery({ categoryId });
+  const { data, isLoading } = useGetFoodsQuery({ categoryId });
+  const { foods } = data ?? {};
 
   if (isLoading) {
     return <Loading />;

@@ -3,7 +3,7 @@ import { CreatePromotionDto } from './dto/create-promotion.dto';
 import { UpdatePromotionDto } from './dto/update-promotion.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { FoodService } from 'src/food/food.service';
-import { DateTime } from 'luxon';
+import { fromZonedTime } from 'date-fns-tz';
 
 @Injectable()
 export class PromotionService {
@@ -13,11 +13,16 @@ export class PromotionService {
   ) {}
 
   async create(createPromotionDto: CreatePromotionDto) {
-    const { foodIds, ...rest } = createPromotionDto;
+    const { foodIds, startDate, endDate, ...rest } = createPromotionDto;
+
+    const localStart = fromZonedTime(startDate, 'Europe/Budapest');
+    const localEnd = fromZonedTime(endDate, 'Europe/Budapest');
 
     const promotion = await this.prismaService.promotions.create({
       data: {
         ...rest,
+        startDate: localStart,
+        endDate: localEnd,
       },
     });
 
@@ -25,8 +30,9 @@ export class PromotionService {
     return promotion;
   }
 
-  async findAll() {
+  async findAll(filter?: any) {
     return await this.prismaService.promotions.findMany({
+      where: filter,
       include: {
         foods: true,
       },

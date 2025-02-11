@@ -1,5 +1,12 @@
-export const convertDate = (dateTime: string) => {
-  const date = new Date(dateTime);
+export const convertDate = (dateTime: string | Date) => {
+  let date;
+
+  if (typeof dateTime === "string") {
+    date = new Date(dateTime);
+  } else {
+    date = dateTime;
+  }
+
   const year = date.getFullYear();
   const month = date.getMonth() + 1;
   const day = date.getDate();

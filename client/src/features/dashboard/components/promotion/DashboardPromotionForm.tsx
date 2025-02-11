@@ -96,11 +96,12 @@ const DashBoardPromotionForm = (): ReactElement => {
     const { startDate, endDate } = data;
     const now = new Date();
     const foodIds = foods.map((food) => food.foodId);
+    console.log(toZonedTime(startDate, "Europe/Budapest"));
 
     const createPromotion: CreatePromotionType = {
       ...data,
-      startDate,
-      endDate,
+      startDate: toZonedTime(startDate, "Europe/Budapest"),
+      endDate: toZonedTime(endDate, "Europe/Budapest"),
       isActive: now > startDate && now < endDate,
       foodIds,
     };
