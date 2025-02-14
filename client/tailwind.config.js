@@ -14,6 +14,7 @@ export default {
         cartWidth: "clamp(20rem, 85vw, 24rem)",
         inputWidth: "clamp(18rem, 80%, 28rem)",
         dashboard: "calc(100% - 12rem)",
+        filter: "clamp(21.5rem, 50vw, 32rem)",
       },
       colors: {
         baseColor: "#EE964B",

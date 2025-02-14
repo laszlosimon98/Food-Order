@@ -29,15 +29,17 @@ const OrderItems = (): ReactElement => {
   };
 
   return (
-    <div>
-      <Select label="Rendezés" onChange={handleSelect}>
-        <option value=""></option>
-        <option value="price asc">Ár szerint növekvő</option>
-        <option value="price desc">Ár szerint csökkenő</option>
-        <option value="rating asc">Értékelés szerint növekvő</option>
-        <option value="rating desc">Értékelés szerint csökkenő</option>
-      </Select>
-    </div>
+    <Select
+      label="Rendezés"
+      onChange={handleSelect}
+      className="justify-around flex-wrap"
+    >
+      <option value=""></option>
+      <option value="price asc">Ár szerint növekvő</option>
+      <option value="price desc">Ár szerint csökkenő</option>
+      <option value="rating asc">Értékelés szerint növekvő</option>
+      <option value="rating desc">Értékelés szerint csökkenő</option>
+    </Select>
   );
 };
 

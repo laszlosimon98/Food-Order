@@ -1,3 +1,4 @@
+import { cn } from "@/utils/cn";
 import {
   ForwardedRef,
   forwardRef,
@@ -15,11 +16,11 @@ type SelectProps = PropsWithChildren &
 
 const Select = forwardRef<HTMLSelectElement, SelectProps>(
   (
-    { label, children, ...props }: SelectProps,
+    { label, children, className, ...props }: SelectProps,
     ref: ForwardedRef<HTMLSelectElement>
   ): ReactElement => {
     return (
-      <div className="flex justify-between items-center gap-10">
+      <div className={cn("flex justify-between items-center", className)}>
         <label htmlFor={label}>{label}</label>
         <select
           ref={ref}

@@ -52,11 +52,7 @@ const Foods = (): ReactElement => {
 
   return (
     <>
-      <div>
-        <FilterContainer />
-        <OrderItems />
-        <Limit />
-      </div>
+      <FilterContainer />
 
       <div className="flex flex-wrap justify-center items-center">
         {foods &&

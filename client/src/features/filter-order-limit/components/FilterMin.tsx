@@ -7,8 +7,8 @@ const FilterMin = (): ReactElement => {
   const minValue = useAppSelector((state) => state.filter.data.minValue);
 
   return (
-    <div className="flex w-36 flex-col">
-      <label htmlFor="minValue">Minimum ár: {minValue}</label>
+    <div className="flex justify-around items-center">
+      <label htmlFor="minValue">Minimum ár:</label>
       <input
         id="minValue"
         type="range"
@@ -17,6 +17,7 @@ const FilterMin = (): ReactElement => {
         max={3000}
         onChange={(e) => dispatch(setMinvalue(parseInt(e.target.value)))}
       />
+      <div>{minValue} Ft</div>
     </div>
   );
 };

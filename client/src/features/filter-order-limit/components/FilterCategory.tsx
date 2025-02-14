@@ -16,16 +16,15 @@ const FilterCategory = (): ReactElement => {
     return <Loading />;
   }
   return (
-    <div className="w-44  flex justify-between items-center">
-      <Select
-        label="Kategóriák"
-        onChange={(e) =>
-          dispatch(setCategoryId((e.target as HTMLSelectElement).value))
-        }
-      >
-        <Categories categories={categories} />
-      </Select>
-    </div>
+    <Select
+      className="justify-around"
+      label="Kategóriák"
+      onChange={(e) =>
+        dispatch(setCategoryId((e.target as HTMLSelectElement).value))
+      }
+    >
+      <Categories categories={categories} />
+    </Select>
   );
 };
 

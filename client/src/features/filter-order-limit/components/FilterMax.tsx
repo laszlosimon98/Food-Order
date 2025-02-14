@@ -7,8 +7,8 @@ const FilterMax = (): ReactElement => {
   const maxValue = useAppSelector((state) => state.filter.data.maxValue);
 
   return (
-    <div className="flex w-36 flex-col">
-      <label htmlFor="maxValue">Maximum ár: {maxValue}</label>
+    <div className="flex justify-around items-center">
+      <label htmlFor="maxValue">Maximum ár:</label>
       <input
         id="maxValue"
         type="range"
@@ -17,6 +17,7 @@ const FilterMax = (): ReactElement => {
         max={3000}
         onChange={(e) => dispatch(setMaxValue(parseInt(e.target.value)))}
       />
+      <span>{maxValue} Ft</span>
     </div>
   );
 };
