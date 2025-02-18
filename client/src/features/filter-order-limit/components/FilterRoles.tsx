@@ -11,6 +11,7 @@ const FilterRoles = (): ReactElement => {
   return (
     <div className="flex gap-5 items-center">
       <Select
+        className="gap-5"
         label="Szerepkörök"
         onChange={(e) =>
           dispatch(setRole((e.target as HTMLSelectElement).value))

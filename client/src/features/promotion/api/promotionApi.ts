@@ -36,6 +36,15 @@ const promotionApi = storeApi.injectEndpoints({
         return [{ type: "Promotion", promotionId: arg.id }];
       },
     }),
+    deletePromotion: builder.mutation<any, IdType>({
+      query: ({ id }) => ({
+        url: `promotion/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags(_result, _error, arg, _meta) {
+        return [{ type: "Promotion", promotionId: arg.id }];
+      },
+    }),
   }),
 });
 
@@ -44,4 +53,5 @@ export const {
   useGetPromotionsQuery,
   useGetPromotionByIdQuery,
   useUpdatePromotionMutation,
+  useDeletePromotionMutation,
 } = promotionApi;

@@ -17,7 +17,7 @@ const FilterCategory = (): ReactElement => {
   }
   return (
     <Select
-      className="justify-around"
+      className="justify-around gap-5"
       label="Kategóriák"
       onChange={(e) =>
         dispatch(setCategoryId((e.target as HTMLSelectElement).value))

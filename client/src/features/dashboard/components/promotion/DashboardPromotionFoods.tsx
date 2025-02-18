@@ -18,6 +18,7 @@ const DashboardPromotionFoods = (): ReactElement => {
   const location = useLocation();
   const categoryId = useAppSelector((state) => state.filter.data.categoryId);
   const promotionFoods = useAppSelector((state) => state.promotion.data.foods);
+  console.log(location);
 
   const { data, isLoading } = useGetFoodsQuery({ categoryId });
   const dispatch = useAppDispatch();
@@ -38,7 +39,11 @@ const DashboardPromotionFoods = (): ReactElement => {
   return (
     <div className="w-2/3 flex justify-center items-center flex-col mx-auto mb-10">
       <div className="flex justify-around w-full mb-3">
-        <RedirectButton buttonText="Vissza" route={location.state.redirectTo} />
+        <RedirectButton
+          buttonText="Vissza"
+          route={location.state.redirectTo}
+          redirectTo="/dashboard/promotions"
+        />
         <FilterCategory />
 
         {foods && (

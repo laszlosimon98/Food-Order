@@ -11,12 +11,14 @@ export type UserType = {
 };
 
 export type UserDetailsType = {
+  userId: number;
   fullname?: string;
   address?: string;
   phoneNumber?: string;
 };
 
 export type PasswordChangeType = {
+  userId: number;
   oldPassword: string;
   newPassword: string;
 };

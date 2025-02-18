@@ -12,15 +12,15 @@ const Profile = (): ReactElement => {
     useState<boolean>(false);
 
   return (
-    <div className="">
+    <div>
       {!isPasswordChangeFormVisible && (
-        <>
-          <ModifyData currentUser={currentUser as UserType} />
-
+        <div className="flex justify-center items-center flex-col">
           <Button onClick={() => setIsPasswordChangeFormVisible(true)}>
             Jelszó változtatás
           </Button>
-        </>
+
+          <ModifyData currentUser={currentUser as UserType} />
+        </div>
       )}
 
       {isPasswordChangeFormVisible && (

@@ -1,12 +1,15 @@
 import { clearCart } from "@/features/cart/slice/cartSlice";
 import { useGetFoodsByIdsQuery } from "@/features/food/api/foodApi";
 import { useAddOrderMutation } from "@/features/order/api/orderApi";
+import FoodTable from "@/features/order/components/FoodTable";
 import Button from "@/features/shared/components/Button";
 import Loading from "@/features/shared/components/Loading";
+import Properties from "@/features/shared/components/Properties";
+import RedirectButton from "@/features/shared/components/RedirectButton";
 import { useAppDispatch, useAppSelector } from "@/store/hooks/store.hooks";
 import { CreateOrderItemType, CreateOrderType } from "@/utils/types/order.type";
 import { ReactElement, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const OrderSummary = (): ReactElement => {
   const { cartItems } = useAppSelector((state) => state.cart.data);
@@ -60,26 +63,40 @@ const OrderSummary = (): ReactElement => {
   };
 
   return (
-    <>
-      <h1>Adatok</h1>
+    <div className="w-1/3 mx-auto text-center">
+      <h1 className="text-3xl font-semibold py-10 text-center">Adatok</h1>
       {error && <p className="text-red-500">{error}</p>}
-      <div>{currentUser!.address}</div>
-      <div>{currentUser!.phoneNumber}</div>
+      <Properties property="Név" value={currentUser!.fullname} />
 
-      <Link to={"/profile"} state={{ redirectTo: "/order-summary" }}>
-        <Button>Adatok frissítése</Button>
-      </Link>
+      <Properties
+        property="Cím"
+        value={currentUser!.address ? currentUser!.address : "Hiányos"}
+      />
 
-      {foods &&
+      <Properties
+        property="Telefonszám"
+        value={currentUser!.phoneNumber ? currentUser!.phoneNumber : "Hiányos"}
+      />
+
+      <RedirectButton
+        buttonText="Adatok frissítése"
+        route="/profile"
+        redirectTo="/order-summary"
+        className="mb-10 mt-3"
+      />
+
+      {/* {foods &&
         foods.map((food) => (
           <div key={food.foodId}>
             {food.name} - {food.price} - Mennyiség:
             {cartItems[food.foodId] && cartItems[food.foodId].quantity}
           </div>
-        ))}
+        ))} */}
+
+      {foods && <FoodTable foods={foods} />}
 
       <Button onClick={handleOrder}>Rendelés leadása</Button>
-    </>
+    </div>
   );
 };
 

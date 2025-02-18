@@ -53,7 +53,11 @@ const Login = (): ReactElement => {
   };
 
   return (
-    <FormContainer title="Bejelentkezés" onSubmit={handleSubmit(onSubmit)}>
+    <FormContainer
+      className="h-calcScreen flex justify-center items-center"
+      title="Bejelentkezés"
+      onSubmit={handleSubmit(onSubmit)}
+    >
       {errors.root && (
         <ErrorText className="text-lg text-center mt-3">
           {errors.root.message}

@@ -3,6 +3,7 @@ import ErrorText from "@/features/shared/components/form/ErrorText";
 import FormContainer from "@/features/shared/components/form/FormContainer";
 import TextInput from "@/features/shared/components/form/InputText";
 import { useChangePasswordMutation } from "@/features/user/api/userApi";
+import { useAppSelector } from "@/store/hooks/store.hooks";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Dispatch, ReactElement, SetStateAction } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
@@ -46,6 +47,7 @@ const ChangePassword = ({
 
   const [useChangePassword] = useChangePasswordMutation();
   const navigate = useNavigate();
+  const currentUser = useAppSelector((state) => state.auth.data.currentUser);
 
   const onSubmit: SubmitHandler<ChangePasswordType> = async (data) => {
     try {
@@ -56,6 +58,7 @@ const ChangePassword = ({
       }
 
       const { isSuccess } = await useChangePassword({
+        userId: currentUser!.userId,
         oldPassword: data.oldPassword,
         newPassword: data.newPassword,
       }).unwrap();
@@ -72,43 +75,36 @@ const ChangePassword = ({
 
   return (
     <FormContainer title="Jelszó változtatás" onSubmit={handleSubmit(onSubmit)}>
-      <div className="w-4/5 mx-auto">
-        <TextInput
-          {...register("oldPassword")}
-          label="Jelenlegi jelszó"
-          type="password"
-        />
-        {errors.oldPassword && (
-          <ErrorText>{errors.oldPassword.message}</ErrorText>
-        )}
-      </div>
+      <TextInput
+        {...register("oldPassword")}
+        label="Jelenlegi jelszó"
+        type="password"
+      />
+      {errors.oldPassword && (
+        <ErrorText>{errors.oldPassword.message}</ErrorText>
+      )}
 
-      <div className="w-4/5 mx-auto">
-        <TextInput
-          {...register("newPassword")}
-          label="Új jelszó"
-          type="password"
-        />
-        {errors.newPassword && (
-          <ErrorText>{errors.newPassword.message}</ErrorText>
-        )}
-      </div>
+      <TextInput
+        {...register("newPassword")}
+        label="Új jelszó"
+        type="password"
+      />
+      {errors.newPassword && (
+        <ErrorText>{errors.newPassword.message}</ErrorText>
+      )}
 
-      <div className="w-4/5 mx-auto">
-        <TextInput
-          {...register("newPasswordAgain")}
-          label="Jelszó újra"
-          type="password"
-        />
-        {errors.newPasswordAgain && (
-          <ErrorText>{errors.newPasswordAgain.message}</ErrorText>
-        )}
-      </div>
+      <TextInput
+        {...register("newPasswordAgain")}
+        label="Jelszó újra"
+        type="password"
+      />
+      {errors.newPasswordAgain && (
+        <ErrorText>{errors.newPasswordAgain.message}</ErrorText>
+      )}
 
-      <div className="flex justify-around items-center ">
+      <div className="flex justify-around items-center gap-10 ">
         <Button
           variant="secondary"
-          size="sm"
           className="mt-5"
           onClick={() => setIsPasswordChangeFormVisible(false)}
         >

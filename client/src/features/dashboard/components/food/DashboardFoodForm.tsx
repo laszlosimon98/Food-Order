@@ -141,7 +141,7 @@ const DashboardFoodForm = (): ReactElement => {
         <InputCheckbox {...register("isVegetarian")} label="Vegetáriánus" />
       </div>
 
-      <Select {...register("categoryId")} label="Kategória">
+      <Select {...register("categoryId")} label="Kategória" className="gap-5">
         <Categories categories={categories} />
       </Select>
       {errors.categoryId && <ErrorText>{errors.categoryId.message}</ErrorText>}

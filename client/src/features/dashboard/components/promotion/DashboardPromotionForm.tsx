@@ -96,7 +96,6 @@ const DashBoardPromotionForm = (): ReactElement => {
     const { startDate, endDate } = data;
     const now = new Date();
     const foodIds = foods.map((food) => food.foodId);
-    console.log(toZonedTime(startDate, "Europe/Budapest"));
 
     const createPromotion: CreatePromotionType = {
       ...data,
@@ -138,6 +137,29 @@ const DashBoardPromotionForm = (): ReactElement => {
       title={`${promotion ? "Akció módosítás" : "Új akció"}`}
       onSubmit={handleSubmit(handleAction)}
     >
+      <RedirectButton
+        buttonText="Étel választó"
+        route="foods"
+        redirectTo={location.pathname}
+      />
+
+      <p className="self-start ml-12 font-semibold -mt-2">
+        Kiválasztott ételek:
+      </p>
+      <div className="w-5/6 border rounded-lg shadow-md h-24 overflow-auto">
+        {!foods.length ? (
+          <p className="flex justify-center items-center w-full h-full">
+            Nincs étel kiválasztva!
+          </p>
+        ) : (
+          <div className="w-full h-full px-4">
+            {foods.map((food) => (
+              <div>{food.name}</div>
+            ))}
+          </div>
+        )}
+      </div>
+
       {errors.root && (
         <ErrorText className="text-lg text-center mt-3">
           {errors.root.message}
@@ -180,29 +202,6 @@ const DashBoardPromotionForm = (): ReactElement => {
       {/* <div className="flex flex-col items-center justify-center">
         <InputCheckbox {...register("isActive")} label="Aktív" />
       </div> */}
-
-      <RedirectButton
-        buttonText="Étel választó"
-        route="foods"
-        redirectTo={location.pathname}
-      />
-
-      <p className="self-start ml-8 font-semibold -mt-2">
-        Kiválasztott ételek:
-      </p>
-      <div className="w-5/6 border rounded-lg shadow-md h-24 overflow-auto">
-        {!foods.length ? (
-          <p className="flex justify-center items-center w-full h-full">
-            Nincs étel kiválasztva!
-          </p>
-        ) : (
-          <div className="w-full h-full px-4">
-            {foods.map((food) => (
-              <div>{food.name}</div>
-            ))}
-          </div>
-        )}
-      </div>
 
       <div className="flex gap-10 pt-5">
         <RedirectButton buttonText="Vissza" route={location.state.redirectTo} />

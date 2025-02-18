@@ -23,7 +23,9 @@ const userApi = storeApi.injectEndpoints({
         method: "PATCH",
         body,
       }),
-      invalidatesTags: ["User"],
+      invalidatesTags(_result, _error, arg, _meta) {
+        return [{ type: "User", userId: arg.userId }];
+      },
     }),
     changePassword: builder.mutation<any, PasswordChangeType>({
       query: (body) => ({
@@ -31,7 +33,9 @@ const userApi = storeApi.injectEndpoints({
         method: "PATCH",
         body,
       }),
-      invalidatesTags: ["User"],
+      invalidatesTags(_result, _error, arg, _meta) {
+        return [{ type: "User", userId: arg.userId }];
+      },
     }),
     updateUserRole: builder.mutation<any, UpdateRoles>({
       query: ({ id, role }) => ({

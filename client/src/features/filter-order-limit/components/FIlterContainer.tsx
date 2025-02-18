@@ -11,7 +11,7 @@ import Button from "@/features/shared/components/Button";
 import { ReactElement, useState } from "react";
 
 const FilterContainer = (): ReactElement => {
-  const [isFilterVisible, setIsFilterVisible] = useState<boolean>(true);
+  const [isFilterVisible, setIsFilterVisible] = useState<boolean>(false);
 
   return (
     <div className="px-6 flex flex-col relative">

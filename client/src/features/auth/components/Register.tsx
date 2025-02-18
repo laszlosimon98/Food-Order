@@ -64,7 +64,11 @@ const Register = (): ReactElement => {
   };
 
   return (
-    <FormContainer title="Regisztráció" onSubmit={handleSubmit(onSubmit)}>
+    <FormContainer
+      className="h-calcScreen flex justify-center items-center"
+      title="Regisztráció"
+      onSubmit={handleSubmit(onSubmit)}
+    >
       {errors.root && (
         <ErrorText>
           <div className="text-lg text-center mt-3">{errors.root.message} </div>

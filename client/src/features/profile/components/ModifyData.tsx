@@ -3,6 +3,7 @@ import ErrorText from "@/features/shared/components/form/ErrorText";
 import FormContainer from "@/features/shared/components/form/FormContainer";
 import InputText from "@/features/shared/components/form/InputText";
 import { useUpdateUserDetailsMutation } from "@/features/user/api/userApi";
+import { useAppSelector } from "@/store/hooks/store.hooks";
 import { UserType } from "@/utils/types/user.type";
 import { getDefaultAddress } from "@/utils/userData";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -108,7 +109,10 @@ const ModifyData = ({ currentUser }: ModifyDataProps): ReactElement => {
         };
       }
 
-      const { data: updatedData } = await useUpdateUserDetails({ ...result });
+      const { data: updatedData } = await useUpdateUserDetails({
+        userId: currentUser.userId,
+        ...result,
+      });
 
       if (updatedData) {
         if (location.state) {
@@ -125,44 +129,42 @@ const ModifyData = ({ currentUser }: ModifyDataProps): ReactElement => {
   };
 
   return (
-    <FormContainer title="Adataim" onSubmit={handleSubmit(onSubmit)}>
+    <FormContainer
+      className="pt-5"
+      title="Adataim"
+      onSubmit={handleSubmit(onSubmit)}
+    >
       {errors.root && (
         <ErrorText className="text-lg text-center mt-3">
           {errors.root.message}
         </ErrorText>
       )}
 
-      <div className="w-4/5 mx-auto">
-        <InputText {...register("fullname")} label="Teljes név" />
-        {errors.fullname && <ErrorText>{errors.fullname.message}</ErrorText>}
+      <InputText {...register("fullname")} label="Teljes név" />
+      {errors.fullname && <ErrorText>{errors.fullname.message}</ErrorText>}
 
-        <InputText
-          {...register("zipCode")}
-          label="Irányítószám"
-          type="number"
-        />
-        {errors.zipCode && <ErrorText>{errors.zipCode.message}</ErrorText>}
+      <InputText {...register("zipCode")} label="Irányítószám" type="number" />
+      {errors.zipCode && <ErrorText>{errors.zipCode.message}</ErrorText>}
 
-        <InputText {...register("city")} label="Város" type="text" />
-        {errors.city && <ErrorText>{errors.city.message}</ErrorText>}
+      <InputText {...register("city")} label="Város" type="text" />
+      {errors.city && <ErrorText>{errors.city.message}</ErrorText>}
 
-        <InputText {...register("street")} label="Utca" type="text" />
-        {errors.street && <ErrorText>{errors.street.message}</ErrorText>}
+      <InputText {...register("street")} label="Utca" type="text" />
+      {errors.street && <ErrorText>{errors.street.message}</ErrorText>}
 
-        <InputText {...register("houseNumber")} label="Házszám" type="number" />
-        {errors.houseNumber && (
-          <ErrorText>{errors.houseNumber.message}</ErrorText>
-        )}
+      <InputText {...register("houseNumber")} label="Házszám" type="number" />
+      {errors.houseNumber && (
+        <ErrorText>{errors.houseNumber.message}</ErrorText>
+      )}
 
-        <InputText
-          {...register("phoneNumber")}
-          label="Telefonszám"
-          placeholder="06-30-123-4567"
-        />
-        {errors.phoneNumber && (
-          <ErrorText>{errors.phoneNumber.message}</ErrorText>
-        )}
-      </div>
+      <InputText
+        {...register("phoneNumber")}
+        label="Telefonszám"
+        placeholder="06-30-123-4567"
+      />
+      {errors.phoneNumber && (
+        <ErrorText>{errors.phoneNumber.message}</ErrorText>
+      )}
 
       <Button variant="primary" size="default">
         Adataim módosítása

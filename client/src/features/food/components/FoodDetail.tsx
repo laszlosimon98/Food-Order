@@ -7,7 +7,7 @@ import Button from "@/features/shared/components/Button";
 import { useAppDispatch, useAppSelector } from "@/store/hooks/store.hooks";
 import { ReactElement } from "react";
 import { Link, useParams } from "react-router-dom";
-import FavoriteButtonIcons from "@/features/food/components/FavoriteButtonIcons";
+import FavoriteButtonIcons from "@/features/food/components/ui/FavoriteButtonIcons";
 import { hasPermission, RolesEnum } from "@/utils/roles";
 import Reviews from "@/features/review/components/Reviews";
 
